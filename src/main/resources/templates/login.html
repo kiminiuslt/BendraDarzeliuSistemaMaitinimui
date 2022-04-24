@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"
-        xmlns:th="http://www.thymeleaf.org">
-  <title>BDSM</title>
+    <meta charset="UTF-8"
+          xmlns:th="http://www.thymeleaf.org">
+    <title>BDSM</title>
 </head>
 <body>
 <h1>Bendra Darželių Sistema Maitinimui</h1><br>
 <h3>Prisijunkite</h3>
 
 <form method="post" th:object="${client}">
-  <label>Vartotojo vardas:</label><br/>
-  <input type="text" placeholder="User name" field="*{username}" name="username"><br/>
+    <label>Vartotojo vardas:</label><br/>
+    <input type="text" placeholder="User name" th:field="*{username}"><br/>
 
-  <label>Slaptažodis:</label><br/>
-  <input type="password" placeholder="Password" field="*{password}" name="username"><br/>
+    <label>Slaptažodis:</label><br/>
+    <input type="password" placeholder="Password" th:field="*{password}"><br/><br/>
 
-  <button type="submit">Submit</button>
+    <button type="submit">Submit</button>
 </form>
 
 </body>
