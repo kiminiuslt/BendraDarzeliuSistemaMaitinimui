@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ProductService {
 
-    private final ProductRepository productRepository;
+  private final ProductRepository productRepository;
 
-    public void addProduct(Product product){
-        productRepository.save(product);
-    }
+  public void addProduct(Product product) {
+    productRepository.save(product);
+  }
 }

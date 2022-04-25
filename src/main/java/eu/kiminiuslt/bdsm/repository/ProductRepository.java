@@ -9,9 +9,9 @@ import java.util.List;
 @Repository
 public class ProductRepository {
 
-    private List<Product> products = new ArrayList<>();
+  private List<Product> products = new ArrayList<>();
 
-    public void save(Product product){
-        products.add(product);
-    }
+  public void save(Product product) {
+    products.add(product);
+  }
 }
