@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Productas</title>
+</head>
+<body>
+<h1>Naujas Produktas</h1>
+<form method="post" th:object="${product}">
+    <label>Produkto pavadinimas</label><br/>
+    <input type="text" th:field="*{name}"><br/>
+
+    <label>Angliavandeniai</label><br/>
+    <input type="text" th:field="*{carbs}"><br/>
+
+    <label>Kcal</label><br/>
+    <input type="text" th:field="*{kcal}"><br/><br/>
+
+    <button type="submit">Įrašyti</button>
+</form>
+</body>
+</html>
