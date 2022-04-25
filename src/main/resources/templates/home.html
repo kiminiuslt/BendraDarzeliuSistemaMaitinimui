@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"
+          xmlns:th="http://www.thymeleaf.org">
     <title>Home</title>
 </head>
 <body>
@@ -13,7 +14,7 @@
     <a href="">Šiandienos receptai</a>
     <a href="">Statistika</a>
     <a href="">Istorija</a>
-    <a href="login.html">Atsijungti</a>
+    <a th:href="@{/}">Atsijungti</a>
 </div>
 <h1>Sveiki prisijunge</h1>
 </body>
