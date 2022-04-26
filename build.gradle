@@ -17,10 +17,14 @@ configurations {
 repositories {
     mavenCentral()
 }
+ext{
+    devtoolsVersion = '2.6.7'
+}
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.springframework.boot:spring-boot-devtools:${devtoolsVersion}"
     implementation 'org.hibernate:hibernate-core:6.0.0.Final'
     implementation 'org.postgresql:postgresql:42.3.3'
     compileOnly 'org.projectlombok:lombok'
