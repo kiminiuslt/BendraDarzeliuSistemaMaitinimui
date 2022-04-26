@@ -1,22 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Productas</title>
 </head>
 <body>
+<div>
+    <a th:href="@{#}">Valgiaraštis</a>
+    <a th:href="@{#}">Receptai</a>
+    <a th:href="@{'/product/list'}">Produktai</a>
+    <a  th:href="@{'/product/form'}">Prideti produkta</a>
+    <a th:href="@{#}">Sandėlis</a>
+    <a th:href="@{#}">Šiandienos receptai</a>
+    <a th:href="@{#}">Statistika</a>
+    <a th:href="@{#}">Istorija</a>
+    <a th:href="@{/}">Atsijungti</a>
+</div>
 <h1>Naujas Produktas</h1>
 <form method="post" th:object="${product}">
+    <input type="hidden" th:field="*{uuid}"><br/>
     <label>Produkto pavadinimas</label><br/>
     <input type="text" th:field="*{name}"><br/>
 
     <label>Angliavandeniai</label><br/>
-    <input type="text" th:field="*{carbs}"><br/>
+    <input type="number" th:field="*{carbs}"><br/>
 
     <label>Kcal</label><br/>
-    <input type="text" th:field="*{kcal}"><br/><br/>
+    <input type="number" th:field="*{kcal}"><br/><br/>
 
     <button type="submit">Įrašyti</button>
+
 </form>
 </body>
 </html>
