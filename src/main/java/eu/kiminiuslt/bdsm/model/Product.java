@@ -15,5 +15,4 @@ public class Product {
   private String name;
   private double kcal;
   private double carbs;
-  //  private Map<String, Double> nutritionalAndEnergy = new HashMap<>();
 }

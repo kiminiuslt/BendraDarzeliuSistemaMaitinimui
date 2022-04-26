@@ -20,15 +20,15 @@ public class ProductFormController {
   private final ProductService productService;
 
   @GetMapping("/form")
-  public String login(Model model) {
+  public String openProductForm(Model model) {
     model.addAttribute("product", Product.builder().build());
     return "productForm";
   }
 
   @PostMapping("/form")
-  public String loggedOrNot(Product product) {
+  public String saveProduct(Model model, Product product) {
     productService.addProduct(product);
-
+    model.addAttribute("message", "Išsaugota");
     return "productForm";
   }
 
@@ -45,7 +45,7 @@ public class ProductFormController {
   }
 
   @PostMapping("/update")
-  public String getUpdateProduct(Model model, Product product) {
+  public String updateProduct(Model model, Product product) {
     productService.updateProduct(product);
     model.addAttribute("productList", productService.getProducts());
     return "products";

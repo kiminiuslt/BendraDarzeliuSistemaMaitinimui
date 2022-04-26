@@ -3,14 +3,14 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Productas</title>
+    <title>Produktas</title>
 </head>
 <body>
 <div>
     <a th:href="@{#}">Valgiaraštis</a>
     <a th:href="@{#}">Receptai</a>
     <a th:href="@{'/product/list'}">Produktai</a>
-    <a  th:href="@{'/product/form'}">Prideti produkta</a>
+    <a th:href="@{'/product/form'}">Prideti produkta</a>
     <a th:href="@{#}">Sandėlis</a>
     <a th:href="@{#}">Šiandienos receptai</a>
     <a th:href="@{#}">Statistika</a>
@@ -31,6 +31,7 @@
 
     <button type="submit">Įrašyti</button>
 
+    <div th:text="${message}"></div>
 </form>
 </body>
 </html>

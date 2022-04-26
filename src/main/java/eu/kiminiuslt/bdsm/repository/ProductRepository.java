@@ -8,7 +8,7 @@ import java.util.*;
 @Repository
 public class ProductRepository {
 
-  private Map<UUID, Product> products = new HashMap<>();
+  private final Map<UUID, Product> products = new HashMap<>();
 
   public void save(Product product) {
     product.setUuid(UUID.randomUUID());
