@@ -51,7 +51,7 @@ public class ProductFormController {
     return "products";
   }
 
-  @PostMapping("/delete")
+  @GetMapping("/delete")
   public String deleteProduct(Model model, @RequestParam UUID id) {
     productService.deleteProduct(id);
     model.addAttribute("productList", productService.getProducts());

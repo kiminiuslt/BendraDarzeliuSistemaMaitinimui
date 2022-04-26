@@ -32,7 +32,7 @@
             <td><a th:href="@{'/product/update?id='+${product.uuid}}" th:text="${product.name}"></a></td>
             <td th:text="${product.carbs}"></td>
             <td th:text="${product.kcal}"></td>
-            <td><a th:href="@{'/delete?id='+${product.uuid}}">delete</a></td>
+            <td><a th:href="@{'/product/delete?id='+${product.uuid}} ">delete</a></td>
         </tr>
         </tbody>
     </table>

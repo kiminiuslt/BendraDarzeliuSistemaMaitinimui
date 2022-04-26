@@ -26,4 +26,8 @@ public class ProductRepository {
   public void update(Product product) {
     products.put(product.getUuid(), product);
   }
+
+  public void delete(UUID id) {
+    products.remove(id);
+  }
 }
