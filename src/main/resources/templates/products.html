@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Produktu sarasas</title>
+</head>
+<body>
+<div>
+    <a th:href="@{#}">Valgiaraštis</a>
+    <a th:href="@{#}">Receptai</a>
+    <a th:href="@{'/product/list'}">Produktai</a>
+    <a th:href="@{'/product/form'}">Prideti produkta</a>
+    <a th:href="@{#}">Sandėlis</a>
+    <a th:href="@{#}">Šiandienos receptai</a>
+    <a th:href="@{#}">Statistika</a>
+    <a th:href="@{#}">Istorija</a>
+    <a th:href="@{/}">Atsijungti</a>
+</div>
+<div th:if="${productList.isEmpty}">List is empty!</div>
+<div th:unless="${productList.isEmpty}">
+    <table>
+        <thead>
+        <tr>
+            <th>name</th>
+            <th>carbs</th>
+            <th>Kcal</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product: ${productList}">
+            <td><a th:href="@{'/product/update?id='+${product.uuid}}" th:text="${product.name}"></a></td>
+            <td th:text="${product.carbs}"></td>
+            <td th:text="${product.kcal}"></td>
+            <td><a th:href="@{'/delete?id='+${product.uuid}}">delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
