@@ -1,33 +1,11 @@
 package eu.kiminiuslt.bdsm.repository;
 
-import eu.kiminiuslt.bdsm.model.Product;
+import eu.kiminiuslt.bdsm.model.entity.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
-
 @Repository
-public class ProductRepository {
+public interface ProductRepository extends JpaRepository<Product,Long> {
 
-  private final Map<UUID, Product> products = new HashMap<>();
-
-  public void save(Product product) {
-    product.setUuid(UUID.randomUUID());
-    products.put(product.getUuid(), product);
-  }
-
-  public List<Product> getList() {
-    return new ArrayList<>(products.values());
-  }
-
-  public Product getProductByUUID(UUID id) {
-    return products.get(id);
-  }
-
-  public void update(Product product) {
-    products.put(product.getUuid(), product);
-  }
-
-  public void delete(UUID id) {
-    products.remove(id);
-  }
+//public Product findById();
 }

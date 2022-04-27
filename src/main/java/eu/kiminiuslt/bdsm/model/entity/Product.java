@@ -16,7 +16,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "product", schema="bdsm")
+@Table(name = "product", schema = "bdsm")
 public class Product {
   @Id
   @GeneratedValue
@@ -26,7 +26,7 @@ public class Product {
 
   private String name;
 
-  private Integer kcal;
+  private Double kcal;
 
-  private Integer carbs;
+  private Double carbs;
 }

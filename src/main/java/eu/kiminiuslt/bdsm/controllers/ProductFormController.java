@@ -5,10 +5,7 @@ import eu.kiminiuslt.bdsm.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -21,13 +18,14 @@ public class ProductFormController {
 
   @GetMapping("/form")
   public String openProductForm(Model model) {
-    model.addAttribute("product", ProductDto.builder().build());
+    model.addAttribute("ProductDto", ProductDto.builder().build());
     return "productForm";
   }
 
   @PostMapping("/form")
   public String saveProduct(Model model, ProductDto product) {
     productService.addProduct(product);
+    model.addAttribute("ProductDto", ProductDto.builder().build());
     model.addAttribute("message", "Išsaugota");
     return "productForm";
   }
@@ -38,13 +36,13 @@ public class ProductFormController {
     return "products";
   }
 
-  @GetMapping("/update")
-  public String getUpdateProduct(Model model, @RequestParam UUID id) {
+  @GetMapping("/update?id={uuid}")
+  public String getUpdateProduct(Model model, @PathVariable("uuid") UUID id) {
     model.addAttribute("product", productService.getProductByUUID(id));
     return "productForm";
   }
 
-  @PostMapping("/update")
+  @PostMapping("/update?id={uuid}")
   public String updateProduct(Model model, ProductDto product) {
     productService.updateProduct(product);
     model.addAttribute("productList", productService.getProducts());

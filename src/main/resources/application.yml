@@ -1,1 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: a
+
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2
+#  sql:
+#    init:
+#      schema-locations: classpath:db/db-schema.sql
+#      data-locations: classpath:db/initial-schema.sql
+  jpa:
+    hibernate:
+      ddl-auto: validate
 
