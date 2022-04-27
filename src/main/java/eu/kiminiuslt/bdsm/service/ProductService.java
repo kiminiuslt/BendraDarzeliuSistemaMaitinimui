@@ -6,8 +6,8 @@ import eu.kiminiuslt.bdsm.model.entity.Product;
 import eu.kiminiuslt.bdsm.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -52,7 +52,8 @@ public class ProductService {
     productRepository.save(product);
   }
 
+  @Transactional
   public void deleteProduct(UUID id) {
-    //    productRepository.delete(id);
+    productRepository.deleteById(productRepository.findByUuid(id).getId());
   }
 }
