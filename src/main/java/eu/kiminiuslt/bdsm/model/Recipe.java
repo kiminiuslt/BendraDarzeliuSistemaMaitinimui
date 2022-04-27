@@ -6,5 +6,5 @@ import java.util.Map;
 public class Recipe {
   private String name;
   private String recipeText;
-  private Map<Product, Double> ingredient = new HashMap<>();
+  private Map<ProductDto, Double> ingredient = new HashMap<>();
 }

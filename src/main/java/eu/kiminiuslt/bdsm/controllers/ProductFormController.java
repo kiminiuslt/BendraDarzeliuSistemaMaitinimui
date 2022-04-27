@@ -1,6 +1,6 @@
 package eu.kiminiuslt.bdsm.controllers;
 
-import eu.kiminiuslt.bdsm.model.Product;
+import eu.kiminiuslt.bdsm.model.ProductDto;
 import eu.kiminiuslt.bdsm.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,12 +21,12 @@ public class ProductFormController {
 
   @GetMapping("/form")
   public String openProductForm(Model model) {
-    model.addAttribute("product", Product.builder().build());
+    model.addAttribute("product", ProductDto.builder().build());
     return "productForm";
   }
 
   @PostMapping("/form")
-  public String saveProduct(Model model, Product product) {
+  public String saveProduct(Model model, ProductDto product) {
     productService.addProduct(product);
     model.addAttribute("message", "Išsaugota");
     return "productForm";
@@ -45,7 +45,7 @@ public class ProductFormController {
   }
 
   @PostMapping("/update")
-  public String updateProduct(Model model, Product product) {
+  public String updateProduct(Model model, ProductDto product) {
     productService.updateProduct(product);
     model.addAttribute("productList", productService.getProducts());
     return "products";
