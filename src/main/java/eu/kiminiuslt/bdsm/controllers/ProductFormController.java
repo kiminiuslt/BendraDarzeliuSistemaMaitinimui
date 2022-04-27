@@ -36,13 +36,13 @@ public class ProductFormController {
     return "products";
   }
 
-  @GetMapping("/update?id={uuid}")
+  @GetMapping("/{uuid}/update")
   public String getUpdateProduct(Model model, @PathVariable("uuid") UUID id) {
-    model.addAttribute("product", productService.getProductByUUID(id));
+    model.addAttribute("ProductDto", productService.getProductByUUID(id));
     return "productForm";
   }
 
-  @PostMapping("/update?id={uuid}")
+  @PostMapping("/{uuid}/update")
   public String updateProduct(Model model, ProductDto product) {
     productService.updateProduct(product);
     model.addAttribute("productList", productService.getProducts());

@@ -29,7 +29,7 @@
         </thead>
         <tbody>
         <tr th:each="product: ${productList}">
-            <td><a th:href="@{'/product/update?id='+${product.uuid}}" th:text="${product.name}"></a></td>
+            <td><a th:href="@{/product/{uuid}/update(uuid=${product.uuid})}" th:text="${product.name}"></a></td>
             <td th:text="${product.carbs}"></td>
             <td th:text="${product.kcal}"></td>
             <td><a th:href="@{'/product/delete?id='+${product.uuid}} ">delete</a></td>

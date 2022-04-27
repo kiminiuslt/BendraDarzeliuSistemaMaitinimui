@@ -7,6 +7,7 @@ import eu.kiminiuslt.bdsm.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -36,12 +37,19 @@ public class ProductService {
   }
 
   public ProductDto getProductByUUID(UUID id) {
-    //    return productMapper.mapTo(productRepository.findById(id));
-    return null;
+    return productMapper.mapTo(productRepository.findByUuid(id));
   }
 
-  public void updateProduct(ProductDto product) {
-    //    productRepository.update(product);
+  @Transactional
+  public void updateProduct(ProductDto productDto) {
+    Product product =
+        productRepository.findByUuid(productDto.getUuid()).toBuilder()
+            .name(productDto.getName())
+            .carbs(productDto.getCarbs())
+            .kcal(productDto.getKcal())
+            .build();
+
+    productRepository.save(product);
   }
 
   public void deleteProduct(UUID id) {
