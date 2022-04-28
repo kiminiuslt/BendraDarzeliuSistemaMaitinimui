@@ -1,14 +1,11 @@
 package eu.kiminiuslt.bdsm.controllers;
 
-import eu.kiminiuslt.bdsm.model.Product;
+import eu.kiminiuslt.bdsm.model.ProductDto;
 import eu.kiminiuslt.bdsm.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -21,13 +18,14 @@ public class ProductFormController {
 
   @GetMapping("/form")
   public String openProductForm(Model model) {
-    model.addAttribute("product", Product.builder().build());
+    model.addAttribute("ProductDto", ProductDto.builder().build());
     return "productForm";
   }
 
   @PostMapping("/form")
-  public String saveProduct(Model model, Product product) {
+  public String saveProduct(Model model, ProductDto product) {
     productService.addProduct(product);
+    model.addAttribute("ProductDto", ProductDto.builder().build());
     model.addAttribute("message", "Išsaugota");
     return "productForm";
   }
@@ -38,21 +36,21 @@ public class ProductFormController {
     return "products";
   }
 
-  @GetMapping("/update")
-  public String getUpdateProduct(Model model, @RequestParam UUID id) {
-    model.addAttribute("product", productService.getProductByUUID(id));
+  @GetMapping("/{uuid}/update")
+  public String getUpdateProduct(Model model, @PathVariable("uuid") UUID id) {
+    model.addAttribute("ProductDto", productService.getProductByUUID(id));
     return "productForm";
   }
 
-  @PostMapping("/update")
-  public String updateProduct(Model model, Product product) {
+  @PostMapping("/{uuid}/update")
+  public String updateProduct(Model model, ProductDto product) {
     productService.updateProduct(product);
     model.addAttribute("productList", productService.getProducts());
     return "products";
   }
 
-  @GetMapping("/delete")
-  public String deleteProduct(Model model, @RequestParam UUID id) {
+  @GetMapping("/{uuid}/delete")
+  public String deleteProduct(Model model, @PathVariable("uuid") UUID id) {
     productService.deleteProduct(id);
     model.addAttribute("productList", productService.getProducts());
     return "products";

@@ -18,7 +18,7 @@
     <a th:href="@{/}">Atsijungti</a>
 </div>
 <h1>Naujas Produktas</h1>
-<form method="post" th:object="${product}">
+<form method="post" th:object="${ProductDto}">
     <input type="hidden" th:field="*{uuid}"><br/>
     <label>Produkto pavadinimas</label><br/>
     <input type="text" th:field="*{name}"><br/>

@@ -9,7 +9,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Product {
+public class ProductDto {
   private final int AMOUNT_OF_MATERIAL_GRAMS = 100;
   private UUID uuid;
   private String name;
