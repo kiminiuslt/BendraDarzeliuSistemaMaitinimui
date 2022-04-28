@@ -24,12 +24,46 @@
 <div th:unless="${#lists.isEmpty(productListPages)}" class="container">
     <span th:text="'is viso elementu: ' +${productListPages.totalElements}"></span><br>
     <span th:text="'is viso puslapiu: ' +${productListPages.totalPages}"></span><br>
-    <table class="table table-dark">
+    <table class="table table-primary">
         <thead>
         <tr>
-            <th>name</th>
-            <th>carbs</th>
-            <th>Kcal</th>
+            <th>
+                <a
+                        th:with="direction=${productListPages.sort.getOrderFor('name')?.direction}"
+                        th:href="@{/product/list(sort='name,' + ${direction?.name() eq 'ASC' ? 'DESC' : 'ASC'} )}">
+                    Pavadinimas
+                    <i
+                            class="fa-solid"
+                            th:classappend="${direction?.name() eq 'ASC' ? 'fa-arrow-down-a-z' : 'fa-arrow-up-z-a'}"
+                            th:if="${direction ne null}">
+
+                    </i>
+                </a>
+            </th>
+            <th>
+                <a
+                        th:with="direction=${productListPages.sort.getOrderFor('carbs')?.direction}"
+                        th:href="@{/product/list(sort='carbs,' + ${direction?.name() eq 'ASC' ? 'DESC' : 'ASC'} )}">
+                    Angliavandeniai
+                    <i class="fa-solid"
+                       th:classappend="${direction?.name() eq 'ASC' ? 'fa-arrow-down-1-9' : 'fa-arrow-up-9-1'}"
+                       th:if="${direction ne null}">
+
+                    </i>
+                </a>
+            </th>
+            <th>
+                <a
+                        th:with="direction=${productListPages.sort.getOrderFor('kcal')?.direction}"
+                        th:href="@{/product/list(sort='kcal,' + ${direction?.name() eq 'ASC' ? 'DESC' : 'ASC'} )}">
+                    Kalorijios
+                    <i class="fa-solid"
+                       th:classappend="${direction?.name() eq 'ASC' ? 'fa-arrow-down-1-9' : 'fa-arrow-up-9-1'}"
+                       th:if="${direction ne null}">
+
+                    </i>
+                </a>
+            </th>
             <th></th>
         </tr>
         </thead>
