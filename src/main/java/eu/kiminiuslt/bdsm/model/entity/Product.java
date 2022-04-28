@@ -13,14 +13,12 @@ import java.util.UUID;
 
 @Entity
 @Getter
-@Builder (toBuilder = true)
+@Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "product", schema = "bdsm")
 public class Product {
-  @Id
-  @GeneratedValue
-  private Long id;
+  @Id @GeneratedValue private Long id;
 
   private UUID uuid;
 
