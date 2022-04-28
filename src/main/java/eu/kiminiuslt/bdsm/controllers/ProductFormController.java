@@ -3,6 +3,8 @@ package eu.kiminiuslt.bdsm.controllers;
 import eu.kiminiuslt.bdsm.model.ProductDto;
 import eu.kiminiuslt.bdsm.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +33,8 @@ public class ProductFormController {
   }
 
   @GetMapping("/list")
-  public String getProducts(Model model) {
-    model.addAttribute("productList", productService.getProducts());
+  public String getProducts(Model model, @PageableDefault(size = 2) Pageable pageable) {
+    model.addAttribute("productListPages", productService.getPageableProduct(pageable));
     return "products";
   }
 

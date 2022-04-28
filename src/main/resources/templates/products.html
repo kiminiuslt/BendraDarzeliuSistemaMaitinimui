@@ -20,19 +20,21 @@
     <a th:href="@{#}">Istorija</a>
     <a th:href="@{/}">Atsijungti</a>
 </div>
-<div th:if="${#lists.isEmpty(productList)}">List is empty!</div>
-<div th:unless="${productList.isEmpty}" class="container">
-
+<div th:if="${#lists.isEmpty(productListPages)}">List is empty!</div>
+<div th:unless="${#lists.isEmpty(productListPages)}" class="container">
+    <span th:text="'is viso elementu: ' +${productListPages.totalElements}"></span><br>
+    <span th:text="'is viso puslapiu: ' +${productListPages.totalPages}"></span><br>
     <table class="table table-dark">
         <thead>
         <tr>
             <th>name</th>
             <th>carbs</th>
             <th>Kcal</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="product: ${productList}">
+        <tr th:each="product: ${productListPages}">
             <td><a th:href="@{/product/{uuid}/update(uuid=${product.uuid})}" th:text="${product.name}"></a></td>
             <td th:text="${product.carbs}"></td>
             <td th:text="${product.kcal}"></td>
@@ -44,9 +46,12 @@
     <nav aria-label="Page navigation example" class="d-flex justify-content-center">
         <ul class="pagination">
             <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+            <li class="page-item"
+                th:each="i: ${#numbers.sequence(0, productListPages.totalPages - 1)}"
+                th:classappend="${i == productListPages.number ? 'active' : ''}"
+            ><a class="page-link" th:href="@{/product/list(page = ${i})}" th:text="${i + 1}"></a></li>
+
             <li class="page-item"><a class="page-link" href="#">Next</a></li>
         </ul>
     </nav>
