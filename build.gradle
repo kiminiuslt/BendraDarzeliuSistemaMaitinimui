@@ -17,23 +17,12 @@ configurations {
 repositories {
     mavenCentral()
 }
-ext{
-//    devToolsVersion = "2.6.7"
-//    h2Version = '2.1.212'
-}
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.postgresql:postgresql:42.3.3'
-
-//    implementation "com.h2database:h2:${h2Version}"
-//    implementation "org.springframework.boot:spring-boot-devtools:${devToolsVersion}"
-//    implementation 'org.hibernate:hibernate-core:6.0.0.Final'
-//    implementation 'org.postgresql:postgresql:42.3.3'
-
-
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
