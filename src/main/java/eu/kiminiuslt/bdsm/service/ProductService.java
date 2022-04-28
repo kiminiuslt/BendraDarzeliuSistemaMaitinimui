@@ -5,6 +5,8 @@ import eu.kiminiuslt.bdsm.model.ProductDto;
 import eu.kiminiuslt.bdsm.model.entity.Product;
 import eu.kiminiuslt.bdsm.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,14 +32,18 @@ public class ProductService {
             .build());
   }
 
+  public Page<ProductDto> getPageableProduct(Pageable pageable) {
+    return productRepository.findAll(pageable).map(productMapper::mapToProductDto);
+  }
+
   public List<ProductDto> getProducts() {
     return productRepository.findAll().stream()
-        .map((obj) -> productMapper.mapTo(obj))
+        .map((obj) -> productMapper.mapToProductDto(obj))
         .collect(Collectors.toList());
   }
 
   public ProductDto getProductByUUID(UUID id) {
-    return productMapper.mapTo(productRepository.findByUuid(id));
+    return productMapper.mapToProductDto(productRepository.findByUuid(id));
   }
 
   @Transactional
