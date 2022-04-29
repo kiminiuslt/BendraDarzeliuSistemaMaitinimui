@@ -4,6 +4,7 @@ import eu.kiminiuslt.bdsm.model.ProductDto;
 import eu.kiminiuslt.bdsm.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +34,13 @@ public class ProductFormController {
   }
 
   @GetMapping("/list")
-  public String getProducts(Model model, @PageableDefault(size = 2) Pageable pageable) {
+  public String getProducts(
+      Model model,
+      @PageableDefault(
+              size = 5,
+              sort = {"name"},
+              direction = Sort.Direction.ASC)
+          Pageable pageable) {
     model.addAttribute("productListPages", productService.getPageableProduct(pageable));
     return "products";
   }
@@ -45,16 +52,30 @@ public class ProductFormController {
   }
 
   @PostMapping("/{uuid}/update")
-  public String updateProduct(Model model, ProductDto product) {
+  public String updateProduct(
+      Model model,
+      ProductDto product,
+      @PageableDefault(
+              size = 5,
+              sort = {"name"},
+              direction = Sort.Direction.ASC)
+          Pageable pageable) {
     productService.updateProduct(product);
-    model.addAttribute("productList", productService.getProducts());
+    model.addAttribute("productListPages", productService.getPageableProduct(pageable));
     return "products";
   }
 
   @GetMapping("/{uuid}/delete")
-  public String deleteProduct(Model model, @PathVariable("uuid") UUID id) {
+  public String deleteProduct(
+      Model model,
+      @PathVariable("uuid") UUID id,
+      @PageableDefault(
+              size = 5,
+              sort = {"name"},
+              direction = Sort.Direction.ASC)
+          Pageable pageable) {
     productService.deleteProduct(id);
-    model.addAttribute("productList", productService.getProducts());
+    model.addAttribute("productListPages", productService.getPageableProduct(pageable));
     return "products";
   }
 }
