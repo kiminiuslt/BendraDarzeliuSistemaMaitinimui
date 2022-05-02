@@ -37,7 +37,7 @@ public class ProductFormController {
   public String getProducts(
       Model model,
       @PageableDefault(
-              size = 5,
+              size = 30,
               sort = {"name"},
               direction = Sort.Direction.ASC)
           Pageable pageable) {
@@ -56,7 +56,7 @@ public class ProductFormController {
       Model model,
       ProductDto product,
       @PageableDefault(
-              size = 5,
+              size = 30,
               sort = {"name"},
               direction = Sort.Direction.ASC)
           Pageable pageable) {
@@ -70,7 +70,7 @@ public class ProductFormController {
       Model model,
       @PathVariable("uuid") UUID id,
       @PageableDefault(
-              size = 5,
+              size = 30,
               sort = {"name"},
               direction = Sort.Direction.ASC)
           Pageable pageable) {

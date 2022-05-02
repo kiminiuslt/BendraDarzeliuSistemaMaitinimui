@@ -15,4 +15,6 @@ public class ProductDto {
   private String name;
   private double kcal;
   private double carbs;
+  private double protein;
+  private double fat;
 }
