@@ -15,7 +15,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @Table(name = "product", schema = "bdsm")
 public class Product {
-  @Id @GeneratedValue private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
   private UUID uuid;
 
@@ -131,4 +133,7 @@ public class Product {
 
   @Column(name = "vitamin_b12_mkrg")
   private Double vitaminB12;
+
+  @Column(name = "sugar_g")
+  private Double sugar;
 }
