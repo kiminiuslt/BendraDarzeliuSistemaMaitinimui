@@ -19,15 +19,125 @@
 </div>
 <h1>Naujas Produktas</h1>
 <form method="post" th:object="${ProductDto}">
-    <input type="hidden" th:field="*{uuid}"><br/>
-    <label>Produkto pavadinimas</label><br/>
-    <input type="text" th:field="*{name}"><br/>
+    <input type="hidden" th:field="*{uuid}">
+    <label>Produkto pavadinimas<br/><br/>
+        <input type="text" th:field="*{name}">
+    </label><br/><br/>
+    <label>Vanduo<br/>
+        <input type="number" th:field="*{water}" placeholder="g">
+    </label><br/><br>
+    <label>Sausosios medžiagos<br/>
+        <input type="number" th:field="*{dryMaterial}" placeholder="g">
+    </label><br/><br/>
+    <label>Baltymai<br/>
+        <input type="number" th:field="*{proteins}" placeholder="g">
+    </label><br/><br/>
+    <label>Augaliniai baltymai<br/>
+        <input type="number" th:field="*{vegetableProtein}" placeholder="g">
+    </label><br/><br/>
+    <label>Angiavandeniai<br/>
+        <input type="number" th:field="*{carbohydrates}" placeholder="g">
+    </label><br/><br/>
+    <label>Mineralinės medžiagos<br/>
+        <input type="number" th:field="*{mineralSubstances}" placeholder="mg">
+    </label><br/><br/>
+    <label>Natris<br/>
+        <input type="number" th:field="*{sodium}" placeholder="mg">
+    </label><br/><br/>
+    <label>Magnis<br/>
+        <input type="number" th:field="*{magnesium}" placeholder="mg">
+    </label><br/><br/>
+    <label>Fosforas<br/>
+        <input type="number" th:field="*{phosphorus}" placeholder="mg">
+    </label><br/><br/>
+    <label>Kalis<br/>
+        <input type="number" th:field="*{potassium}" placeholder="mg">
+    </label><br/><br/>
+    <label>Kalcis<br/>
+        <input type="number" th:field="*{calcium}" placeholder="mg">
+    </label><br/><br/>
+    <label>Jodas<br/>
+        <input type="number" th:field="*{iodine}" placeholder="μg">
+    </label><br/><br/>
+    <label>Vitaminas B2<br/>
+        <input type="number" th:field="*{vitaminB2}" placeholder="mg">
+    </label><br/><br/>
+    <label>Niacinas (Vitaminas PP)<br/>
+        <input type="number" th:field="*{niacinVitaminPP}" placeholder="mg">
+    </label><br/><br/>
+    <label>Niacino ekv.<br/>
+        <input type="number" th:field="*{niacinEquivalent}" placeholder="μg">
+    </label><br/><br/>
+    <label>Vitaminas B6<br/>
+        <input type="number" th:field="*{vitaminB6}" placeholder="mg">
+    </label><br/><br/>
+    <label>Alkoholis<br/>
+        <input type="number" th:field="*{alcohol}" placeholder="g">
+    </label><br/><br/>
+    <label>Energinė vertė kJ<br/>
+        <input type="number" th:field="*{energyKj}" placeholder="kJ">
+    </label><br/><br/>
+    <label>Energinė vertė Kcal<br/>
+        <input type="number" th:field="*{energyValueKcal}" placeholder="Kcal">
+    </label><br/><br/>
+    <label>Geležis<br/>
+        <input type="number" th:field="*{iron}" placeholder="mg">
+    </label><br/><br/>
+    <label>Vitaminas B1<br/>
+        <input type="number" th:field="*{vitaminB1}" placeholder="mg">
+    </label><br/><br/>
+    <label>Cinkas<br/>
+        <input type="number" th:field="*{zinc}" placeholder="mg">
+    </label><br/><br/>
+    <label>Riebalai<br/>
+        <input type="number" th:field="*{fat}" placeholder="g">
+    </label><br/><br/>
+    <label>Sočiųjų riebalų rūgščių<br/>
+        <input type="number" th:field="*{saturatedFattyAcids}" placeholder="g">
+    </label><br/><br/>
+    <label>Monenesočiųjų riebalų rūgščių<br/>
+        <input type="number" th:field="*{monounsaturatedFattyAcids}" placeholder="g">
+    </label><br/><br/>
+    <label>Polinesočiųjų riebalų rūgščių<br/>
+        <input type="number" th:field="*{polyunsaturatedFattyAcids}" placeholder="g">
+    </label><br/><br/>
+    <label>Krakmolas<br/>
+        <input type="number" th:field="*{starch}" placeholder="g">
+    </label><br/><br/>
+    <label>Skaidulinių medžiagų<br/>
+        <input type="number" th:field="*{fiberMaterials}" placeholder="g">
+    </label><br/><br/>
+    <label>Selenas<br/>
+        <input type="number" th:field="*{selenium}" placeholder="μg">
+    </label><br/><br/>
+    <label>Vitaminas A (Retinolis)<br/>
+        <input type="number" th:field="*{vitaminARetinol}" placeholder="μg">
+    </label><br/><br/>
+    <label>Vitaminas E (Tokoferolio)<br/>
+        <input type="number" th:field="*{vitaminETocopherol}" placeholder="mg">
+    </label><br/><br/>
+    <label>Folio rūgštis<br/>
+        <input type="number" th:field="*{folicAcid}" placeholder="μg">
+    </label><br/><br/>
+    <label>Vitaminas C<br/>
+        <input type="number" th:field="*{vitaminC}" placeholder="mg">
+    </label><br/><br/>
+    <label>Gyvulinių baltymų<br/>
+        <input type="number" th:field="*{animalProtein}" placeholder="g">
+    </label><br/><br/>
+    <label>Cholesterolis<br/>
+        <input type="number" th:field="*{cholesterol}" placeholder="mg">
+    </label><br/><br/>
+    <label>Vitaminas D<br/>
+        <input type="number" th:field="*{vitaminD}" placeholder="μg">
+    </label><br/><br/>
+    <label>Vitaminas B12<br/>
+        <input type="number" th:field="*{vitaminB12}" placeholder="μg">
+    </label><br/><br/>
+    <label>Cukrus<br/>
+        <input type="number" th:field="*{sugar}" placeholder="g">
+    </label><br/><br/>
 
-    <label>Angliavandeniai</label><br/>
-    <input type="number" th:field="*{carbs}"><br/>
-
-    <label>Kcal</label><br/>
-    <input type="number" th:field="*{kcal}"><br/><br/>
 
     <button type="submit">Įrašyti</button>
 
