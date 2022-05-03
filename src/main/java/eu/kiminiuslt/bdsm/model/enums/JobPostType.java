@@ -1,6 +1,6 @@
 package eu.kiminiuslt.bdsm.model.enums;
 
-public enum JobPost {
+public enum JobPostType {
   DIETIST,
   DIRECTOR,
   CULINARY,
