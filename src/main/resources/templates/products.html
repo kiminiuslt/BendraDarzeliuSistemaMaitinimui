@@ -122,7 +122,7 @@
             <td th:text="${product.carbohydrates}"></td>
             <td th:text="${product.fat}"></td>
             <td th:text="${product.energyValueKcal}"></td>
-            <td><a th:href="@{/product/{uuid}/delete(uuid=${product.uuid})}">delete</a></td>
+            <td><a class = "btn btn-danger" th:href="@{/product/{uuid}/delete(uuid=${product.uuid})}">delete</a></td>
         </tr>
         </tbody>
     </table>
