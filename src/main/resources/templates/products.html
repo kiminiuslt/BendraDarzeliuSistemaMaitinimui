@@ -20,8 +20,8 @@
     <a th:href="@{#}">Istorija</a>
     <a th:href="@{/}">Atsijungti</a>
 </div>
-<div th:if="${ not productListPages.hasContent()}">List is empty!</div>
-<div th:unless="${productListPages.hasContent()}" class="container">
+<div th:if="${not productListPages.hasContent()}">List is empty!</div>
+<div th:if="${productListPages.hasContent()}" class="container">
     <span th:text="'is viso elementu: ' +${productListPages.totalElements}"></span><br>
     <span th:text="'is viso puslapiu: ' +${productListPages.totalPages}"></span><br>
 
