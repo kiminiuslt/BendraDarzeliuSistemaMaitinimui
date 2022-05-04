@@ -25,6 +25,11 @@ public class ProductFormController {
     return "productForm";
   }
 
+  @GetMapping("/home")
+  public String homePage() {
+    return "home";
+  }
+
   @PostMapping("/form")
   public String saveProduct(Model model, ProductDto product) {
     productService.addProduct(product);
