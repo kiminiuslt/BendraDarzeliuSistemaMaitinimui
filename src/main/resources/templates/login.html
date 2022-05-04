@@ -6,17 +6,17 @@
     <title>BDSM</title>
 </head>
 <body>
-<h1 th:text="#{common.kindergarten.feeding.system}"></h1><br>
-<h3 th:text="#{please.login}"></h3>
+<h1 th:text="#{login.common.kindergarten.feeding.system}"></h1><br>
+<h3 th:text="#{login.please.login}"></h3>
 
 <form method="post" th:object="${client}">
-    <label th:text="#{user.name}"></label><br/>
+    <label th:text="#{login.user.name}"></label><br/>
     <input type="text" placeholder="User name" th:field="*{username}"><br/>
 
-    <label th:text="#{password}"></label><br/>
+    <label th:text="#{login.password}"></label><br/>
     <input type="password" placeholder="Password" th:field="*{password}"><br/><br/>
 
-    <button type="submit" th:text="#{login}"></button>
+    <button type="submit" th:text="#{login.login}"></button>
 </form>
 
 </body>
