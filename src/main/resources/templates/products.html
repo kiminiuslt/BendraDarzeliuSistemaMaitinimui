@@ -66,15 +66,15 @@
         </ul>
     </nav>
 
-<!--    TABLE-->
+    <!--   TABLE HEADER-->
     <table class="table table-primary">
         <thead>
         <tr>
             <th>
                 <a
                         th:with="direction=${productListPages.sort.getOrderFor('name')?.direction}"
-                        th:href="@{/product/list(sort='name,' + ${direction?.name() eq 'ASC' ? 'DESC' : 'ASC'} )}"
-                        th:text="#{product.word}">
+                        th:href="@{/product/list(sort='name,' + ${direction?.name() eq 'ASC' ? 'DESC' : 'ASC'} )}">
+                    <span th:text="#{product.word}"></span>
                     <i class="fa-solid"
                        th:classappend="${direction?.name() eq 'ASC' ? 'fa-arrow-down-a-z' : 'fa-arrow-up-z-a'}"
                        th:if="${direction ne null}">
@@ -85,10 +85,10 @@
             <th>
                 <a
                         th:with="direction=${productListPages.sort.getOrderFor('proteins')?.direction}"
-                        th:href="@{/product/list(sort='proteins,' + ${direction?.name() eq 'ASC' ? 'DESC' : 'ASC'} )}"
-                        th:text="#{proteins}">
+                        th:href="@{/product/list(sort='proteins,' + ${direction?.name() eq 'ASC' ? 'DESC' : 'ASC'} )}">
+                    <span th:text="#{proteins}"></span>
                     <i class="fa-solid"
-                       th:classappend="${direction?.name() eq 'ASC' ? 'fa-arrow-down-a-z' : 'fa-arrow-up-z-a'}"
+                       th:classappend="${direction?.name() eq 'ASC' ? 'fa-arrow-down-1-9' : 'fa-arrow-up-9-1'}"
                        th:if="${direction ne null}">
 
                     </i>
@@ -97,8 +97,8 @@
             <th>
                 <a
                         th:with="direction=${productListPages.sort.getOrderFor('carbohydrates')?.direction}"
-                        th:href="@{/product/list(sort='carbohydrates,' + ${direction?.name() eq 'ASC' ? 'DESC' : 'ASC'} )}"
-                        th:text="#{carbohydrates}">
+                        th:href="@{/product/list(sort='carbohydrates,' + ${direction?.name() eq 'ASC' ? 'DESC' : 'ASC'} )}">
+                    <span th:text="#{carbohydrates}"></span>
                     <i class="fa-solid"
                        th:classappend="${direction?.name() eq 'ASC' ? 'fa-arrow-down-1-9' : 'fa-arrow-up-9-1'}"
                        th:if="${direction ne null}">
@@ -109,8 +109,8 @@
             <th>
                 <a
                         th:with="direction=${productListPages.sort.getOrderFor('fat')?.direction}"
-                        th:href="@{/product/list(sort='fat,' + ${direction?.name() eq 'ASC' ? 'DESC' : 'ASC'} )}"
-                        th:text="#{fat}">
+                        th:href="@{/product/list(sort='fat,' + ${direction?.name() eq 'ASC' ? 'DESC' : 'ASC'} )}">
+                    <span th:text="#{fat}"></span>
                     <i class="fa-solid"
                        th:classappend="${direction?.name() eq 'ASC' ? 'fa-arrow-down-1-9' : 'fa-arrow-up-9-1'}"
                        th:if="${direction ne null}">
@@ -121,8 +121,8 @@
             <th>
                 <a
                         th:with="direction=${productListPages.sort.getOrderFor('energyValueKcal')?.direction}"
-                        th:href="@{/product/list(sort='energyValueKcal,' + ${direction?.name() eq 'ASC' ? 'DESC' : 'ASC'} )}"
-                        th:text="#{energy.value.kcal}">
+                        th:href="@{/product/list(sort='energyValueKcal,' + ${direction?.name() eq 'ASC' ? 'DESC' : 'ASC'} )}">
+                    <span th:text="#{energy.value.kcal}"></span>
                     <i class="fa-solid"
                        th:classappend="${direction?.name() eq 'ASC' ? 'fa-arrow-down-1-9' : 'fa-arrow-up-9-1'}"
                        th:if="${direction ne null}">
@@ -132,6 +132,7 @@
             </th>
             <th></th>
         </tr>
+        <!--   TABLE CONTENT-->
         </thead>
         <tbody>
         <tr th:each="product: ${productListPages}">
