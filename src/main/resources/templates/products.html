@@ -36,11 +36,15 @@
 
     <!--PAGINATION-->
     <nav class="d-flex justify-content-center">
-        <ul class="pagination">
+        <ul class="pagination"
+            th:with="
+            orderParam=${productListPages.sort.iterator().hasNext() ? productListPages.sort.iterator().next : null},
+            sortParam=${orderParam.property + ','+ orderParam.direction + ',ignorecase'}">
 
             <li class="page-item"
                 th:classappend="${!productListPages.hasPrevious()} ? 'disabled'">
-                <a class="page-link" th:href="@{/product/list(page=${productListPages.number} - 1)}"
+                <a class="page-link"
+                   th:href="@{/product/list(page=${productListPages.number} - 1,sort=${sortParam})}"
                    th:text="#{previous}"></a>
             </li>
 
@@ -48,16 +52,21 @@
             <li class="page-item"
                 th:each="i: ${#numbers.sequence(0, productListPages.totalPages - 1)}"
                 th:classappend="${i == productListPages.number ? 'active' : ''}">
-                <a class="page-link" th:href="@{/product/list(page = ${i})}" th:text="${i + 1}"></a>
+                <a class="page-link"
+                   th:href="@{/product/list(page = ${i},sort=${sortParam})}"
+                   th:text="${i + 1}"></a>
             </li>
 
             <li class="page-item"
                 th:classappend="${!productListPages.hasNext()} ? 'disabled'">
-                <a class="page-link" th:href="@{/product/list(page=${productListPages.number} + 1)}"
+                <a class="page-link"
+                   th:href="@{/product/list(page=${productListPages.number} + 1,sort=${sortParam})}"
                    th:text="#{next}"></a>
             </li>
         </ul>
     </nav>
+
+<!--    TABLE-->
     <table class="table table-primary">
         <thead>
         <tr>
@@ -138,13 +147,16 @@
     </table>
 
     <!--PAGINATION-->
-
     <nav class="d-flex justify-content-center">
-        <ul class="pagination">
+        <ul class="pagination"
+            th:with="
+            orderParam=${productListPages.sort.iterator().hasNext() ? productListPages.sort.iterator().next : null},
+            sortParam=${orderParam.property + ','+ orderParam.direction + ',ignorecase'}">
 
             <li class="page-item"
                 th:classappend="${!productListPages.hasPrevious()} ? 'disabled'">
-                <a class="page-link" th:href="@{/product/list(page=${productListPages.number} - 1)}"
+                <a class="page-link"
+                   th:href="@{/product/list(page=${productListPages.number} - 1,sort=${sortParam})}"
                    th:text="#{previous}"></a>
             </li>
 
@@ -152,12 +164,15 @@
             <li class="page-item"
                 th:each="i: ${#numbers.sequence(0, productListPages.totalPages - 1)}"
                 th:classappend="${i == productListPages.number ? 'active' : ''}">
-                <a class="page-link" th:href="@{/product/list(page = ${i})}" th:text="${i + 1}"></a>
+                <a class="page-link"
+                   th:href="@{/product/list(page = ${i},sort=${sortParam})}"
+                   th:text="${i + 1}"></a>
             </li>
 
             <li class="page-item"
                 th:classappend="${!productListPages.hasNext()} ? 'disabled'">
-                <a class="page-link" th:href="@{/product/list(page=${productListPages.number} + 1)}"
+                <a class="page-link"
+                   th:href="@{/product/list(page=${productListPages.number} + 1,sort=${sortParam})}"
                    th:text="#{next}"></a>
             </li>
         </ul>
