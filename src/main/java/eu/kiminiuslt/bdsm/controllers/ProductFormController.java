@@ -1,5 +1,6 @@
 package eu.kiminiuslt.bdsm.controllers;
 
+import eu.kiminiuslt.bdsm.helpers.MessageService;
 import eu.kiminiuslt.bdsm.model.ProductDto;
 import eu.kiminiuslt.bdsm.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +19,12 @@ import java.util.UUID;
 public class ProductFormController {
 
   private final ProductService productService;
+  private final MessageService messageService;
 
   @GetMapping("/form")
-  public String openProductForm(Model model) {
+  public String openProductForm(Model model, String message) {
     model.addAttribute("ProductDto", ProductDto.builder().build());
+    model.addAttribute("message", messageService.getMessage(message));
     return "productForm";
   }
 
@@ -31,11 +34,9 @@ public class ProductFormController {
   }
 
   @PostMapping("/form")
-  public String saveProduct(Model model, ProductDto product) {
+  public String saveProduct(ProductDto product) {
     productService.addProduct(product);
-    model.addAttribute("ProductDto", ProductDto.builder().build());
-    model.addAttribute("message", "Išsaugota");
-    return "productForm";
+    return "redirect:/product/form?message=create.product.successes";
   }
 
   @GetMapping("/list")
