@@ -28,7 +28,9 @@
         <option value="US" th:text="English"></option>
     </select>
 </div>
-<h1 th:text="#{add.product.word}"></h1>
+<div th:if="${ProductDto.name eq null}"><h1 th:text="#{add.product.word}"></h1></div>
+<div th:if="${ProductDto.name ne null}"><h1 th:text="#{edit.product.word}"></h1></div>
+
 <form method="post" th:object="${ProductDto}">
     <input type="hidden" th:field="*{uuid}">
 
