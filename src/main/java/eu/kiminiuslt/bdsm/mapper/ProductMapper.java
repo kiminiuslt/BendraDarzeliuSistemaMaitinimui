@@ -6,10 +6,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProductMapper {
-  public ProductDto mapTo(Product product) {
+  public ProductDto mapToProductDto(Product product) {
     return ProductDto.builder()
-        .kcal(product.getKcal())
-        .carbs(product.getCarbs())
+        .energyValueKcal(product.getEnergyValueKcal())
+        .carbohydrates(product.getCarbohydrates())
+        .fat(product.getFat())
+        .proteins(product.getProteins())
         .name(product.getName())
         .uuid(product.getUuid())
         .build();

@@ -1,6 +1,6 @@
 package eu.kiminiuslt.bdsm.model;
 
-import eu.kiminiuslt.bdsm.model.enums.JobPost;
+import eu.kiminiuslt.bdsm.model.enums.JobPostType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,5 +13,5 @@ import lombok.Setter;
 public class Client {
   private String username;
   private String password;
-  private JobPost jobPost;
+  private JobPostType jobPostType;
 }
