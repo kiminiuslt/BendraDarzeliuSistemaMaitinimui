@@ -25,7 +25,7 @@ public class ProductFormController {
   public String openProductForm(Model model, String message) {
     model.addAttribute("ProductDto", ProductDto.builder().build());
     model.addAttribute("message", messageService.getMessage(message));
-    return "productForm";
+    return "product-form";
   }
 
   @GetMapping("/home")
@@ -54,7 +54,7 @@ public class ProductFormController {
   @GetMapping("/{uuid}/update")
   public String getUpdateProduct(Model model, @PathVariable("uuid") UUID id) {
     model.addAttribute("ProductDto", productService.getProductByUUID(id));
-    return "productForm";
+    return "product-form";
   }
 
   @PostMapping("/{uuid}/update")
