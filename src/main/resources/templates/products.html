@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head">
-    <title th:text="#{products.products.list}"></title>
-</head>
+
+<head th:replace="fragments/head :: head(#{products.products.list})"></head>
+
 <body>
 <div th:replace="fragments/menu :: godMenu"></div>
 
@@ -13,7 +13,7 @@
     <span th:text="#{products.all.pages} +' ' +${productListPages.totalPages}"></span><br>
 
     <!--PAGINATION-->
-   <div th:replace="fragments/pagination :: paginationProducts"></div>
+    <div th:replace="fragments/pagination :: paginationProducts"></div>
 
     <!--   TABLE HEADER-->
     <table class="table table-primary">

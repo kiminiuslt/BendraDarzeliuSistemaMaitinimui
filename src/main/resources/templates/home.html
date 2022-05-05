@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head">
-    <title th:text="#{home.home}"></title>
-</head>
+
+<head th:replace="fragments/head :: head(#{home.home})"></head>
+
 <body>
 <div th:replace="fragments/menu :: godMenu"></div>
 

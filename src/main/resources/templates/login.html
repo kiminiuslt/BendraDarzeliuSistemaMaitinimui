@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head">
-    <title>BDSM</title>
+
+<head th:replace="fragments/head :: head(#{login.title})">
+
 </head>
 <body>
 <h1 th:text="#{login.common.kindergarten.feeding.system}"></h1><br>
