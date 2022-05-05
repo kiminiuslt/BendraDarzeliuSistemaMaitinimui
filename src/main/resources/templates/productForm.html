@@ -32,24 +32,35 @@
 <form method="post" th:object="${ProductDto}">
     <input type="hidden" th:field="*{uuid}">
 
+    <!--    MAIN-->
     <label for="name" th:text="#{product.name.word}"></label><br/>
     <input id="name" type="text" th:field="*{name}"><br/><br/>
 
-    <label for="water" th:text="#{water}"></label><br/>
-    <input id="water" type="number" th:field="*{water}" placeholder="g"><br/><br>
+    <label for="energyKj" th:text="#{energy.kj}"></label><br/>
+    <input id="energyKj" type="number" th:field="*{energyKj}" placeholder="kJ"><br/><br/>
 
-    <label for="dryMaterial" th:text="#{dry.material}"> </label><br/>
-    <input id="dryMaterial" type="number" th:field="*{dryMaterial}" placeholder="g"><br/><br/>
+    <label for="energyValueKcal" th:text="#{energy.value.kcal}"></label><br/>
+    <input id="energyValueKcal" type="number" th:field="*{energyValueKcal}" placeholder="Kcal"><br/><br/>
 
     <label for="proteins" th:text="#{proteins}"></label><br/>
     <input id="proteins" type="number" th:field="*{proteins}" placeholder="g"><br/><br/>
 
-    <label for="vegetableProtein" th:text="#{vegetable.protein}"></label><br/>
-    <input id="vegetableProtein" type="number" th:field="*{vegetableProtein}" placeholder="g"><br/><br/>
-
     <label for="carbohydratesId" th:text="#{carbohydrates}"></label><br/>
     <input id="carbohydratesId" type="number" th:field="*{carbohydrates}" placeholder="g"><br/><br/>
 
+    <label for="fat" th:text="#{fat}"></label><br/>
+    <input id="fat" type="number" th:field="*{fat}" placeholder="g"><br/><br/>
+
+    <label for="sugar" th:text="#{sugar}"></label><br/>
+    <input id="sugar" type="number" th:field="*{sugar}" placeholder="g"><br/><br/>
+
+    <label for="vegetableProtein" th:text="#{vegetable.protein}"></label><br/>
+    <input id="vegetableProtein" type="number" th:field="*{vegetableProtein}" placeholder="g"><br/><br/>
+
+    <label for="animalProtein" th:text="#{animal.protein}"></label><br/>
+    <input id="animalProtein" type="number" th:field="*{animalProtein}" placeholder="g"><br/><br/>
+
+    <!--    MINERALS-->
     <label for="mineralSubstances" th:text="#{mineral.substances}"></label><br/>
     <input id="mineralSubstances" type="number" th:field="*{mineralSubstances}" placeholder="mg"><br/><br/>
 
@@ -71,6 +82,16 @@
     <label for="iodine" th:text="#{iodine}"></label><br/>
     <input id="iodine" type="number" th:field="*{iodine}" placeholder="μg"><br/><br/>
 
+    <label for="iron" th:text="#{iron}"></label><br/>
+    <input id="iron" type="number" th:field="*{iron}" placeholder="mg"><br/><br/>
+
+    <label for="zinc" th:text="#{zinc}"></label><br/>
+    <input id="zinc" type="number" th:field="*{zinc}" placeholder="mg"><br/><br/>
+
+    <label for="selenium" th:text="#{selenium}"></label><br/>
+    <input id="selenium" type="number" th:field="*{selenium}" placeholder="μg"><br/><br/>
+
+    <!--    VITAMINS-->
     <label for="vitaminB2" th:text="#{vitamin.b2}"></label><br/>
     <input id="vitaminB2" type="number" th:field="*{vitaminB2}" placeholder="mg"><br/><br/>
 
@@ -83,26 +104,31 @@
     <label for="vitaminB6" th:text="#{vitamin.b6}"></label><br/>
     <input id="vitaminB6" type="number" th:field="*{vitaminB6}" placeholder="mg"><br/><br/>
 
-    <label for="alcohol" th:text="#{alcohol}"></label><br/>
-    <input id="alcohol" type="number" th:field="*{alcohol}" placeholder="g"><br/><br/>
-
-    <label for="energyKj" th:text="#{energy.kj}"></label><br/>
-    <input id="energyKj" type="number" th:field="*{energyKj}" placeholder="kJ"><br/><br/>
-
-    <label for="energyValueKcal" th:text="#{energy.value.kcal}"></label><br/>
-    <input id="energyValueKcal" type="number" th:field="*{energyValueKcal}" placeholder="Kcal"><br/><br/>
-
-    <label for="iron" th:text="#{iron}"></label><br/>
-    <input id="iron" type="number" th:field="*{iron}" placeholder="mg"><br/><br/>
-
     <label for="vitaminB1" th:text="#{vitamin.b1}"></label><br/>
     <input id="vitaminB1" type="number" th:field="*{vitaminB1}" placeholder="mg"><br/><br/>
 
-    <label for="zinc" th:text="#{zinc}"></label><br/>
-    <input id="zinc" type="number" th:field="*{zinc}" placeholder="mg"><br/><br/>
+    <label for="vitaminARetinol" th:text="#{vitamin.a.retinol}"></label><br/>
+    <input id="vitaminARetinol" type="number" th:field="*{vitaminARetinol}" placeholder="μg"><br/><br/>
 
-    <label for="fat" th:text="#{fat}"></label><br/>
-    <input id="fat" type="number" th:field="*{fat}" placeholder="g"><br/><br/>
+    <label for="vitaminETocopherol" th:text="#{vitamin.e.tocopherol}"></label><br/>
+    <input id="vitaminETocopherol" type="number" th:field="*{vitaminETocopherol}" placeholder="mg"><br/><br/>
+
+    <label for="vitaminC" th:text="#{vitamin.c}"></label><br/>
+    <input id="vitaminC" type="number" th:field="*{vitaminC}" placeholder="mg"><br/><br/>
+
+    <label for="vitaminD" th:text="#{vitamin.d}"></label><br/>
+    <input id="vitaminD" type="number" th:field="*{vitaminD}" placeholder="μg"><br/><br/>
+
+    <label for="vitaminB12" th:text="#{vitamin.b12}"></label><br/>
+    <input id="vitaminB12" type="number" th:field="*{vitaminB12}" placeholder="μg"><br/><br/>
+
+    <!--    ACIDS-->
+    <label for="folicAcidID" th:text="#{folic.acid}"></label><br/>
+    <input id="folicAcidID" type="number" th:field="*{folicAcid}" placeholder="μg"><br/><br/>
+
+    <label for="polyunsaturatedFattyAcids" th:text="#{polyunsaturated.fatty.acids}"></label><br/>
+    <input id="polyunsaturatedFattyAcids" type="number" th:field="*{polyunsaturatedFattyAcids}"
+           placeholder="g"><br/><br/>
 
     <label for="saturatedFattyAcids" th:text="#{saturated.fatty.acids}"></label><br/>
     <input id="saturatedFattyAcids" type="number" th:field="*{saturatedFattyAcids}" placeholder="g"><br/><br/>
@@ -111,45 +137,24 @@
     <input id="monounsaturatedFattyAcids" type="number" th:field="*{monounsaturatedFattyAcids}"
            placeholder="g"><br/><br/>
 
-    <label for="polyunsaturatedFattyAcids" th:text="#{polyunsaturated.fatty.acids}"></label><br/>
-    <input id="polyunsaturatedFattyAcids" type="number" th:field="*{polyunsaturatedFattyAcids}"
-           placeholder="g"><br/><br/>
-
+    <!--    OTHERS-->
     <label for="starch" th:text="#{starch}"></label><br/>
     <input id="starch" type="number" th:field="*{starch}" placeholder="g"><br/><br/>
+
+    <label for="water" th:text="#{water}"></label><br/>
+    <input id="water" type="number" th:field="*{water}" placeholder="g"><br/><br>
+
+    <label for="dryMaterial" th:text="#{dry.material}"> </label><br/>
+    <input id="dryMaterial" type="number" th:field="*{dryMaterial}" placeholder="g"><br/><br/>
+
+    <label for="alcohol" th:text="#{alcohol}"></label><br/>
+    <input id="alcohol" type="number" th:field="*{alcohol}" placeholder="g"><br/><br/>
 
     <label for="fiberMaterials" th:text="#{fiber.materials}"></label><br/>
     <input id="fiberMaterials" type="number" th:field="*{fiberMaterials}" placeholder="g"><br/><br/>
 
-    <label for="selenium" th:text="#{selenium}"></label><br/>
-    <input id="selenium" type="number" th:field="*{selenium}" placeholder="μg"><br/><br/>
-
-    <label for="vitaminARetinol" th:text="#{vitamin.a.retinol}"></label><br/>
-    <input id="vitaminARetinol" type="number" th:field="*{vitaminARetinol}" placeholder="μg"><br/><br/>
-
-    <label for="vitaminETocopherol" th:text="#{vitamin.e.tocopherol}"></label><br/>
-    <input id="vitaminETocopherol" type="number" th:field="*{vitaminETocopherol}" placeholder="mg"><br/><br/>
-
-    <label for="folicAcid" th:text="#{folic.acid}"></label><br/>
-    <input id="folicAcid" type="number" th:field="*{folicAcid}" placeholder="μg"><br/><br/>
-
-    <label for="vitaminC" th:text="#{vitamin.c}"></label><br/>
-    <input id="vitaminC" type="number" th:field="*{vitaminC}" placeholder="mg"><br/><br/>
-
-    <label for="animalProtein" th:text="#{animal.protein}"></label><br/>
-    <input id="animalProtein" type="number" th:field="*{animalProtein}" placeholder="g"><br/><br/>
-
     <label for="cholesterol" th:text="#{cholesterol}"></label><br/>
     <input id="cholesterol" type="number" th:field="*{cholesterol}" placeholder="mg"><br/><br/>
-
-    <label for="vitaminD" th:text="#{vitamin.d}"></label><br/>
-    <input id="vitaminD" type="number" th:field="*{vitaminD}" placeholder="μg"><br/><br/>
-
-    <label for="vitaminB12" th:text="#{vitamin.b12}"></label><br/>
-    <input id="vitaminB12" type="number" th:field="*{vitaminB12}" placeholder="μg"><br/><br/>
-
-    <label for="sugar" th:text="#{sugar}"></label><br/>
-    <input id="sugar" type="number" th:field="*{sugar}" placeholder="g"><br/><br/>
 
     <button type="submit" th:text="#{save}"></button>
 
