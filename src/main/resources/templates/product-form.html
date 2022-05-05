@@ -4,22 +4,8 @@
 <head th:replace="fragments/head :: head">
 </head>
 <body>
-<div>
-    <a th:href="@{#}" th:text="#{menu.food.menu}"></a>
-    <a th:href="@{#}" th:text="#{menu.recipes}"></a>
-    <a th:href="@{'/product/list'}" th:text="#{menu.products.word}"></a>
-    <a th:href="@{'/product/form'}" th:text="#{menu.add.product.word}"></a>
-    <a th:href="@{#}" th:text="#{menu.warehouse}"></a>
-    <a th:href="@{#}" th:text="#{menu.today.recipes}"></a>
-    <a th:href="@{#}" th:text="#{menu.statistics}"></a>
-    <a th:href="@{#}" th:text="#{menu.history}"></a>
-    <a th:href="@{/}" th:text="#{menu.log.off}"></a>
-    <select id="languageSelector">
-        <option value="" th:text="#{lang.option}"></option>
-        <option value="LT" th:text="Lietuvių"></option>
-        <option value="US" th:text="English"></option>
-    </select>
-</div>
+<div th:replace="fragments/menu :: godMenu"></div>
+
 <div th:if="${ProductDto.name eq null}"><h1 th:text="#{add.product.word}"></h1></div>
 <div th:if="${ProductDto.name ne null}"><h1 th:text="#{edit.product.word}"></h1></div>
 

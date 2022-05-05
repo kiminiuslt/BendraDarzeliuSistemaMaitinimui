@@ -5,22 +5,8 @@
     <title th:text="#{products.products.list}"></title>
 </head>
 <body>
-<div>
-    <a th:href="@{#}" th:text="#{menu.food.menu}"></a>
-    <a th:href="@{#}" th:text="#{menu.recipes}"></a>
-    <a th:href="@{'/product/list'}" th:text="#{menu.products.word}"></a>
-    <a th:href="@{'/product/form'}" th:text="#{menu.add.product.word}"></a>
-    <a th:href="@{#}" th:text="#{menu.warehouse}"></a>
-    <a th:href="@{#}" th:text="#{menu.today.recipes}"></a>
-    <a th:href="@{#}" th:text="#{menu.statistics}"></a>
-    <a th:href="@{#}" th:text="#{menu.history}"></a>
-    <a th:href="@{/}" th:text="#{menu.log.off}"></a>
-    <select id="languageSelector">
-        <option value="" th:text="#{lang.option}"></option>
-        <option value="LT" th:text="Lietuvių"></option>
-        <option value="US" th:text="English"></option>
-    </select>
-</div>
+<div th:replace="fragments/menu :: godMenu"></div>
+
 <div th:if="${not productListPages.hasContent()}" th:text="#{products.products.list.isempty}"></div>
 <div th:if="${productListPages.hasContent()}" class="container">
     <span th:text="#{products.all.elements} +' ' +${productListPages.totalElements}"></span><br>
