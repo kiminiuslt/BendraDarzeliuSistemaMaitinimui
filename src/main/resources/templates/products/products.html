@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head(#{products.products.list})"></head>
+
+<body>
+<div th:replace="fragments/menu :: godMenu"></div>
+
+<div class="container">
+    <a class="btn btn-success" th:href="@{'/products/productForm'}" role="button" th:text="#{products.add.new.product}"></a>
+</div>
+
+<div th:if="${not productListPages.hasContent()}" th:text="#{products.products.list.isempty}"></div>
+<div th:if="${productListPages.hasContent()}" class="container">
+    <span th:text="#{products.all.elements} +' ' +${productListPages.totalElements}"></span><br>
+    <span th:text="#{products.all.pages} +' ' +${productListPages.totalPages}"></span><br>
+
+    <!--PAGINATION-->
+    <div th:replace="fragments/pagination :: paginationProducts"></div>
+
+    <!--   TABLE HEADER-->
+    <table class="table table-primary">
+        <thead>
+        <tr>
+            <th scope="col"><a th:replace="
+            fragments/table :: sortedColumnProducts(data=${productListPages},
+             name='name',
+              path=@{/products},
+               sortUp='fa-arrow-up-z-a',
+                sortDown='fa-arrow-down-a-z',
+                 fieldName=#{product.word})"></a></th>
+
+            <th scope="col"><a th:replace="
+            fragments/table :: sortedColumnProducts(data=${productListPages},
+             name='proteins',
+              path=@{/products},
+               sortUp='fa-arrow-up-9-1',
+                sortDown='fa-arrow-down-1-9',
+                 fieldName=#{proteins})"></a></th>
+
+            <th scope="col"><a th:replace="
+            fragments/table :: sortedColumnProducts(data=${productListPages},
+             name='carbohydrates',
+              path=@{/products},
+               sortUp='fa-arrow-up-9-1',
+                sortDown='fa-arrow-down-1-9',
+                 fieldName=#{carbohydrates})"></a></th>
+
+            <th scope="col"><a th:replace="
+            fragments/table :: sortedColumnProducts(data=${productListPages},
+             name='fat',
+              path=@{/products},
+               sortUp='fa-arrow-up-9-1',
+                sortDown='fa-arrow-down-1-9',
+                 fieldName=#{fat})"></a></th>
+
+            <th scope="col"><a th:replace="
+            fragments/table :: sortedColumnProducts(data=${productListPages},
+             name='energyValueKcal',
+              path=@{/products},
+               sortUp='fa-arrow-up-9-1',
+                sortDown='fa-arrow-down-1-9',
+                 fieldName=#{energy.value.kcal})"></a></th>
+
+            <th></th>
+        </tr>
+        <!--   TABLE CONTENT-->
+        </thead>
+        <tbody>
+        <tr th:each="product: ${productListPages}">
+            <td><a th:href="@{/products/{uuid}/update(uuid=${product.uuid})}" th:text="${product.name}"></a></td>
+            <td th:text="${product.proteins}"></td>
+            <td th:text="${product.carbohydrates}"></td>
+            <td th:text="${product.fat}"></td>
+            <td th:text="${product.energyValueKcal}"></td>
+            <td><a class="btn btn-danger" th:href="@{/products/{uuid}/delete(uuid=${product.uuid})}"
+                   th:text="#{delete}"></a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--PAGINATION-->
+    <div th:replace="fragments/pagination :: paginationProducts"></div>
+
+</div>
+
+</body>
+</html>
