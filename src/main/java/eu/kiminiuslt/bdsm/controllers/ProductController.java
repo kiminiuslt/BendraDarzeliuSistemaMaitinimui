@@ -15,26 +15,13 @@ import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/product")
-public class ProductFormController {
+@RequestMapping("/products")
+public class ProductController {
 
   private final ProductService productService;
   private final MessageService messageService;
 
-  @GetMapping("/form")
-  public String openProductForm(Model model, String message) {
-    model.addAttribute("ProductDto", ProductDto.builder().build());
-    model.addAttribute("message", messageService.getMessage(message));
-    return "product-form";
-  }
-
-  @PostMapping("/form")
-  public String saveProduct(ProductDto product) {
-    productService.addProduct(product);
-    return "redirect:/product/form?message=create.product.successes";
-  }
-
-  @GetMapping("/list")
+  @GetMapping
   public String getProducts(
       Model model,
       @PageableDefault(
@@ -44,6 +31,19 @@ public class ProductFormController {
           Pageable pageable) {
     model.addAttribute("productListPages", productService.getPageableProduct(pageable));
     return "products";
+  }
+
+  @GetMapping("/productForm")
+  public String openProductForm(Model model, String message) {
+    model.addAttribute("ProductDto", ProductDto.builder().build());
+    model.addAttribute("message", messageService.getMessage(message));
+    return "product-form";
+  }
+
+  @PostMapping("/productForm")
+  public String saveProduct(ProductDto product) {
+    productService.addProduct(product);
+    return "redirect:/products/productForm?message=create.product.successes";
   }
 
   @GetMapping("/{uuid}/update")
