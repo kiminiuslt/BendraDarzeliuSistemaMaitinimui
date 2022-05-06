@@ -30,14 +30,14 @@ public class ProductController {
               direction = Sort.Direction.ASC)
           Pageable pageable) {
     model.addAttribute("productListPages", productService.getPageableProduct(pageable));
-    return "products";
+    return "/products/products";
   }
 
   @GetMapping("/productForm")
   public String openProductForm(Model model, String message) {
     model.addAttribute("ProductDto", ProductDto.builder().build());
     model.addAttribute("message", messageService.getMessage(message));
-    return "product-form";
+    return "products/product-form";
   }
 
   @PostMapping("/productForm")
@@ -49,7 +49,7 @@ public class ProductController {
   @GetMapping("/{uuid}/update")
   public String getUpdateProduct(Model model, @PathVariable("uuid") UUID id) {
     model.addAttribute("ProductDto", productService.getProductByUUID(id));
-    return "product-form";
+    return "products/product-form";
   }
 
   @PostMapping("/{uuid}/update")
@@ -63,7 +63,7 @@ public class ProductController {
           Pageable pageable) {
     productService.updateProduct(product);
     model.addAttribute("productListPages", productService.getPageableProduct(pageable));
-    return "products";
+    return "/products/products";
   }
 
   @GetMapping("/{uuid}/delete")
@@ -77,6 +77,6 @@ public class ProductController {
           Pageable pageable) {
     productService.deleteProduct(id);
     model.addAttribute("productListPages", productService.getPageableProduct(pageable));
-    return "products";
+    return "/products/products";
   }
 }
