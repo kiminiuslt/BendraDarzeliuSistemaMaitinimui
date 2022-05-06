@@ -19,66 +19,46 @@
     <table class="table table-primary">
         <thead>
         <tr>
-            <th>
-                <a
-                        th:with="direction=${productListPages.sort.getOrderFor('name')?.direction}"
-                        th:href="@{/product/list(sort='name,' + ${direction?.name() eq 'ASC' ? 'DESC' : 'ASC'} )}">
-                    <span th:text="#{product.word}"></span>
-                    <i class="fa-solid"
-                       th:classappend="${direction?.name() eq 'ASC' ? 'fa-arrow-down-a-z' : 'fa-arrow-up-z-a'}"
-                       th:if="${direction ne null}">
+            <th scope="col"><a th:replace="
+            fragments/table :: sortedColumnProducts(data=${productListPages},
+             name='name',
+              path=@{/product/list},
+               sortUp='fa-arrow-up-z-a',
+                sortDown='fa-arrow-down-a-z',
+                 fieldName=#{product.word})"></a></th>
 
-                    </i>
-                </a>
-            </th>
-            <th>
-                <a
-                        th:with="direction=${productListPages.sort.getOrderFor('proteins')?.direction}"
-                        th:href="@{/product/list(sort='proteins,' + ${direction?.name() eq 'ASC' ? 'DESC' : 'ASC'} )}">
-                    <span th:text="#{proteins}"></span>
-                    <i class="fa-solid"
-                       th:classappend="${direction?.name() eq 'ASC' ? 'fa-arrow-down-1-9' : 'fa-arrow-up-9-1'}"
-                       th:if="${direction ne null}">
+            <th scope="col"><a th:replace="
+            fragments/table :: sortedColumnProducts(data=${productListPages},
+             name='proteins',
+              path=@{/product/list},
+               sortUp='fa-arrow-up-9-1',
+                sortDown='fa-arrow-down-1-9',
+                 fieldName=#{proteins})"></a></th>
 
-                    </i>
-                </a>
-            </th>
-            <th>
-                <a
-                        th:with="direction=${productListPages.sort.getOrderFor('carbohydrates')?.direction}"
-                        th:href="@{/product/list(sort='carbohydrates,' + ${direction?.name() eq 'ASC' ? 'DESC' : 'ASC'} )}">
-                    <span th:text="#{carbohydrates}"></span>
-                    <i class="fa-solid"
-                       th:classappend="${direction?.name() eq 'ASC' ? 'fa-arrow-down-1-9' : 'fa-arrow-up-9-1'}"
-                       th:if="${direction ne null}">
+            <th scope="col"><a th:replace="
+            fragments/table :: sortedColumnProducts(data=${productListPages},
+             name='carbohydrates',
+              path=@{/product/list},
+               sortUp='fa-arrow-up-9-1',
+                sortDown='fa-arrow-down-1-9',
+                 fieldName=#{carbohydrates})"></a></th>
 
-                    </i>
-                </a>
-            </th>
-            <th>
-                <a
-                        th:with="direction=${productListPages.sort.getOrderFor('fat')?.direction}"
-                        th:href="@{/product/list(sort='fat,' + ${direction?.name() eq 'ASC' ? 'DESC' : 'ASC'} )}">
-                    <span th:text="#{fat}"></span>
-                    <i class="fa-solid"
-                       th:classappend="${direction?.name() eq 'ASC' ? 'fa-arrow-down-1-9' : 'fa-arrow-up-9-1'}"
-                       th:if="${direction ne null}">
+            <th scope="col"><a th:replace="
+            fragments/table :: sortedColumnProducts(data=${productListPages},
+             name='fat',
+              path=@{/product/list},
+               sortUp='fa-arrow-up-9-1',
+                sortDown='fa-arrow-down-1-9',
+                 fieldName=#{fat})"></a></th>
 
-                    </i>
-                </a>
-            </th>
-            <th>
-                <a
-                        th:with="direction=${productListPages.sort.getOrderFor('energyValueKcal')?.direction}"
-                        th:href="@{/product/list(sort='energyValueKcal,' + ${direction?.name() eq 'ASC' ? 'DESC' : 'ASC'} )}">
-                    <span th:text="#{energy.value.kcal}"></span>
-                    <i class="fa-solid"
-                       th:classappend="${direction?.name() eq 'ASC' ? 'fa-arrow-down-1-9' : 'fa-arrow-up-9-1'}"
-                       th:if="${direction ne null}">
+            <th scope="col"><a th:replace="
+            fragments/table :: sortedColumnProducts(data=${productListPages},
+             name='energyValueKcal',
+              path=@{/product/list},
+               sortUp='fa-arrow-up-9-1',
+                sortDown='fa-arrow-down-1-9',
+                 fieldName=#{energy.value.kcal})"></a></th>
 
-                    </i>
-                </a>
-            </th>
             <th></th>
         </tr>
         <!--   TABLE CONTENT-->
