@@ -7,6 +7,10 @@
 <body>
 <div th:replace="fragments/menu :: godMenu"></div>
 
+<div class="container">
+    <a class="btn btn-success" th:href="@{'/product/form'}" role="button" th:text="#{products.add.new.product}"></a>
+</div>
+
 <div th:if="${not productListPages.hasContent()}" th:text="#{products.products.list.isempty}"></div>
 <div th:if="${productListPages.hasContent()}" class="container">
     <span th:text="#{products.all.elements} +' ' +${productListPages.totalElements}"></span><br>
