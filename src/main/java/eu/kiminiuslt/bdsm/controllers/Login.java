@@ -23,7 +23,7 @@ public class Login {
   public String loggedOrNot(Client client) {
     if (client.getUsername().equals(modelMock.getMockedClient().getUsername())
         && client.getPassword().equals(modelMock.getMockedClient().getPassword())) {
-      return "redirect:/product/home";
+      return "redirect:/home";
     } else {
       return "login";
     }

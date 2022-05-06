@@ -28,11 +28,6 @@ public class ProductFormController {
     return "product-form";
   }
 
-  @GetMapping("/home")
-  public String homePage() {
-    return "home";
-  }
-
   @PostMapping("/form")
   public String saveProduct(ProductDto product) {
     productService.addProduct(product);
