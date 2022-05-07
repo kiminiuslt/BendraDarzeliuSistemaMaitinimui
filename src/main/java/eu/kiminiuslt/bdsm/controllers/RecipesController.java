@@ -1,6 +1,5 @@
 package eu.kiminiuslt.bdsm.controllers;
 
-import eu.kiminiuslt.bdsm.model.RecipeDto;
 import eu.kiminiuslt.bdsm.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -19,13 +18,14 @@ public class RecipesController {
   private final RecipeService recipeService;
 
   @GetMapping
-  public String recipesAll() {
-    recipeService.addRecipe(
-        RecipeDto.builder()
-            .recipeName("first")
-            .recipeText("make")
-            .products("one two three")
-            .build());
+  public String recipesAll(
+      Model model,
+      @PageableDefault(
+              size = 5,
+              sort = {"name"},
+              direction = Sort.Direction.ASC)
+          Pageable pageable) {
+    model.addAttribute("recipeListPages", recipeService.getPageableRecipes(pageable));
     return "recipe/recipe_all";
   }
 }
