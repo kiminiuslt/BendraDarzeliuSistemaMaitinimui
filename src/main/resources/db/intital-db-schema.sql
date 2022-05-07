@@ -51,3 +51,18 @@ create unique index product_id_uindex
 
 create unique index table_name_uuid_uindex
     on bdsm.product (uuid);
+
+
+
+
+create table bdsm.recipe
+(
+    id          serial,
+    name        varchar,
+    recipe_text varchar,
+    products    varchar
+);
+
+create unique index recipe_id_uindex
+    on bdsm.recipe (id);
+
