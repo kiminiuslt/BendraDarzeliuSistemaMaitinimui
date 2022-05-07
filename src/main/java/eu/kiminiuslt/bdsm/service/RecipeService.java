@@ -1,13 +1,24 @@
 package eu.kiminiuslt.bdsm.service;
 
-import org.springframework.data.domain.Pageable;
+import eu.kiminiuslt.bdsm.model.RecipeDto;
+import eu.kiminiuslt.bdsm.model.entity.Recipe;
+import eu.kiminiuslt.bdsm.repository.RecipeRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class RecipeService {
 
-    public Object getAllRecipes(Pageable pageable) {
+  private final RecipeRepository recipeRepository;
 
-        return null;
-    }
+  public void addRecipe(RecipeDto recipeDto) {
+
+    recipeRepository.save(
+        Recipe.builder()
+            .name(recipeDto.getRecipeName())
+            .recipeText(recipeDto.getRecipeText())
+            .products(recipeDto.getProducts())
+            .build());
+  }
 }
