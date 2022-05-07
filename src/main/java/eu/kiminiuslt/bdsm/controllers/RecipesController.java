@@ -26,6 +26,11 @@ public class RecipesController {
               direction = Sort.Direction.ASC)
           Pageable pageable) {
     model.addAttribute("recipeListPages", recipeService.getPageableRecipes(pageable));
-    return "recipe/recipe_all";
+    return "recipe/recipe-all";
+  }
+
+  @GetMapping("/recipeForm")
+  public String newRecipe() {
+    return "/recipe/recipe-form";
   }
 }
