@@ -17,7 +17,6 @@ public class RecipeMapper {
 
   public Recipe recipeDtoMapToRecipe(RecipeDto recipeDto) {
     return Recipe.builder()
-        .id(recipeDto.getId())
         .name(recipeDto.getRecipeName())
         .recipeText(recipeDto.getRecipeText())
         .products(recipeDto.getProducts())
