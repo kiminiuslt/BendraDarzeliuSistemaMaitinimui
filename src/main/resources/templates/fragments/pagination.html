@@ -30,3 +30,36 @@
         </ul>
     </nav>
 </div>
+
+<div th:fragment="paginationRecepes">
+    <nav class="d-flex justify-content-center">
+        <ul class="pagination"
+            th:with="
+            orderParam=${recipeListPages.sort.iterator().hasNext() ? recipeListPages.sort.iterator().next : null},
+            sortParam=${orderParam.property + ','+ orderParam.direction + ',ignorecase'}">
+
+            <li class="page-item"
+                th:classappend="${!recipeListPages.hasPrevious()} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/recipes(page=${recipeListPages.number} - 1,sort=${sortParam})}"
+                   th:text="#{previous}"></a>
+            </li>
+
+
+            <li class="page-item"
+                th:each="i: ${#numbers.sequence(0, recipeListPages.totalPages - 1)}"
+                th:classappend="${i == recipeListPages.number ? 'active' : ''}">
+                <a class="page-link"
+                   th:href="@{/recipes(page = ${i},sort=${sortParam})}"
+                   th:text="${i + 1}"></a>
+            </li>
+
+            <li class="page-item"
+                th:classappend="${!recipeListPages.hasNext()} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/recipes(page=${recipeListPages.number} + 1,sort=${sortParam})}"
+                   th:text="#{next}"></a>
+            </li>
+        </ul>
+    </nav>
+</div>
