@@ -1,7 +1,7 @@
 package eu.kiminiuslt.bdsm.controllers;
 
 import eu.kiminiuslt.bdsm.helpers.MessageService;
-import eu.kiminiuslt.bdsm.model.RecipeDto;
+import eu.kiminiuslt.bdsm.model.dto.RecipeDto;
 import eu.kiminiuslt.bdsm.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

@@ -1,7 +1,7 @@
 package eu.kiminiuslt.bdsm.controllers;
 
 import eu.kiminiuslt.bdsm.helpers.MessageService;
-import eu.kiminiuslt.bdsm.model.ProductDto;
+import eu.kiminiuslt.bdsm.model.dto.ProductDto;
 import eu.kiminiuslt.bdsm.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

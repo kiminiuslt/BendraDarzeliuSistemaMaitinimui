@@ -1,7 +1,7 @@
 package eu.kiminiuslt.bdsm.service;
 
 import eu.kiminiuslt.bdsm.mapper.RecipeMapper;
-import eu.kiminiuslt.bdsm.model.RecipeDto;
+import eu.kiminiuslt.bdsm.model.dto.RecipeDto;
 import eu.kiminiuslt.bdsm.repository.RecipeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

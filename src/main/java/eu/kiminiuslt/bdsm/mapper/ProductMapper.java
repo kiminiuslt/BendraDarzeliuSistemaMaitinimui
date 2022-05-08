@@ -1,6 +1,6 @@
 package eu.kiminiuslt.bdsm.mapper;
 
-import eu.kiminiuslt.bdsm.model.ProductDto;
+import eu.kiminiuslt.bdsm.model.dto.ProductDto;
 import eu.kiminiuslt.bdsm.model.entity.Product;
 import org.springframework.stereotype.Component;
 
