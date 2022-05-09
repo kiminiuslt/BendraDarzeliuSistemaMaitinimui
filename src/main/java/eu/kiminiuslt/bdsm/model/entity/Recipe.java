@@ -3,6 +3,7 @@ package eu.kiminiuslt.bdsm.model.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -16,6 +17,8 @@ public class Recipe {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
+
+  private UUID uuid;
 
   private String name;
 
