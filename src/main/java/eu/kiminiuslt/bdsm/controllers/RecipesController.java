@@ -70,4 +70,18 @@ public class RecipesController {
     model.addAttribute("recipeListPages", recipeService.getPageableRecipes(pageable));
     return "recipe/recipe-all";
   }
+
+  @GetMapping("/{uuid}/delete")
+  public String deleteRecipe(
+      Model model,
+      @PathVariable("uuid") UUID uuid,
+      @PageableDefault(
+              size = 5,
+              sort = {"name"},
+              direction = Sort.Direction.ASC)
+          Pageable pageable) {
+    recipeService.deleteRecipe(uuid);
+    model.addAttribute("recipeListPages", recipeService.getPageableRecipes(pageable));
+    return "recipe/recipe-all";
+  }
 }

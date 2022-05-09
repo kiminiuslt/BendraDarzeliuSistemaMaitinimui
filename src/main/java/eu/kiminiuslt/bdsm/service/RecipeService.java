@@ -49,4 +49,8 @@ public class RecipeService {
             .build();
     recipeRepository.save(recipe);
   }
+
+  public void deleteRecipe(UUID uuid) {
+    recipeRepository.deleteById(recipeRepository.findByUuid(uuid).getId());
+  }
 }

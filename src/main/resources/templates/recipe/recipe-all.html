@@ -38,7 +38,7 @@
         <tbody>
         <tr th:each="recipe: ${recipeListPages}">
             <td><a th:href="@{/recipes/{uuid}/update(uuid=${recipe.uuid})}" th:text="${recipe.recipeName}"></a></td>
-            <td><a class="btn btn-danger" th:href="@{/recipe/{uuid}/delete(uuid=${recipe.uuid})}"
+            <td><a class="btn btn-danger" th:href="@{/recipes/{uuid}/delete(uuid=${recipe.uuid})}"
                    th:text="#{delete}"></a></td>
         </tr>
         </tbody>
