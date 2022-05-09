@@ -3,7 +3,6 @@ package eu.kiminiuslt.bdsm.service;
 import eu.kiminiuslt.bdsm.mapper.ProductMapper;
 import eu.kiminiuslt.bdsm.model.dto.ProductDto;
 import eu.kiminiuslt.bdsm.model.dto.ProductForRecipeDto;
-import eu.kiminiuslt.bdsm.model.entity.Product;
 import eu.kiminiuslt.bdsm.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -42,14 +41,12 @@ public class ProductService {
 
   @Transactional
   public void updateProduct(ProductDto productDto) {
-    Product product =
+    productRepository.save(
         productRepository.findByUuid(productDto.getUuid()).toBuilder()
             .name(productDto.getName())
             .carbohydrates(productDto.getCarbohydrates())
             .energyValueKcal(productDto.getEnergyValueKcal())
-            .build();
-
-    productRepository.save(product);
+            .build());
   }
 
   @Transactional
