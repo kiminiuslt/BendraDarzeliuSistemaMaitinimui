@@ -17,8 +17,8 @@
     <span th:text="#{products.all.elements} +' ' +${recipeListPages.totalElements}"></span><br>
     <span th:text="#{products.all.pages} +' ' +${recipeListPages.totalPages}"></span><br>
 
-<!--    PAGINATION-->
-        <div th:replace="fragments/pagination :: paginationRecepes"></div>
+    <!--    PAGINATION-->
+    <div th:replace="fragments/pagination :: paginationRecepes"></div>
 
     <!--   TABLE HEADER-->
     <table class="table table-primary">
@@ -37,15 +37,15 @@
         </thead>
         <tbody>
         <tr th:each="recipe: ${recipeListPages}">
-            <td><a th:href="@{/products/{uuid}/update(uuid=${recipe.id})}" th:text="${recipe.recipeName}"></a></td>
-            <td><a class="btn btn-danger" th:href="@{/products/{uuid}/delete(uuid=${recipe.id})}"
+            <td><a th:href="@{/recipes/{uuid}/update(uuid=${recipe.uuid})}" th:text="${recipe.recipeName}"></a></td>
+            <td><a class="btn btn-danger" th:href="@{/recipe/{uuid}/delete(uuid=${recipe.uuid})}"
                    th:text="#{delete}"></a></td>
         </tr>
         </tbody>
     </table>
 
     <!--PAGINATION-->
-        <div th:replace="fragments/pagination :: paginationRecepes"></div>
+    <div th:replace="fragments/pagination :: paginationRecepes"></div>
 
 </div>
 </body>
