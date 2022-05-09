@@ -36,6 +36,7 @@ public class RecipesController {
   @GetMapping("/recipeForm")
   public String newRecipe(Model model, String message) {
     model.addAttribute("recipeDto", RecipeDto.builder().build());
+    model.addAttribute("allProducts",recipeService.getAllProducts());
     model.addAttribute("message", messageService.getMessage(message));
 
     return "/recipe/recipe-form";

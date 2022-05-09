@@ -2,6 +2,7 @@ package eu.kiminiuslt.bdsm.service;
 
 import eu.kiminiuslt.bdsm.mapper.ProductMapper;
 import eu.kiminiuslt.bdsm.model.dto.ProductDto;
+import eu.kiminiuslt.bdsm.model.dto.ProductForRecipeDto;
 import eu.kiminiuslt.bdsm.model.entity.Product;
 import eu.kiminiuslt.bdsm.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -73,9 +74,9 @@ public class ProductService {
     return productRepository.findAll(pageable).map(productMapper::mapToProductDto);
   }
 
-  public List<ProductDto> getProducts() {
+  public List<ProductForRecipeDto> getProductsList() {
     return productRepository.findAll().stream()
-        .map((obj) -> productMapper.mapToProductDto(obj))
+        .map(productMapper::productMapToProductForRecipeDto)
         .collect(Collectors.toList());
   }
 

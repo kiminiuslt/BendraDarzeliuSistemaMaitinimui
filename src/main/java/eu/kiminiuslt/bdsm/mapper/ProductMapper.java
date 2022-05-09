@@ -1,6 +1,7 @@
 package eu.kiminiuslt.bdsm.mapper;
 
 import eu.kiminiuslt.bdsm.model.dto.ProductDto;
+import eu.kiminiuslt.bdsm.model.dto.ProductForRecipeDto;
 import eu.kiminiuslt.bdsm.model.entity.Product;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,17 @@ public class ProductMapper {
         .proteins(product.getProteins())
         .name(product.getName())
         .uuid(product.getUuid())
+        .build();
+  }
+
+  public ProductForRecipeDto productMapToProductForRecipeDto(Product product) {
+    return ProductForRecipeDto.builder()
+        .id(product.getId())
+        .name(product.getName())
+        .proteins(product.getProteins())
+        .fat(product.getFat())
+        .carbohydrates(product.getCarbohydrates())
+        .energyValueKcal(product.getEnergyValueKcal())
         .build();
   }
 }
