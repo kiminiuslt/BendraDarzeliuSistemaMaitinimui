@@ -48,6 +48,7 @@ public class RecipeService {
             .build());
   }
 
+  @Transactional
   public void deleteRecipe(UUID uuid) {
     recipeRepository.deleteById(recipeRepository.findByUuid(uuid).getId());
   }
