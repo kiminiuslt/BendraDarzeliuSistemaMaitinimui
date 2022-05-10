@@ -28,16 +28,18 @@
         <option value="US" th:text="English"></option>
     </select>
 </div>
-<div th:if="${ProductDto.name eq null}"><h1 th:text="#{add.product.word}"></h1></div>
-<div th:if="${ProductDto.name ne null}"><h1 th:text="#{edit.product.word}"></h1></div>
+<div th:if="${productDto.name eq null}"><h1 th:text="#{add.product.word}"></h1></div>
+<div th:if="${productDto.name ne null}"><h1 th:text="#{edit.product.word}"></h1></div>
 
-<form method="post" th:object="${ProductDto}">
+<form method="post" th:object="${productDto}">
     <input type="hidden" th:field="*{uuid}">
 
     <!--    MAIN-->
-    <label for="name" th:text="#{product.name.word}"></label><br/>
-    <input id="name" type="text" th:field="*{name}"><br/><br/>
-
+    <div>
+        <label for="name" th:text="#{product.name.word}"></label><br/>
+        <input id="name" type="text" th:field="*{name}" th:errorclass="hasError"><br/><br/>
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="hasError"></span>
+    </div>
     <label for="energyKj" th:text="#{energy.kj}"></label><br/>
     <input id="energyKj" type="number" th:field="*{energyKj}" placeholder="kJ"><br/><br/>
 

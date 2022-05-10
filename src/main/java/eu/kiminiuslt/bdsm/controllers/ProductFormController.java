@@ -9,8 +9,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @Controller
@@ -23,7 +25,7 @@ public class ProductFormController {
 
   @GetMapping("/form")
   public String openProductForm(Model model, String message) {
-    model.addAttribute("ProductDto", ProductDto.builder().build());
+    model.addAttribute("productDto", ProductDto.builder().build());
     model.addAttribute("message", messageService.getMessage(message));
     return "productForm";
   }
@@ -34,8 +36,11 @@ public class ProductFormController {
   }
 
   @PostMapping("/form")
-  public String saveProduct(ProductDto product) {
-    productService.addProduct(product);
+  public String saveProduct(@Valid ProductDto productDto, BindingResult errors) {
+    if (errors.hasErrors()) {
+      return "productForm";
+    }
+    productService.addProduct(productDto);
     return "redirect:/product/form?message=create.product.successes";
   }
 
