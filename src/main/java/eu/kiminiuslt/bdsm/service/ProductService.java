@@ -68,4 +68,14 @@ public class ProductService {
   public void deleteProduct(UUID id) {
     productRepository.deleteById(productRepository.findByUuid(id).getId());
   }
+
+  public Page<ProductDto> getProductByNamePageable(String findProductName, Pageable pageable) {
+    return productRepository
+        .findProductsByNameIsLike(convertToLikeResult(findProductName), pageable)
+        .map(productMapper::mapToProductDto);
+  }
+
+  private String convertToLikeResult(String value) {
+    return '%' + value + '%';
+  }
 }
