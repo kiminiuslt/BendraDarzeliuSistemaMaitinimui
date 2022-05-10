@@ -2,6 +2,7 @@ package eu.kiminiuslt.bdsm.model;
 
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 @Getter
@@ -12,6 +13,8 @@ import java.util.UUID;
 public class ProductDto {
   private final int AMOUNT_OF_MATERIAL_GRAMS = 100;
   private UUID uuid;
+
+  @NotBlank(message = "{validate.name.blank}")
   private String name;
   private double water;
   private double dryMaterial;
