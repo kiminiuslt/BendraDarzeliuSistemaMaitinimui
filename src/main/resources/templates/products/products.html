@@ -41,19 +41,19 @@
 
             <th scope="col"><a th:replace="
             fragments/table :: sortedColumnProducts(data=${productListPages},
-             name='carbohydrates',
-              path=@{/products},
-               sortUp='fa-arrow-up-9-1',
-                sortDown='fa-arrow-down-1-9',
-                 fieldName=#{carbohydrates})"></a></th>
-
-            <th scope="col"><a th:replace="
-            fragments/table :: sortedColumnProducts(data=${productListPages},
              name='fat',
               path=@{/products},
                sortUp='fa-arrow-up-9-1',
                 sortDown='fa-arrow-down-1-9',
                  fieldName=#{fat})"></a></th>
+
+            <th scope="col"><a th:replace="
+            fragments/table :: sortedColumnProducts(data=${productListPages},
+             name='carbohydrates',
+              path=@{/products},
+               sortUp='fa-arrow-up-9-1',
+                sortDown='fa-arrow-down-1-9',
+                 fieldName=#{carbohydrates})"></a></th>
 
             <th scope="col"><a th:replace="
             fragments/table :: sortedColumnProducts(data=${productListPages},
@@ -71,8 +71,8 @@
         <tr th:each="product: ${productListPages}">
             <td><a th:href="@{/products/{uuid}/update(uuid=${product.uuid})}" th:text="${product.name}"></a></td>
             <td th:text="${product.proteins}"></td>
-            <td th:text="${product.carbohydrates}"></td>
             <td th:text="${product.fat}"></td>
+            <td th:text="${product.carbohydrates}"></td>
             <td th:text="${product.energyValueKcal}"></td>
             <td><a class="btn btn-danger" th:href="@{/products/{uuid}/delete(uuid=${product.uuid})}"
                    th:text="#{delete}"></a></td>
