@@ -16,7 +16,7 @@
         <!--    MAIN-->
         <div class="mb-3">
             <label for="name" th:text="#{product.name.word}"></label><br/>
-            <input id="name" type="text" th:field="*{name}" th:errorclass="hasError">
+            <input class="form-control" id="name" type="text" th:field="*{name}" th:errorclass="hasError">
             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="hasError"></span>
         </div>
 
