@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head(#{menu.food.menu})"></head>
+
+<body>
+<div th:replace="fragments/menu :: godMenu"></div>
+
+<h1 th:text="#{menu.food.menu}"></h1>
+
+</body>
+</html>
