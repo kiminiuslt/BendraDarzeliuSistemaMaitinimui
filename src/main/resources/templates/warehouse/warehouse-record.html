@@ -20,17 +20,12 @@
 
     <form method="post" th:object="${warehouseDto}">
 
-        <label for="name" th:text="#{product.word}"></label>
-        <input id="name" type="text" th:field="*{productName}" class="form-control">
-
-        <label for="amount" th:text="#{warehouse.amount}"></label>
-        <input id="amount" type="number" th:field="*{amount}" class="form-control">
-
-        <label for="invoice" th:text="#{warehouse.invoice}"></label>
-        <input id="invoice" type="text" th:field="*{invoice}" class="form-control">
+        <div th:replace="fragments/input :: input(#{product.word},'productName')"></div>
+        <div th:replace="fragments/input :: input(#{warehouse.amount},'amount')"></div>
+        <div th:replace="fragments/input :: input(#{warehouse.invoice},'invoice')"></div>
 
         <div th:text="${message}"></div>
-        <button type="submit" th:text="#{save}"  class="btn btn-primary"></button>
+        <button type="submit" th:text="#{save}" class="btn btn-primary"></button>
 
     </form>
 
