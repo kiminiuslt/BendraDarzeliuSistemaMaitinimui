@@ -9,5 +9,48 @@
 
 <h1 th:text="#{warehouse.all.title}"></h1>
 
+<div class="container">
+    <div class="container">
+        <a class="btn btn-success" th:href="@{'/warehouse/warehouse-record'}" role="button"
+           th:text="#{warehouse.add.new.record}"></a>
+    </div>
+
+    <div th:if="${warehousePages.hasContent()}" class="container">
+        <span th:text="#{warehouse.all.elements} +' ' +${warehousePages.totalElements}"></span><br>
+        <span th:text="#{warehouse.all.pages} +' ' +${warehousePages.totalPages}"></span><br>
+
+        <!--    PAGINATION-->
+<!--        <div th:replace="fragments/pagination :: paginationRecepes"></div>-->
+
+        <!--   TABLE HEADER-->
+        <table class="table table-primary">
+            <thead>
+            <tr>
+                <th scope="col"><a th:replace="
+            fragments/table :: sortedColumnProducts(data=${warehousePages},
+             name='productName',
+              path=@{/recipes},
+               sortUp='fa-arrow-up-z-a',
+                sortDown='fa-arrow-down-a-z',
+                 fieldName=#{warehouse.records.word})"></a></th>
+                <th></th>
+            </tr>
+            <!--   TABLE CONTENT-->
+            </thead>
+            <tbody>
+            <tr th:each="warehouse: ${warehousePages}">
+                <td><a th:href="@{/recipes/{uuid}/update(uuid=${warehouse.uuid})}" th:text="${warehouse.productName}"></a></td>
+                <td><a class="btn btn-danger" th:href="@{/recipes/{uuid}/delete(uuid=${warehouse.uuid})}"
+                       th:text="#{delete}"></a></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!--PAGINATION-->
+<!--        <div th:replace="fragments/pagination :: paginationRecepes"></div>-->
+
+    </div>
+</div>
+
 </body>
 </html>
