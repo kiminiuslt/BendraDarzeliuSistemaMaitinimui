@@ -3,6 +3,8 @@ package eu.kiminiuslt.bdsm.service;
 import eu.kiminiuslt.bdsm.mapper.ProductMapper;
 import eu.kiminiuslt.bdsm.model.dto.ProductDto;
 import eu.kiminiuslt.bdsm.model.dto.ProductForRecipeDto;
+import eu.kiminiuslt.bdsm.model.dto.ProductsNamesDto;
+import eu.kiminiuslt.bdsm.model.entity.Product;
 import eu.kiminiuslt.bdsm.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -33,6 +36,16 @@ public class ProductService {
     return getProductsList().stream()
         .map(productMapper::productMapToProductForRecipeDto)
         .collect(Collectors.toList());
+  }
+
+  public List<ProductsNamesDto> getProductsListNamesDto() {
+    return getProductsList().stream()
+        .map(productMapper::productMapToProductNamesDto)
+        .collect(Collectors.toList());
+  }
+
+  public List<Product> getProductsList() {
+    return new ArrayList<>(productRepository.findAll());
   }
 
   public ProductDto getProductByUUID(UUID id) {
