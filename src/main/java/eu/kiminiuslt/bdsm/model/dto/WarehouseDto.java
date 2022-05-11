@@ -12,7 +12,7 @@ import java.util.UUID;
 public class WarehouseDto {
   private int id;
   private UUID uuid;
-  private int productID;
+  private String productName;
   private double amount;
   private String invoice;
 }
