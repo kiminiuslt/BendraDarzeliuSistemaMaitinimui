@@ -29,8 +29,8 @@ public class ProductService {
     return productRepository.findAll(pageable).map(productMapper::mapToProductDto);
   }
 
-  public List<ProductForRecipeDto> getProductsList() {
-    return productRepository.findAll().stream()
+  public List<ProductForRecipeDto> getProductsListRecipeDto() {
+    return getProductsList().stream()
         .map(productMapper::productMapToProductForRecipeDto)
         .collect(Collectors.toList());
   }
