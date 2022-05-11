@@ -1,5 +1,6 @@
 package eu.kiminiuslt.bdsm.controllers;
 
+import eu.kiminiuslt.bdsm.model.dto.WarehouseDto;
 import eu.kiminiuslt.bdsm.service.WarehouseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -26,5 +27,13 @@ public class WarehouseController {
           Pageable pageable) {
     model.addAttribute("warehousePages", warehouseService.getWarehouseList(pageable));
     return "/warehouse/warehouse-all";
+  }
+
+  @GetMapping("/warehouse-record")
+  public String newWarehouseRecord(Model model, String message) {
+    model.addAttribute("warehouseDto", WarehouseDto.builder().build());
+    model.addAttribute("allProductsList", warehouseService.getAllProductsNames());
+    model.addAttribute("message", message);
+    return "warehouse/warehouse-record";
   }
 }
