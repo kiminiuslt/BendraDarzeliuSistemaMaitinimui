@@ -70,19 +70,20 @@ create unique index recipe_uuid_uindex
     on bdsm.recipe (uuid);
 
 
-create table warehouse
+create table bdsm.warehouse
 (
     id           serial,
+    uuid         uuid             not null,
     product_id   integer          not null,
     amount       double precision not null,
     invoice      varchar(255)     not null,
     product_type pg_enum
 );
 
-alter table warehouse
+alter table bdsm.warehouse
     owner to postgres;
 
 create unique index warehouse_id_uindex
-    on warehouse (id);
+    on bdsm.warehouse (id);
 
 

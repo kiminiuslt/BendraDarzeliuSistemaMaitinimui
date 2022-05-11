@@ -23,7 +23,4 @@ public class Warehouse {
     private int productId;
     private double amount;
     private String invoice;
-
-    @Column(name = "product_type")
-    private ProductType productType;
 }

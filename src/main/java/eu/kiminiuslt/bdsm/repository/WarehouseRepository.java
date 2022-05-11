@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface WarehouseRepository extends JpaRepository<Warehouse,Integer> {
+public interface WarehouseRepository extends JpaRepository<Warehouse, Integer> {
 
-    Warehouse findByUuid(UUID uuid);
+  Warehouse findByUuid(UUID uuid);
 }
