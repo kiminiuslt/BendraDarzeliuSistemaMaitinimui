@@ -1,7 +1,9 @@
 package eu.kiminiuslt.bdsm.model.dto;
 
+import eu.kiminiuslt.bdsm.model.entity.Product;
 import lombok.*;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -14,5 +16,5 @@ public class RecipeDto {
   private UUID uuid;
   private String recipeName;
   private String recipeText;
-  private String products;
+  private Set<Product> productsList;
 }

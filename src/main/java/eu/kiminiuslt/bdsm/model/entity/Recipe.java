@@ -3,6 +3,7 @@ package eu.kiminiuslt.bdsm.model.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -25,6 +26,7 @@ public class Recipe {
   @Column(name = "recipe_text")
   private String recipeText;
 
-  @Column(name = "products")
-  private String products;
+  @ManyToMany
+  @JoinTable(schema = "bdsm")
+  private Set<Product> productsList;
 }
