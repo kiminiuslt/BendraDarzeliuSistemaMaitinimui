@@ -41,8 +41,8 @@
         <label th:for="*{recipeText}" th:text="#{recipe.recipeText}"></label><br/>
         <input th:id="*{recipeText}" type="text" th:field="*{recipeText}"><br/><br/>
 
-        <label th:for="*{products}" th:text="#{recipe.products}"></label><br/>
-        <textarea th:id="*{products}" type="text" th:field="*{products}"></textarea><br/><br/>
+        <label th:for="*{productsList}" th:text="#{recipe.products.list}"></label><br/>
+        <textarea th:id="*{productsList}" type="text" th:field="*{productsList}"></textarea><br/><br/>
 
 
         <div th:text="${message}"></div>
