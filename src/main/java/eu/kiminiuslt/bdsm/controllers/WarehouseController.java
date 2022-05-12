@@ -23,6 +23,7 @@ import java.util.UUID;
 @RequestMapping("/warehouse")
 public class WarehouseController {
   private final WarehouseService warehouseService;
+  private final MessageService messageService;
 
   @GetMapping
   public String warehouseStart(
@@ -49,6 +50,7 @@ public class WarehouseController {
     if (errors.hasErrors()) {
       return "warehouse/warehouse-record";
     }
+    warehouseService.addWarehouseRecord(warehouseDto);
     return "redirect:/warehouse/warehouse-record?message=warehouse.create.success.message";
   }
 }

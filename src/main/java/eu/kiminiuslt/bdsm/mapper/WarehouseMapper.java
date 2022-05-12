@@ -29,6 +29,7 @@ public class WarehouseMapper {
         .uuid(UUID.randomUUID())
         .amount(warehousedto.getAmount())
         .invoice(warehousedto.getInvoice())
+// TODO: FIX PRODUCT NAME SELECTION (IN FRONT OR BACK)
         .productId(productRepository.findByName(warehousedto.getProductName()).getId())
         .build();
   }
