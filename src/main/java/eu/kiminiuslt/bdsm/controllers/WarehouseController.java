@@ -1,5 +1,6 @@
 package eu.kiminiuslt.bdsm.controllers;
 
+import eu.kiminiuslt.bdsm.helpers.MessageService;
 import eu.kiminiuslt.bdsm.model.dto.WarehouseDto;
 import eu.kiminiuslt.bdsm.service.WarehouseService;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,7 @@ public class WarehouseController {
   public String newWarehouseRecord(Model model, String message) {
     model.addAttribute("warehouseDto", WarehouseDto.builder().build());
     model.addAttribute("allProductsList", warehouseService.getAllProductsNames());
-    model.addAttribute("message", message);
+    model.addAttribute("message", messageService.getMessage(message));
     return "warehouse/warehouse-record";
   }
 
@@ -48,6 +49,6 @@ public class WarehouseController {
     if (errors.hasErrors()) {
       return "warehouse/warehouse-record";
     }
-    return "redirect:/warehouse-record?message=create.warehouse.message.success";
+    return "redirect:/warehouse/warehouse-record?message=warehouse.create.success.message";
   }
 }
