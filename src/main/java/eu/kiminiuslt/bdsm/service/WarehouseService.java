@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -28,5 +29,18 @@ public class WarehouseService {
 
   public List<ProductsNamesDto> getAllProductsNames() {
     return productService.getProductsListNamesDto();
+  }
+
+  public WarehouseDto getWarehouseDtoRecordByUUID(UUID uuid) {
+    return warehouseMapper.warehouseToWarehouseDto(warehouseRepository.findByUuid(uuid));
+  }
+
+  public void updateWarehouse(WarehouseDto warehouseDto) {
+    warehouseRepository.save(
+        warehouseRepository.findByUuid(warehouseDto.getUuid()).toBuilder()
+            .amount(warehouseDto.getAmount())
+            .invoice(warehouseDto.getInvoice())
+            .build());
+    //    TODO: FIX PRODUCT NAME ABILITY TO BE CHANGED
   }
 }

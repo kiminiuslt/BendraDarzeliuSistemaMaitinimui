@@ -53,4 +53,24 @@ public class WarehouseController {
     warehouseService.addWarehouseRecord(warehouseDto);
     return "redirect:/warehouse/warehouse-record?message=warehouse.create.success.message";
   }
+
+  @GetMapping("/{uuid}/update")
+  public String updateWarehouse(Model model, @PathVariable("uuid") UUID uuid) {
+        model.addAttribute("warehouseDto", warehouseService.getWarehouseDtoRecordByUUID(uuid));
+    return "/warehouse/warehouse-record";
+  }
+
+  @PostMapping("/{uuid}/update")
+  public String updateWarehouse(
+          Model model,
+          WarehouseDto warehouseDto,
+          @PageableDefault(
+                  size = 15,
+                  sort = {"productId"},
+                  direction = Sort.Direction.ASC)
+                  Pageable pageable){
+    warehouseService.updateWarehouse(warehouseDto);
+    model.addAttribute("warehousePages", warehouseService.getWarehouseList(pageable));
+    return "/warehouse/warehouse-all";
+  }
 }
