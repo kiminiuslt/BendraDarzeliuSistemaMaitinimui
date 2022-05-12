@@ -56,20 +56,34 @@ public class WarehouseController {
 
   @GetMapping("/{uuid}/update")
   public String updateWarehouse(Model model, @PathVariable("uuid") UUID uuid) {
-        model.addAttribute("warehouseDto", warehouseService.getWarehouseDtoRecordByUUID(uuid));
+    model.addAttribute("warehouseDto", warehouseService.getWarehouseDtoRecordByUUID(uuid));
     return "/warehouse/warehouse-record";
   }
 
   @PostMapping("/{uuid}/update")
   public String updateWarehouse(
-          Model model,
-          WarehouseDto warehouseDto,
-          @PageableDefault(
-                  size = 15,
-                  sort = {"productId"},
-                  direction = Sort.Direction.ASC)
-                  Pageable pageable){
+      Model model,
+      WarehouseDto warehouseDto,
+      @PageableDefault(
+              size = 15,
+              sort = {"productId"},
+              direction = Sort.Direction.ASC)
+          Pageable pageable) {
     warehouseService.updateWarehouse(warehouseDto);
+    model.addAttribute("warehousePages", warehouseService.getWarehouseList(pageable));
+    return "/warehouse/warehouse-all";
+  }
+
+  @GetMapping("/{uuid}/delete")
+  public String deleteWarehouse(
+      Model model,
+      @PathVariable("uuid") UUID uuid,
+      @PageableDefault(
+              size = 15,
+              sort = {"productId"},
+              direction = Sort.Direction.ASC)
+          Pageable pageable) {
+    warehouseService.deleteWarehouseRecord(uuid);
     model.addAttribute("warehousePages", warehouseService.getWarehouseList(pageable));
     return "/warehouse/warehouse-all";
   }

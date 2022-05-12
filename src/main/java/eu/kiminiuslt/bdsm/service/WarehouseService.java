@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -35,6 +36,7 @@ public class WarehouseService {
     return warehouseMapper.warehouseToWarehouseDto(warehouseRepository.findByUuid(uuid));
   }
 
+  @Transactional
   public void updateWarehouse(WarehouseDto warehouseDto) {
     warehouseRepository.save(
         warehouseRepository.findByUuid(warehouseDto.getUuid()).toBuilder()
@@ -42,5 +44,10 @@ public class WarehouseService {
             .invoice(warehouseDto.getInvoice())
             .build());
     //    TODO: FIX PRODUCT NAME ABILITY TO BE CHANGED
+  }
+
+  @Transactional
+  public void deleteWarehouseRecord(UUID uuid) {
+    warehouseRepository.deleteById(warehouseRepository.findByUuid(uuid).getId());
   }
 }
