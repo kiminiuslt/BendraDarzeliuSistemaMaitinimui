@@ -44,7 +44,8 @@ public class RecipeService {
         recipeRepository.findByUuid(recipeDto.getUuid()).toBuilder()
             .name(recipeDto.getRecipeName())
             .recipeText(recipeDto.getRecipeText())
-            .products(recipeDto.getProducts())
+            // TODO: FIX TO SAVE LIST OF PRODUCTS PASS A PRODUCT ID
+            .productsList(recipeDto.getProductsList())
             .build());
   }
 
