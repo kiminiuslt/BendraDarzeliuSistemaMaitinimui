@@ -59,8 +59,7 @@ create table bdsm.recipe
     id          serial,
     uuid        uuid not null,
     name        varchar,
-    recipe_text varchar,
-    products    varchar
+    recipe_text varchar
 );
 
 create unique index recipe_id_uindex
@@ -69,4 +68,15 @@ create unique index recipe_id_uindex
 create unique index recipe_uuid_uindex
     on bdsm.recipe (uuid);
 
+create table bdsm.recipe_products_list
+(
+    recipe_id  int not null,
+    products_list_id int not null
+);
+alter table bdsm.recipe_products_list
+    add constraint recipe_product_product_id_fk
+        foreign key (products_list_id) references bdsm.product(id);
 
+alter table bdsm.recipe_products_list
+    add constraint recipe_product_recipe_id_fk
+        foreign key (recipe_id) references bdsm.recipe (id);

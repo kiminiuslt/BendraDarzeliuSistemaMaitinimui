@@ -14,7 +14,7 @@ public class RecipeMapper {
         .uuid(recipe.getUuid())
         .recipeName(recipe.getName())
         .recipeText(recipe.getRecipeText())
-        .products(recipe.getProducts())
+        .productsList(recipe.getProductsList())
         .build();
   }
 
@@ -23,7 +23,7 @@ public class RecipeMapper {
         .uuid(UUID.randomUUID())
         .name(recipeDto.getRecipeName())
         .recipeText(recipeDto.getRecipeText())
-        .products(recipeDto.getProducts())
+        .productsList(recipeDto.getProductsList())
         .build();
   }
 }
