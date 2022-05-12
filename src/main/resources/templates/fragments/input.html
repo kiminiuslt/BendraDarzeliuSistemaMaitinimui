@@ -2,6 +2,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="input(text, fieldName)">
     <label th:for="${fieldName}" th:text="${text}"></label>
-    <input th:id="${fieldName}" type="text" th:field="*{__${fieldName}__}" class="form-control">
+    <input th:id="${fieldName}" type="text" th:field="*{__${fieldName}__}" class="form-control" th:errorclass="hasError">
+    <span th:if="${#fields.hasErrors(fieldName)}" th:errors="*{__${fieldName}__}" th:errorclass="hasError"></span>
 </div>
 </html>
