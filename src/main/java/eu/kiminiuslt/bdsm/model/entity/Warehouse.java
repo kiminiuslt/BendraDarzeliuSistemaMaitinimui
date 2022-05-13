@@ -14,13 +14,15 @@ import java.util.UUID;
 @NoArgsConstructor
 @Table(name = "warehouse", schema = "bdsm")
 public class Warehouse {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private UUID uuid;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-    @Column(name = "product_id")
-    private int productId;
-    private double amount;
-    private String invoice;
+  private UUID uuid;
+
+  @Column(name = "product_id")
+  private int productId;
+
+  private double amount;
+  private String invoice;
 }
