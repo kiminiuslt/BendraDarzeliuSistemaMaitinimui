@@ -20,7 +20,7 @@
         <span th:text="#{warehouse.all.pages} +' ' +${warehousePages.totalPages}"></span><br>
 
         <!--    PAGINATION-->
-        <!--        <div th:replace="fragments/pagination :: paginationRecepes"></div>-->
+        <div th:replace="fragments/pagination :: pagination(object=${warehousePages}, link=@{/warehouse})"></div>
 
         <!--   TABLE HEADER-->
         <table class="table table-primary">
@@ -67,7 +67,7 @@
         </table>
 
         <!--PAGINATION-->
-        <!--        <div th:replace="fragments/pagination :: paginationRecepes"></div>-->
+        <div th:replace="fragments/pagination :: pagination(object=${warehousePages}, link=@{/warehouse})"></div>
 
     </div>
 </div>
