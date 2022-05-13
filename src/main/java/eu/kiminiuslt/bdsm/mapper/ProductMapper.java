@@ -2,6 +2,7 @@ package eu.kiminiuslt.bdsm.mapper;
 
 import eu.kiminiuslt.bdsm.model.dto.ProductDto;
 import eu.kiminiuslt.bdsm.model.dto.ProductForRecipeDto;
+import eu.kiminiuslt.bdsm.model.dto.ProductsNamesDto;
 import eu.kiminiuslt.bdsm.model.entity.Product;
 import org.springframework.stereotype.Component;
 
@@ -75,5 +76,9 @@ public class ProductMapper {
         .carbohydrates(product.getCarbohydrates())
         .energyValueKcal(product.getEnergyValueKcal())
         .build();
+  }
+
+  public ProductsNamesDto productMapToProductNamesDto(Product product) {
+    return ProductsNamesDto.builder().uuid(product.getUuid()).name(product.getName()).build();
   }
 }
