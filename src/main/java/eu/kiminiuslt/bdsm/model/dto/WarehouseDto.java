@@ -11,7 +11,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 public class WarehouseDto {
-  private int id;
   private UUID uuid;
 
   @NotBlank(message = "{warehouse.validate.name.blank}")

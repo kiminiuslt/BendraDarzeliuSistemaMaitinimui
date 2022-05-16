@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -41,6 +42,7 @@ public class ProductService {
   public List<ProductsNamesDto> getProductsListNamesDto() {
     return getProductsList().stream()
         .map(productMapper::productMapToProductNamesDto)
+        .sorted(Comparator.comparing(ProductsNamesDto::getName))
         .collect(Collectors.toList());
   }
 

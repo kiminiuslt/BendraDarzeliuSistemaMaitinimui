@@ -43,7 +43,6 @@ public class WarehouseService {
             .amount(warehouseDto.getAmount())
             .invoice(warehouseDto.getInvoice())
             .build());
-    //    TODO: FIX PRODUCT NAME ABILITY TO BE CHANGED
   }
 
   @Transactional

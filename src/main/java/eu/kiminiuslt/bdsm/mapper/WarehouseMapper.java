@@ -15,7 +15,6 @@ public class WarehouseMapper {
 
   public WarehouseDto warehouseToWarehouseDto(Warehouse warehouse) {
     return WarehouseDto.builder()
-        .id(warehouse.getId())
         .uuid(warehouse.getUuid())
         .amount(warehouse.getAmount())
         .invoice(warehouse.getInvoice())
@@ -25,11 +24,9 @@ public class WarehouseMapper {
 
   public Warehouse warehouseDtoToWarehouse(WarehouseDto warehousedto) {
     return Warehouse.builder()
-        .id(warehousedto.getId())
         .uuid(UUID.randomUUID())
         .amount(warehousedto.getAmount())
         .invoice(warehousedto.getInvoice())
-// TODO: FIX PRODUCT NAME SELECTION (IN FRONT OR BACK)
         .productId(productRepository.findByName(warehousedto.getProductName()).getId())
         .build();
   }
