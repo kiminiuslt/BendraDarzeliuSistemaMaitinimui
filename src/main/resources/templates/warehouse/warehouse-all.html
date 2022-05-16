@@ -61,7 +61,16 @@
                 <td th:text="${warehouse.amount}"></td>
                 <td th:text="${warehouse.invoice}"></td>
                 <td><a class="btn btn-danger" th:href="@{/warehouse/{uuid}/delete(uuid=${warehouse.uuid})}"
-                       th:text="#{delete}"></a></td>
+                       th:text="#{delete}"></a>
+                    <button class="btn btn-warning" data-bs-toggle="modal" th:data-bs-target="'#a'+${warehouse.uuid}">
+                        Write off
+                    </button>
+                    <div th:replace="fragments/modal :: modal(
+                    'a'+${warehouse.uuid},
+                    ${warehouse.productName},
+                    ${warehouse.amount}
+                    )"></div>
+                </td>
             </tr>
             </tbody>
         </table>
