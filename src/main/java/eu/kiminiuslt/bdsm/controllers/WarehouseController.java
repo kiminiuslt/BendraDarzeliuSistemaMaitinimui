@@ -30,6 +30,7 @@ public class WarehouseController {
       Model model,
       @PageableDefault(
               size = 15,
+              //              TODO: SORTING BY DTO VARIABLE
               sort = {"productId"},
               direction = Sort.Direction.ASC)
           Pageable pageable) {
@@ -86,5 +87,21 @@ public class WarehouseController {
     warehouseService.deleteWarehouseRecord(uuid);
     model.addAttribute("warehousePages", warehouseService.getWarehouseList(pageable));
     return "/warehouse/warehouse-all";
+  }
+
+  @GetMapping("/{uuid}/writeOff")
+  public String writeOff(Model model, @PathVariable("uuid") UUID uuid) {
+    model.addAttribute("warehouseDto", warehouseService.getWarehouseDtoRecordByUUID(uuid));
+    return "/warehouse/write-off";
+  }
+
+  @PostMapping("/{uuid}/writeOff")
+  public String writeOff(
+      @Valid WarehouseDto warehouseDto, BindingResult errors, @PathVariable("uuid") UUID uuid) {
+    if (errors.hasErrors()) {
+      return "/warehouse/write-off";
+    }
+    warehouseService.writeOff(warehouseDto.getWriteOff(), uuid);
+    return "redirect:/warehouse";
   }
 }
