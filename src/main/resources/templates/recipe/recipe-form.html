@@ -19,34 +19,14 @@
               th:text="#{recipe.all.energyValueKcal}+' ' +5 + ' '"></span>
     </div>
 
-
-
-    <div class="input-group rounded">
-        <form action="">
-        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-               aria-describedby="search-addon"/>
-        <span class="input-group-text border-0" id="search-addon">
-    <i class="fas fa-search"></i>
-  </span>
-        </form>
-    </div>
-
-
-
     <form method="post" th:object="${recipeDto}">
 
-        <label for="name" th:text="#{recipe.name}"></label><br/>
-        <input id="name" type="text" th:field="*{recipeName}"><br/><br/>
-
-        <label th:for="*{recipeText}" th:text="#{recipe.recipeText}"></label><br/>
-        <input th:id="*{recipeText}" type="text" th:field="*{recipeText}"><br/><br/>
-
-        <label th:for="*{productsList}" th:text="#{recipe.products.list}"></label><br/>
-        <textarea th:id="*{productsList}" type="text" th:field="*{productsList}"></textarea><br/><br/>
-
+        <div th:replace="fragments/input :: input(#{recipe.name},'recipeName')"></div>
+        <div th:replace="fragments/input :: input(#{recipe.recipeText},'recipeText')"></div>
+        <div th:replace="fragments/input :: input(#{recipe.products.list},'productsList')"></div>
 
         <div th:text="${message}"></div>
-        <button type="submit" th:text="#{save}"></button>
+        <button type="submit" th:text="#{save}" class="btn btn-primary"></button>
     </form>
 
 </div>
