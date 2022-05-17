@@ -1,65 +1,34 @@
-<div th:fragment="paginationProducts">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="pagination(object, link)">
     <nav class="d-flex justify-content-center">
         <ul class="pagination"
             th:with="
-            orderParam=${productListPages.sort.iterator().hasNext() ? productListPages.sort.iterator().next : null},
+            orderParam=${object.sort.iterator().hasNext() ? object.sort.iterator().next : null},
             sortParam=${orderParam.property + ','+ orderParam.direction + ',ignorecase'}">
-
             <li class="page-item"
-                th:classappend="${!productListPages.hasPrevious()} ? 'disabled'">
+                th:classappend="${!object.hasPrevious()} ? 'disabled'">
                 <a class="page-link"
-                   th:href="@{/products(page=${productListPages.number} - 1,sort=${sortParam})}"
+                   th:href="@{*{link}(page=${object.number} - 1,sort=${sortParam})}"
                    th:text="#{previous}"></a>
             </li>
 
 
             <li class="page-item"
-                th:each="i: ${#numbers.sequence(0, productListPages.totalPages - 1)}"
-                th:classappend="${i == productListPages.number ? 'active' : ''}">
+                th:each="i: ${#numbers.sequence(0, object.totalPages - 1)}"
+                th:classappend="${i == object.number ? 'active' : ''}">
                 <a class="page-link"
-                   th:href="@{/products(page = ${i},sort=${sortParam})}"
+                   th:href="@{*{link}(page = ${i},sort=${sortParam})}"
                    th:text="${i + 1}"></a>
             </li>
 
             <li class="page-item"
-                th:classappend="${!productListPages.hasNext()} ? 'disabled'">
+                th:classappend="${!object.hasNext()} ? 'disabled'">
                 <a class="page-link"
-                   th:href="@{/products(page=${productListPages.number} + 1,sort=${sortParam})}"
+                   th:href="@{*{link}(page=${object.number} + 1,sort=${sortParam})}"
                    th:text="#{next}"></a>
             </li>
         </ul>
     </nav>
 </div>
-
-<div th:fragment="paginationRecepes">
-    <nav class="d-flex justify-content-center">
-        <ul class="pagination"
-            th:with="
-            orderParam=${recipeListPages.sort.iterator().hasNext() ? recipeListPages.sort.iterator().next : null},
-            sortParam=${orderParam.property + ','+ orderParam.direction + ',ignorecase'}">
-
-            <li class="page-item"
-                th:classappend="${!recipeListPages.hasPrevious()} ? 'disabled'">
-                <a class="page-link"
-                   th:href="@{/recipes(page=${recipeListPages.number} - 1,sort=${sortParam})}"
-                   th:text="#{previous}"></a>
-            </li>
-
-
-            <li class="page-item"
-                th:each="i: ${#numbers.sequence(0, recipeListPages.totalPages - 1)}"
-                th:classappend="${i == recipeListPages.number ? 'active' : ''}">
-                <a class="page-link"
-                   th:href="@{/recipes(page = ${i},sort=${sortParam})}"
-                   th:text="${i + 1}"></a>
-            </li>
-
-            <li class="page-item"
-                th:classappend="${!recipeListPages.hasNext()} ? 'disabled'">
-                <a class="page-link"
-                   th:href="@{/recipes(page=${recipeListPages.number} + 1,sort=${sortParam})}"
-                   th:text="#{next}"></a>
-            </li>
-        </ul>
-    </nav>
-</div>
+</html>

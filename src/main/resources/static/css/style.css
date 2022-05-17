@@ -1,0 +1,8 @@
+.hasError {
+    border-color: red;
+    color: red;
+}
+
+.messageSuccess{
+    color: #08f808;
+}

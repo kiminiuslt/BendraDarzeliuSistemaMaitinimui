@@ -31,7 +31,7 @@ public class RecipeService {
   }
 
   public List<ProductForRecipeDto> getAllProducts() {
-    return productService.getProductsList();
+    return productService.getProductsListRecipeDto();
   }
 
   public RecipeDto getRecipeByUUID(UUID uuid) {

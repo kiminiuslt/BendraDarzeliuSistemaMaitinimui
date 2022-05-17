@@ -77,6 +77,23 @@ alter table bdsm.recipe_products_list
     add constraint recipe_product_product_id_fk
         foreign key (products_list_id) references bdsm.product(id);
 
+create table bdsm.warehouse
+(
+    id           serial,
+    uuid         uuid             not null,
+    product_id   integer          not null,
+    amount       double precision not null,
+    invoice      varchar(255)     not null,
+    product_type pg_enum
+);
+
+alter table bdsm.warehouse
+    owner to postgres;
+
+create unique index warehouse_id_uindex
+    on bdsm.warehouse (id);
+
+
 alter table bdsm.recipe_products_list
     add constraint recipe_product_recipe_id_fk
         foreign key (recipe_id) references bdsm.recipe (id);

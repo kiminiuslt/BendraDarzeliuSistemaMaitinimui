@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head(#{warehouse.add.new.title})"></head>
+
+<body>
+<div th:replace="fragments/menu :: godMenu"></div>
+
+<h1 th:if="${warehouseDto.uuid eq null}" th:text="#{warehouse.add.new.title}"></h1>
+<h1 th:if="${warehouseDto.uuid ne null}" th:text="#{warehouse.edit.record.title}"></h1>
+
+<div class="container">
+
+    <form method="post" th:object="${warehouseDto}">
+
+        <select th:if="${warehouseDto.uuid eq null}" th:field="${warehouseDto.productName}" class="form-select">
+            <option th:each="productNames: ${allProductsList}"
+                    th:value="${productNames.name}"
+                    th:text="${productNames.name}"></option>
+        </select>
+
+        <div th:if="${warehouseDto.uuid ne null}"><h2 th:text="${warehouseDto.productName}"></h2></div>
+        <div th:replace="fragments/input :: input(#{warehouse.amount},'amount')"></div>
+        <div th:replace="fragments/input :: input(#{warehouse.invoice},'invoice')"></div>
+
+        <div th:text="${message}" class="messageSuccess"></div>
+        <button type="submit" th:text="#{save}" class="btn btn-primary"></button>
+
+    </form>
+
+</div>
+
+</body>
+</html>
