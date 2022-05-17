@@ -49,4 +49,16 @@ public class WarehouseService {
   public void deleteWarehouseRecord(UUID uuid) {
     warehouseRepository.deleteById(warehouseRepository.findByUuid(uuid).getId());
   }
+
+  public void writeOff(double writeOff, UUID uuid) {
+    WarehouseDto warehouseDto = getWarehouseDtoRecordByUUID(uuid);
+    if (writeOff > 0 && warehouseDto.getAmount() >= writeOff) {
+      if (warehouseDto.getAmount() == writeOff) {
+        deleteWarehouseRecord(warehouseDto.getUuid());
+      } else {
+        warehouseDto.setAmount(warehouseDto.getAmount() - writeOff);
+        updateWarehouse(warehouseDto);
+      }
+    }
+  }
 }

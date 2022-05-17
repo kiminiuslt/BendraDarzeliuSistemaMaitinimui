@@ -20,4 +20,6 @@ public class WarehouseDto {
   private double amount;
 
   private String invoice;
+
+  private double writeOff;
 }
