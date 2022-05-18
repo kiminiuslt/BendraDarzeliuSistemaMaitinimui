@@ -76,7 +76,7 @@ create table bdsm.recipe_products_list
 );
 alter table bdsm.recipe_products_list
     add constraint recipe_product_product_id_fk
-        foreign key (products_list_id) references bdsm.product (id);
+        foreign key (products_list_id) references bdsm.product_and_quantity (id);
 
 alter table bdsm.recipe_products_list
     add constraint recipe_product_recipe_id_fk
