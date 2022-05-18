@@ -100,4 +100,16 @@ alter table bdsm.warehouse
 create unique index warehouse_id_uindex
     on bdsm.warehouse (id);
 
+-- ProductAndQuantity table
+create table bdsm.product_and_quantity
+(
+    id         serial
+        constraint product_and_quantity_pk
+            primary key,
+    product_id int              not null,
+    quantity   double precision not null
+);
+
+create unique index product_and_quantity_id_uindex
+    on bdsm.product_and_quantity (id);
 
