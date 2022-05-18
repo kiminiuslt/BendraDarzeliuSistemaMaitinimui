@@ -36,6 +36,7 @@ public class ProductService {
   public List<ProductForRecipeDto> getProductsListRecipeDto() {
     return getProductsList().stream()
         .map(productMapper::productMapToProductForRecipeDto)
+        .sorted(Comparator.comparing(ProductForRecipeDto::getName))
         .collect(Collectors.toList());
   }
 
