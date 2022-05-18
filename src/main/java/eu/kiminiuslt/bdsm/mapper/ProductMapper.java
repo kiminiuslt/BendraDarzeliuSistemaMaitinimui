@@ -69,7 +69,7 @@ public class ProductMapper {
 
   public ProductForRecipeDto productMapToProductForRecipeDto(Product product) {
     return ProductForRecipeDto.builder()
-        .id(product.getId())
+        .uuid(product.getUuid())
         .name(product.getName())
         .proteins(product.getProteins())
         .fat(product.getFat())
