@@ -50,7 +50,7 @@ public class ProductService {
     return new ArrayList<>(productRepository.findAll());
   }
 
-  public ProductDto getProductByUUID(UUID id) {
+  public ProductDto getProductDtoByUUID(UUID id) {
     return productMapper.mapToProductDto(productRepository.findByUuid(id));
   }
 
