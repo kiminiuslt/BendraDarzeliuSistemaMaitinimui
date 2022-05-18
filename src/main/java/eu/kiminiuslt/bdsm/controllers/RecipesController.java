@@ -47,7 +47,6 @@ public class RecipesController {
 
   @PostMapping("/recipeForm")
   public String saveRecipe(RecipeDto recipeDto) {
-    recipeService.addRecipe(recipeDto);
     return "redirect:/recipes/recipeForm?message=recipe.create.successes";
   }
 

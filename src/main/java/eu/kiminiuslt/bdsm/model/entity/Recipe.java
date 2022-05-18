@@ -26,7 +26,7 @@ public class Recipe {
   @Column(name = "recipe_text")
   private String recipeText;
 
-  @ManyToMany
+  @ManyToMany(cascade = CascadeType.ALL)
   @JoinTable(schema = "bdsm")
-  private Set<Product> productsList;
+  private Set<ProductAndQuantity> productsList;
 }

@@ -54,6 +54,10 @@ public class ProductService {
     return productMapper.mapToProductDto(productRepository.findByUuid(id));
   }
 
+  public Product getProductByUUID(UUID uuid) {
+    return productRepository.findByUuid(uuid);
+  }
+
   @Transactional
   public void updateProduct(ProductDto productDto) {
     productRepository.save(
