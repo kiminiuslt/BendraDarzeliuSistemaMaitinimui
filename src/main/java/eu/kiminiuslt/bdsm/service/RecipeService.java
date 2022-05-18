@@ -22,7 +22,6 @@ public class RecipeService {
   private final ProductService productService;
 
   public void addRecipe(RecipeDto recipeDto) {
-
     recipeRepository.save(recipeMapper.recipeDtoMapToRecipe(recipeDto));
   }
 
@@ -45,7 +44,7 @@ public class RecipeService {
             .name(recipeDto.getRecipeName())
             .recipeText(recipeDto.getRecipeText())
             // TODO: FIX TO SAVE LIST OF PRODUCTS PASS A PRODUCT ID
-            .productsList(recipeDto.getProductsList())
+//            .productsList(recipeDto.getProductsList())
             .build());
   }
 
