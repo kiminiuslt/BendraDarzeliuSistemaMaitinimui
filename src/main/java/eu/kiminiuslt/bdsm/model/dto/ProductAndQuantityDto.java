@@ -5,11 +5,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Setter
 @Getter
 @Builder(toBuilder = true)
 public class ProductAndQuantityDto {
-  private int id;
+  private Integer id;
+  private UUID productUUID;
   private Product product;
   private double quantity;
 }
