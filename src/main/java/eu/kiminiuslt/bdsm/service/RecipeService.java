@@ -3,6 +3,7 @@ package eu.kiminiuslt.bdsm.service;
 import eu.kiminiuslt.bdsm.mapper.RecipeMapper;
 import eu.kiminiuslt.bdsm.model.dto.ProductForRecipeDto;
 import eu.kiminiuslt.bdsm.model.dto.RecipeDto;
+import eu.kiminiuslt.bdsm.model.entity.Product;
 import eu.kiminiuslt.bdsm.repository.RecipeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -33,6 +34,10 @@ public class RecipeService {
     return productService.getProductsListRecipeDto();
   }
 
+  public Product getProductByUUID(UUID uuid) {
+    return productService.getProductByUUID(uuid);
+  }
+
   public RecipeDto getRecipeByUUID(UUID uuid) {
     return recipeMapper.recipeMapToRecipeDto(recipeRepository.findByUuid(uuid));
   }
@@ -44,7 +49,7 @@ public class RecipeService {
             .name(recipeDto.getRecipeName())
             .recipeText(recipeDto.getRecipeText())
             // TODO: FIX TO SAVE LIST OF PRODUCTS PASS A PRODUCT ID
-//            .productsList(recipeDto.getProductsList())
+            //            .productsList(recipeDto.getProductsList())
             .build());
   }
 
