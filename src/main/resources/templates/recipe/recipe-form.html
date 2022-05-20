@@ -11,21 +11,20 @@
 <div class="container">
 
     <div class="d-flex flex-row bd-highlight mb-3">
-        <span class="border border-primary" style="padding: 10px" th:text="#{recipe.all.protein}+' ' +5 + ' '"></span>
-        <span class="border border-primary" style="padding: 10px" th:text="#{recipe.all.fat}+' ' +5 + ' '"></span>
-        <span class="border border-primary" style="padding: 10px"
-              th:text="#{recipe.all.carbohydrates}+' ' +5 + ' '"></span>
-        <span class="border border-primary" style="padding: 10px"
-              th:text="#{recipe.all.energyValueKcal}+' ' +5 + ' '"></span>
+        <span class="border border-primary materialsCalculated"
+              th:text="#{recipe.all.protein}+' ' + ${recipeDto.allProteins()} +' '"></span>
+        <span class="border border-primary materialsCalculated"
+              th:text="#{recipe.all.fat}+' ' +${recipeDto.allFat()} +  ' '"></span>
+        <span class="border border-primary materialsCalculated"
+              th:text="#{recipe.all.carbohydrates}+' ' +${recipeDto.allCarbohydrates()} + ' '"></span>
+        <span class="border border-primary materialsCalculated"
+              th:text="#{recipe.all.energyValueKcal}+' ' +${recipeDto.allEnergyValueKcal()} + ' '"></span>
     </div>
 
 <!--FLASH REDIRECT-->
 <!--    SESSION ATTRIBUTES-->
 
         <a class="btn btn-primary" th:href="@{/recipes/addProduct}" th:text="#{add.product.title}"></a>
-
-
-
 
     <form method="post" th:object="${recipeDto}">
         <div th:replace="fragments/input :: input(#{recipe.name},'recipeName')"></div>
