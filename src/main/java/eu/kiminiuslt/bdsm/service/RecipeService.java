@@ -25,8 +25,6 @@ public class RecipeService {
   private final RecipeMapper recipeMapper;
   private final ProductService productService;
   private Set<ProductAndQuantityDto> temporaryList = new HashSet<>();
-  private String temporaryName = "";
-  private String temporaryText = "";
 
   public void addRecipe(RecipeDto recipeDto) {
     recipeRepository.save(recipeMapper.recipeDtoMapToRecipe(recipeDto));
@@ -37,11 +35,7 @@ public class RecipeService {
   }
 
   public RecipeDto getCreatedRecipe() {
-    return RecipeDto.builder()
-        .recipeName(temporaryName)
-        .recipeText(temporaryText)
-        .productsList(temporaryList)
-        .build();
+    return RecipeDto.builder().productsList(temporaryList).build();
   }
 
   public void addProductToRecipe(ProductAndQuantityDto productAndQuantityDto) {
