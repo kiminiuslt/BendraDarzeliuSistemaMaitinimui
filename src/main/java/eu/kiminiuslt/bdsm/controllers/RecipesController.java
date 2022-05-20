@@ -50,6 +50,12 @@ public class RecipesController {
     return "redirect:/recipes/recipeForm?message=recipe.create.successes";
   }
 
+  @GetMapping("/{uuid}/deleteProduct")
+  public String deleteProduct(@PathVariable("uuid") UUID uuid) {
+    recipeService.deleteProductFromRecipe(uuid);
+    return "redirect:/recipes/recipeForm";
+  }
+
   @GetMapping("/addProduct")
   public String addProuct(Model model) {
     model.addAttribute("allProducts", recipeService.getAllProducts());

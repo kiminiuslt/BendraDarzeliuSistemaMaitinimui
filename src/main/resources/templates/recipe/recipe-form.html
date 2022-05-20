@@ -21,20 +21,23 @@
               th:text="#{recipe.all.energyValueKcal}+' ' +${recipeDto.allEnergyValueKcal()} + ' '"></span>
     </div>
 
-<!--FLASH REDIRECT-->
-<!--    SESSION ATTRIBUTES-->
+    <!--FLASH REDIRECT-->
+    <!--    SESSION ATTRIBUTES-->
 
-        <a class="btn btn-primary" th:href="@{/recipes/addProduct}" th:text="#{add.product.title}"></a>
+    <a class="btn btn-primary" th:href="@{/recipes/addProduct}" th:text="#{add.product.title}"></a>
 
     <form method="post" th:object="${recipeDto}">
         <div th:replace="fragments/input :: input(#{recipe.name},'recipeName')"></div>
         <div th:replace="fragments/input :: input(#{recipe.recipeText},'recipeText')"></div>
 
-        <ul class="list-group">
-            <li class="list-group-item"
-                th:each="products : ${recipeDto.productsList}"
-                th:text=" ${products.quantity} + 'g ' + ${products.product.name}"
-                ></li>
+        <ul class="list-group" th:each="products : ${recipeDto.productsList}">
+            <li class="list-group-item">
+                <span th:text=" ${products.quantity} + 'g ' + ${products.product.name}"></span>
+                <a class="btn btn-danger"
+                   th:href="@{/recipes/{uuid}/deleteProduct(uuid=${products.productUUID})}"
+                   th:text="#{remove}">
+                </a>
+            </li>
         </ul>
 
         <div th:text="${message}"></div>
