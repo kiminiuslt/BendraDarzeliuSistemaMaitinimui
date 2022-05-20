@@ -19,11 +19,23 @@
               th:text="#{recipe.all.energyValueKcal}+' ' +5 + ' '"></span>
     </div>
 
-    <form method="post" th:object="${recipeDto}">
+<!--FLASH REDIRECT-->
+<!--    SESSION ATTRIBUTES-->
 
+        <a class="btn btn-primary" th:href="@{/recipes/addProduct}" th:text="#{add.product.title}"></a>
+
+
+
+
+    <form method="post" th:object="${recipeDto}">
         <div th:replace="fragments/input :: input(#{recipe.name},'recipeName')"></div>
         <div th:replace="fragments/input :: input(#{recipe.recipeText},'recipeText')"></div>
-        <div th:replace="fragments/input :: input(#{recipe.products.list},'productsList')"></div>
+
+        <ul class="list-group">
+            <li class="list-group-item" th:each="product : ${recipeDto.productsList}"
+                >An item</li>
+<!--            th:text="${product.quantity}"-->
+        </ul>
 
         <div th:text="${message}"></div>
         <button type="submit" th:text="#{save}" class="btn btn-primary"></button>

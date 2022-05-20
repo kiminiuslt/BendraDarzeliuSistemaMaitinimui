@@ -1,6 +1,7 @@
 package eu.kiminiuslt.bdsm.service;
 
 import eu.kiminiuslt.bdsm.mapper.RecipeMapper;
+import eu.kiminiuslt.bdsm.model.dto.ProductAndQuantityDto;
 import eu.kiminiuslt.bdsm.model.dto.ProductForRecipeDto;
 import eu.kiminiuslt.bdsm.model.dto.RecipeDto;
 import eu.kiminiuslt.bdsm.model.entity.Product;
@@ -11,7 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -21,6 +24,9 @@ public class RecipeService {
   private final RecipeRepository recipeRepository;
   private final RecipeMapper recipeMapper;
   private final ProductService productService;
+  private Set<ProductAndQuantityDto> temporaryList = new HashSet<>();
+  private String temporaryName = "";
+  private String temporaryText = "";
 
   public void addRecipe(RecipeDto recipeDto) {
     recipeRepository.save(recipeMapper.recipeDtoMapToRecipe(recipeDto));
@@ -28,6 +34,19 @@ public class RecipeService {
 
   public Page<RecipeDto> getPageableRecipes(Pageable pageable) {
     return recipeRepository.findAll(pageable).map(recipeMapper::recipeMapToRecipeDto);
+  }
+
+  public RecipeDto getCreatedRecipe() {
+    return RecipeDto.builder()
+        .recipeName(temporaryName)
+        .recipeText(temporaryText)
+        .productsList(temporaryList)
+        .build();
+  }
+
+  public void addProductToRecipe(ProductAndQuantityDto productAndQuantityDto) {
+    productAndQuantityDto.setProduct(getProductByUUID(productAndQuantityDto.getProductUUID()));
+    temporaryList.add(productAndQuantityDto);
   }
 
   public List<ProductForRecipeDto> getAllProducts() {

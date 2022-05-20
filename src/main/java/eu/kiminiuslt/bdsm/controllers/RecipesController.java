@@ -1,6 +1,7 @@
 package eu.kiminiuslt.bdsm.controllers;
 
 import eu.kiminiuslt.bdsm.helpers.MessageService;
+import eu.kiminiuslt.bdsm.model.dto.ProductAndQuantityDto;
 import eu.kiminiuslt.bdsm.model.dto.RecipeDto;
 import eu.kiminiuslt.bdsm.service.RecipeService;
 import lombok.RequiredArgsConstructor;
@@ -38,8 +39,7 @@ public class RecipesController {
 
   @GetMapping("/recipeForm")
   public String newRecipe(Model model, String message) {
-    model.addAttribute("recipeDto", RecipeDto.builder().build());
-    model.addAttribute("allProducts", recipeService.getAllProducts());
+    model.addAttribute("recipeDto", recipeService.getCreatedRecipe());
     model.addAttribute("message", messageService.getMessage(message));
 
     return "/recipe/recipe-form";
@@ -48,6 +48,19 @@ public class RecipesController {
   @PostMapping("/recipeForm")
   public String saveRecipe(RecipeDto recipeDto) {
     return "redirect:/recipes/recipeForm?message=recipe.create.successes";
+  }
+
+  @GetMapping("/addProduct")
+  public String addProuct(Model model) {
+    model.addAttribute("allProducts", recipeService.getAllProducts());
+    model.addAttribute("productAndQuantityDto", ProductAndQuantityDto.builder().build());
+    return "recipe/add-product";
+  }
+
+  @PostMapping("/addProduct")
+  public String addProduct(ProductAndQuantityDto productAndQuantityDto) {
+    recipeService.addProductToRecipe(productAndQuantityDto);
+    return "redirect:/recipes/recipeForm";
   }
 
   @GetMapping("/{uuid}/update")

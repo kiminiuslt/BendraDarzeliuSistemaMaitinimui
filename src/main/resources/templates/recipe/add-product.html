@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head(#{add.product.title})"></head>
+<body>
+<div th:replace="fragments/menu :: godMenu"></div>
+
+<div class="container">
+    <form method="post" th:object="${productAndQuantityDto}">
+    <select th:if="${!allProducts.isEmpty()}" th:field="${productAndQuantityDto.productUUID}" class="form-select">
+        <option id="selection" th:each="productNames: ${allProducts}"
+                th:value="${productNames.uuid}"
+                th:text="${productNames.name}"></option>
+    </select>
+
+        <div th:replace="fragments/input :: input(#{add.product.quantity},'quantity')"></div>
+
+        <button type="submit" th:text="#{save}" class="btn btn-primary"></button>
+    </form>
+</div>
+</body>
+</html>
