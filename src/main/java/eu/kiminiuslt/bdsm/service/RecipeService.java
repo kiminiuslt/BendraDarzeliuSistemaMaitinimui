@@ -43,6 +43,11 @@ public class RecipeService {
     temporaryList.add(productAndQuantityDto);
   }
 
+  public void deleteProductFromRecipe(UUID uuid) {
+    temporaryList.remove(
+        temporaryList.stream().filter(e -> uuid.equals(e.getProductUUID())).findAny().orElse(null));
+  }
+
   public List<ProductForRecipeDto> getAllProducts() {
     return productService.getProductsListRecipeDto();
   }
