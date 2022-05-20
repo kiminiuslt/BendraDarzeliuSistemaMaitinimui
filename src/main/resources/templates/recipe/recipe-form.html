@@ -31,9 +31,10 @@
         <div th:replace="fragments/input :: input(#{recipe.recipeText},'recipeText')"></div>
 
         <ul class="list-group">
-            <li class="list-group-item" th:each="product : ${recipeDto.productsList}"
-                >An item</li>
-<!--            th:text="${product.quantity}"-->
+            <li class="list-group-item"
+                th:each="products : ${recipeDto.productsList}"
+                th:text=" ${products.quantity} + 'g ' + ${products.product.name}"
+                ></li>
         </ul>
 
         <div th:text="${message}"></div>
