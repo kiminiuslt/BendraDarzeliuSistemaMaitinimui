@@ -10,4 +10,8 @@ import java.util.UUID;
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
   Product findByUuid(UUID id);
+
+  Product findByName(String name);
+
+  Product findById(int id);
 }
