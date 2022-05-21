@@ -1,4 +1,4 @@
-package eu.kiminiuslt.bdsm.controllers;
+package eu.kiminiuslt.bdsm.menu.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
