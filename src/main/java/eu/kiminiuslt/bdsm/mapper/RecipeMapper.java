@@ -19,7 +19,7 @@ public class RecipeMapper {
         .uuid(recipe.getUuid())
         .recipeName(recipe.getName())
         .recipeText(recipe.getRecipeText())
-//        .productsList(recipe.getProductsList())
+        .productsList(productAndQuantityMapper.entityToDto(recipe.getProductsList()))
         .build();
   }
 
