@@ -55,6 +55,7 @@ public class RecipeService {
   }
 
   public void addProductToRecipe(ProductAndQuantityDto productAndQuantityDto) {
+    // TODO: BUG FIX. WHEN ADD A PRODUCT, RECIPE TEXT AND NAME ARE GONE.
     productAndQuantityDto.setProduct(getProductByUUID(productAndQuantityDto.getProductUUID()));
     temporaryList.add(productAndQuantityDto);
   }
