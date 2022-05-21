@@ -6,7 +6,12 @@
 .messageSuccess{
     color: #08f808;
 }
-
 .materialsCalculated{
    padding: 10px;
+}
+.tableColumn12percent{
+    width: 12%;
+}
+.tableColumnAuto{
+    width: auto;
 }
