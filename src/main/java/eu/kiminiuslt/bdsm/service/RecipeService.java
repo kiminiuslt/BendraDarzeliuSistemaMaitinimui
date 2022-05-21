@@ -25,13 +25,29 @@ public class RecipeService {
   private final RecipeMapper recipeMapper;
   private final ProductService productService;
   private Set<ProductAndQuantityDto> temporaryList = new HashSet<>();
+  private String temporaryName = "";
+  private String temporaryText = "";
 
-  public void addRecipe(RecipeDto recipeDto) {
-    recipeRepository.save(recipeMapper.recipeDtoMapToRecipe(recipeDto));
+  public void addRecipe() {
+    recipeRepository.save(
+        recipeMapper.recipeDtoMapToRecipe(
+            RecipeDto.builder()
+                .recipeName(this.temporaryName)
+                .recipeText(this.temporaryText)
+                .productsList(this.temporaryList)
+                .build()));
+    this.temporaryName = "";
+    this.temporaryText = "";
+    this.temporaryList = new HashSet<>();
   }
 
   public Page<RecipeDto> getPageableRecipes(Pageable pageable) {
     return recipeRepository.findAll(pageable).map(recipeMapper::recipeMapToRecipeDto);
+  }
+
+  public void saveNameAndText(RecipeDto recipeDto) {
+    this.temporaryName = recipeDto.getRecipeName();
+    this.temporaryText = recipeDto.getRecipeText();
   }
 
   public RecipeDto getCreatedRecipe() {
