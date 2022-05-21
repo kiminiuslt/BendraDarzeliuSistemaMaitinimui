@@ -73,7 +73,7 @@ public class RecipesController {
 
   @GetMapping("/{uuid}/update")
   public String getUpdateRecipe(Model model, @PathVariable("uuid") UUID uuid) {
-    model.addAttribute("recipeDto", recipeService.getRecipeByUUID(uuid));
+    model.addAttribute("recipeDto", recipeService.updateRecipe(uuid));
     return "/recipe/recipe-form";
   }
 
