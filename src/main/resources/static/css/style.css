@@ -12,6 +12,9 @@
 .tableColumn12percent{
     width: 12%;
 }
+.tableColumn13percent{
+    width: 13%;
+}
 .tableColumnAuto{
     width: auto;
 }
