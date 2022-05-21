@@ -80,6 +80,10 @@ public class ProductService {
         .map(productMapper::mapToProductDto);
   }
 
+  public Product getProductById(int id) {
+    return productRepository.findById(id);
+  }
+
   private String convertToLikeResult(String value) {
     return '%' + value + '%';
   }

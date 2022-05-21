@@ -1,6 +1,7 @@
 package eu.kiminiuslt.bdsm.mapper;
 
 import eu.kiminiuslt.bdsm.model.dto.ProductAndQuantityDto;
+import eu.kiminiuslt.bdsm.model.entity.Product;
 import eu.kiminiuslt.bdsm.model.entity.ProductAndQuantity;
 import eu.kiminiuslt.bdsm.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +16,15 @@ public class ProductAndQuantityMapper {
 
   private final ProductService productService;
 
-  public Set<ProductAndQuantity> dtoToEntity(Set<ProductAndQuantityDto> paqDto) {
+  public Set<ProductAndQuantity> dtoToEntity(Set<ProductAndQuantityDto> productsList) {
     Set<ProductAndQuantity> result = new HashSet<>();
-    paqDto.forEach(e -> result.add(entity(e)));
+    productsList.forEach(e -> result.add(entity(e)));
+    return result;
+  }
+
+  public Set<ProductAndQuantityDto> entityToDto(Set<ProductAndQuantity> productsList) {
+    Set<ProductAndQuantityDto> result = new HashSet<>();
+    productsList.forEach(e -> result.add(dto(e)));
     return result;
   }
 
@@ -25,6 +32,16 @@ public class ProductAndQuantityMapper {
     return ProductAndQuantity.builder()
         .quantity(e.getQuantity())
         .productId(productService.getProductByUUID(e.getProduct().getUuid()).getId())
+        .build();
+  }
+
+  private ProductAndQuantityDto dto(ProductAndQuantity e) {
+    Product product = productService.getProductById(e.getProductId());
+    return ProductAndQuantityDto.builder()
+        .id(e.getId())
+        .productUUID(product.getUuid())
+        .quantity(e.getQuantity())
+        .product(product)
         .build();
   }
 }
