@@ -24,20 +24,28 @@
     <table class="table table-primary">
         <thead>
         <tr>
-            <th scope="col"><a th:replace="
+            <th scope="col" class="tableColumnAuto"><a th:replace="
             fragments/table :: sortedColumnProducts(data=${recipeListPages},
              name='name',
               path=@{/recipes},
                sortUp='fa-arrow-up-z-a',
                 sortDown='fa-arrow-down-a-z',
                  fieldName=#{recipe.recipes.word})"></a></th>
-            <th></th>
+            <th scope="col" class="tableColumn12percent" th:text="#{recipe.all.protein}"></th>
+            <th scope="col" class="tableColumn12percent" th:text="#{recipe.all.fat}"></th>
+            <th scope="col" class="tableColumn12percent" th:text="#{recipe.all.carbohydrates}"></th>
+            <th scope="col" class="tableColumn12percent" th:text="#{recipe.all.energyValueKcal}"></th>
+            <th scope="col" class="tableColumn12percent"></th>
         </tr>
         <!--   TABLE CONTENT-->
         </thead>
         <tbody>
         <tr th:each="recipe: ${recipeListPages}">
             <td><a th:href="@{/recipes/{uuid}/update(uuid=${recipe.uuid})}" th:text="${recipe.recipeName}"></a></td>
+            <td th:text="${recipe.allProteins()}"></td>
+            <td th:text="${recipe.allFat()}"></td>
+            <td th:text="${recipe.allCarbohydrates()}"></td>
+            <td th:text="${recipe.allEnergyValueKcal()}"></td>
             <td><a class="btn btn-danger" th:href="@{/recipes/{uuid}/delete(uuid=${recipe.uuid})}"
                    th:text="#{delete}"></a></td>
         </tr>
