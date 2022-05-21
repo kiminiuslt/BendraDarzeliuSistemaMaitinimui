@@ -27,6 +27,7 @@ public class RecipeService {
   private Set<ProductAndQuantityDto> temporaryList = new HashSet<>();
   private String temporaryName = "";
   private String temporaryText = "";
+  private RecipeDto temporaryRecipeDto;
 
   public void addRecipe() {
     recipeRepository.save(
@@ -55,7 +56,7 @@ public class RecipeService {
   }
 
   public void addProductToRecipe(ProductAndQuantityDto productAndQuantityDto) {
-    // TODO: BUG FIX. WHEN ADD A PRODUCT, RECIPE TEXT AND NAME ARE GONE.
+    // TODO: BUG FIX. WHEN ADD A PRODUCT, RECIPE TEXT AND NAME ARE GONE. ALSO RecipeDto ID, UUID ARE NULL
     productAndQuantityDto.setProduct(getProductByUUID(productAndQuantityDto.getProductUUID()));
     temporaryList.add(productAndQuantityDto);
   }
@@ -77,15 +78,19 @@ public class RecipeService {
     return recipeMapper.recipeMapToRecipeDto(recipeRepository.findByUuid(uuid));
   }
 
+  public RecipeDto updateRecipe(UUID uuid) {
+    this.temporaryRecipeDto = getRecipeByUUID(uuid);
+    this.temporaryList = this.temporaryRecipeDto.getProductsList();
+    return this.temporaryRecipeDto;
+  }
+
   @Transactional
   public void updateRecipe(RecipeDto recipeDto) {
-    recipeRepository.save(
-        recipeRepository.findByUuid(recipeDto.getUuid()).toBuilder()
-            .name(recipeDto.getRecipeName())
-            .recipeText(recipeDto.getRecipeText())
-            // TODO: FIX TO SAVE LIST OF PRODUCTS PASS A PRODUCT ID
-            //            .productsList(recipeDto.getProductsList())
-            .build());
+    this.temporaryRecipeDto.setRecipeName(recipeDto.getRecipeName());
+    this.temporaryRecipeDto.setRecipeText(recipeDto.getRecipeText());
+    this.temporaryRecipeDto.getProductsList().addAll(temporaryList);
+    recipeRepository.save(recipeMapper.recipeDtoMapToRecipe(this.temporaryRecipeDto));
+    this.temporaryRecipeDto = null;
   }
 
   @Transactional

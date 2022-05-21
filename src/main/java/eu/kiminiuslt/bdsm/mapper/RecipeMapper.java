@@ -25,6 +25,7 @@ public class RecipeMapper {
 
   public Recipe recipeDtoMapToRecipe(RecipeDto recipeDto) {
     return Recipe.builder()
+        .id(recipeDto.getId())
         .uuid(UUID.randomUUID())
         .name(recipeDto.getRecipeName())
         .recipeText(recipeDto.getRecipeText())
