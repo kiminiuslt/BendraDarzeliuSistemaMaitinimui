@@ -17,6 +17,11 @@
     <span th:text="#{products.all.elements} +' ' +${recipeListPages.totalElements}"></span><br>
     <span th:text="#{products.all.pages} +' ' +${recipeListPages.totalPages}"></span><br>
 
+<!--    MESSAGE-->
+    <div class="alert alert-success" role="alert"
+         th:if="${message} ne null"
+         th:text="#{recipe.create.successes}"
+    ></div>
     <!--    PAGINATION-->
     <div th:replace="fragments/pagination :: pagination(object=${recipeListPages}, link=@{/recipes})"></div>
 
@@ -36,6 +41,7 @@
             <th scope="col" class="tableColumn12percent" th:text="#{recipe.all.carbohydrates}"></th>
             <th scope="col" class="tableColumn12percent" th:text="#{recipe.all.energyValueKcal}"></th>
             <th scope="col" class="tableColumn13percent"></th>
+            <th scope="col" class="tableColumn13percent"></th>
         </tr>
         <!--   TABLE CONTENT-->
         </thead>
@@ -48,8 +54,11 @@
             <td th:text="${recipe.allEnergyValueKcal()}"></td>
             <td><a class="btn btn-warning" th:href="@{/recipes/{uuid}/update(uuid=${recipe.uuid})}"
                    th:text="#{edit}"></a>
+            </td>
+            <td>
                 <a class="btn btn-danger" th:href="@{/recipes/{uuid}/delete(uuid=${recipe.uuid})}"
-                   th:text="#{delete}"></a></td>
+                   th:text="#{delete}"></a>
+            </td>
         </tr>
         </tbody>
     </table>

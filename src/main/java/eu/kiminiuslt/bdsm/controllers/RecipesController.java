@@ -66,7 +66,7 @@ public class RecipesController {
   }
 
   @GetMapping("/addProduct")
-  public String addProuct(Model model) {
+  public String addProduct(Model model) {
     model.addAttribute("allProducts", recipeService.getAllProducts());
     model.addAttribute("productAndQuantityDto", ProductAndQuantityDto.builder().build());
     return "recipe/add-product";
@@ -79,7 +79,7 @@ public class RecipesController {
   }
 
   @GetMapping("/{uuid}/addProduct")
-  public String editRecipeAddProuct(Model model, @PathVariable("uuid") UUID uuid) {
+  public String editRecipeAddProduct(Model model, @PathVariable("uuid") UUID uuid) {
     model.addAttribute("allProducts", recipeService.getAllProducts());
     model.addAttribute("productAndQuantityDto", ProductAndQuantityDto.builder().build());
     model.addAttribute("recipeUUID", uuid);
@@ -110,6 +110,7 @@ public class RecipesController {
           Pageable pageable) {
     recipeService.updateRecipe(recipeDto);
     model.addAttribute("recipeListPages", recipeService.getPageableRecipes(pageable));
+    model.addAttribute("message", "message");
     return "recipe/recipe-all";
   }
 
