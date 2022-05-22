@@ -25,7 +25,15 @@
     <!--FLASH REDIRECT-->
     <!--    SESSION ATTRIBUTES-->
 
-    <a class="btn btn-primary" th:href="@{/recipes/addProduct}" th:text="#{add.product.title}"></a>
+    <a class="btn btn-primary"
+       th:if="${recipeDto.uuid eq null}"
+       th:href="@{/recipes/addProduct}"
+       th:text="#{add.product.title}"></a>
+
+    <a class="btn btn-primary"
+       th:if="${recipeDto.uuid ne null}"
+       th:href="@{/recipes/{uuid}/addProduct(uuid=${recipeDto.uuid})}"
+       th:text="#{add.product.title}"></a>
 
     <form method="post" th:object="${recipeDto}">
         <div th:replace="fragments/input :: input(#{recipe.name},'recipeName')"></div>
@@ -35,7 +43,13 @@
             <li class="list-group-item">
                 <span th:text=" ${products.quantity} + 'g ' + ${products.product.name}"></span>
                 <a class="btn btn-danger"
+                   th:if="${recipeDto.uuid eq null}"
                    th:href="@{/recipes/{uuid}/deleteProduct(uuid=${products.productUUID})}"
+                   th:text="#{remove}">
+                </a>
+                <a class="btn btn-danger"
+                   th:if="${recipeDto.uuid ne null}"
+                   th:href="@{/recipes/{uuid1}/{uuid}/deleteProduct(uuid=${products.productUUID},uuid1=${recipeDto.uuid})}"
                    th:text="#{remove}">
                 </a>
             </li>

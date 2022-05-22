@@ -30,16 +30,21 @@ public class RecipeService {
   private RecipeDto temporaryRecipeDto;
 
   public void addRecipe() {
-    recipeRepository.save(
-        recipeMapper.recipeDtoMapToRecipe(
-            RecipeDto.builder()
-                .recipeName(this.temporaryName)
-                .recipeText(this.temporaryText)
-                .productsList(this.temporaryList)
-                .build()));
-    this.temporaryName = "";
-    this.temporaryText = "";
-    this.temporaryList = new HashSet<>();
+    if (this.temporaryRecipeDto == null) {
+      recipeRepository.save(
+          recipeMapper.recipeDtoMapToRecipe(
+              RecipeDto.builder()
+                  .recipeName(this.temporaryName)
+                  .recipeText(this.temporaryText)
+                  .productsList(this.temporaryList)
+                  .build()));
+    } else {
+      this.temporaryRecipeDto.setRecipeName(this.temporaryName);
+      this.temporaryRecipeDto.setRecipeText(this.temporaryText);
+      this.temporaryRecipeDto.setProductsList(this.temporaryList);
+      recipeRepository.save(recipeMapper.recipeDtoMapToRecipe(this.temporaryRecipeDto));
+    }
+    resetRecipeDto();
   }
 
   public Page<RecipeDto> getPageableRecipes(Pageable pageable) {
@@ -52,11 +57,13 @@ public class RecipeService {
   }
 
   public RecipeDto getCreatedRecipe() {
-    return RecipeDto.builder().productsList(temporaryList).build();
+    if (this.temporaryRecipeDto == null) {
+      return RecipeDto.builder().productsList(temporaryList).build();
+    }
+    return this.temporaryRecipeDto;
   }
 
   public void addProductToRecipe(ProductAndQuantityDto productAndQuantityDto) {
-    // TODO: BUG FIX. WHEN ADD A PRODUCT, RECIPE TEXT AND NAME ARE GONE. ALSO RecipeDto ID, UUID ARE NULL
     productAndQuantityDto.setProduct(getProductByUUID(productAndQuantityDto.getProductUUID()));
     temporaryList.add(productAndQuantityDto);
   }
@@ -79,8 +86,13 @@ public class RecipeService {
   }
 
   public RecipeDto updateRecipe(UUID uuid) {
-    this.temporaryRecipeDto = getRecipeByUUID(uuid);
-    this.temporaryList = this.temporaryRecipeDto.getProductsList();
+    if (this.temporaryRecipeDto == null) {
+      this.temporaryRecipeDto = getRecipeByUUID(uuid);
+      temporaryName = temporaryRecipeDto.getRecipeName();
+      temporaryText = temporaryRecipeDto.getRecipeText();
+      temporaryList = temporaryRecipeDto.getProductsList();
+      return this.temporaryRecipeDto;
+    }
     return this.temporaryRecipeDto;
   }
 
@@ -90,11 +102,18 @@ public class RecipeService {
     this.temporaryRecipeDto.setRecipeText(recipeDto.getRecipeText());
     this.temporaryRecipeDto.getProductsList().addAll(temporaryList);
     recipeRepository.save(recipeMapper.recipeDtoMapToRecipe(this.temporaryRecipeDto));
-    this.temporaryRecipeDto = null;
+    resetRecipeDto();
   }
 
   @Transactional
   public void deleteRecipe(UUID uuid) {
     recipeRepository.deleteById(recipeRepository.findByUuid(uuid).getId());
+  }
+
+  public void resetRecipeDto() {
+    this.temporaryName = "";
+    this.temporaryText = "";
+    this.temporaryList = new HashSet<>();
+    this.temporaryRecipeDto = null;
   }
 }
