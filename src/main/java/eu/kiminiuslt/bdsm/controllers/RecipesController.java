@@ -58,6 +58,13 @@ public class RecipesController {
     return "redirect:/recipes/recipeForm";
   }
 
+  @GetMapping("/{uuid1}/{uuid}/deleteProduct")
+  public String editingDeleteProduct(
+      @PathVariable("uuid") UUID uuid, @PathVariable("uuid1") UUID uuid1) {
+    recipeService.deleteProductFromRecipe(uuid);
+    return "redirect:/recipes/" + uuid1 + "/update";
+  }
+
   @GetMapping("/addProduct")
   public String addProuct(Model model) {
     model.addAttribute("allProducts", recipeService.getAllProducts());
@@ -69,6 +76,21 @@ public class RecipesController {
   public String addProduct(ProductAndQuantityDto productAndQuantityDto) {
     recipeService.addProductToRecipe(productAndQuantityDto);
     return "redirect:/recipes/recipeForm";
+  }
+
+  @GetMapping("/{uuid}/addProduct")
+  public String editRecipeAddProuct(Model model, @PathVariable("uuid") UUID uuid) {
+    model.addAttribute("allProducts", recipeService.getAllProducts());
+    model.addAttribute("productAndQuantityDto", ProductAndQuantityDto.builder().build());
+    model.addAttribute("recipeUUID", uuid);
+    return "recipe/add-product";
+  }
+
+  @PostMapping("/{uuid}/addProduct")
+  public String addProduct(
+      ProductAndQuantityDto productAndQuantityDto, @PathVariable("uuid") UUID uuid) {
+    recipeService.addProductToRecipe(productAndQuantityDto);
+    return "redirect:/recipes/" + uuid + "/update";
   }
 
   @GetMapping("/{uuid}/update")

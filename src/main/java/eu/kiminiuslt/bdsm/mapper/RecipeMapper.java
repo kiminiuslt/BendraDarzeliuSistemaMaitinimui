@@ -24,9 +24,17 @@ public class RecipeMapper {
   }
 
   public Recipe recipeDtoMapToRecipe(RecipeDto recipeDto) {
+    if (recipeDto.getId() == null) {
+      return Recipe.builder()
+          .uuid(UUID.randomUUID())
+          .name(recipeDto.getRecipeName())
+          .recipeText(recipeDto.getRecipeText())
+          .productsList(productAndQuantityMapper.dtoToEntity(recipeDto.getProductsList()))
+          .build();
+    }
     return Recipe.builder()
         .id(recipeDto.getId())
-        .uuid(UUID.randomUUID())
+        .uuid(recipeDto.getUuid())
         .name(recipeDto.getRecipeName())
         .recipeText(recipeDto.getRecipeText())
         .productsList(productAndQuantityMapper.dtoToEntity(recipeDto.getProductsList()))
