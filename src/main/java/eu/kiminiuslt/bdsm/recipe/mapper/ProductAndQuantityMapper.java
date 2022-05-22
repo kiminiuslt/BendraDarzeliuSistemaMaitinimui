@@ -1,8 +1,8 @@
-package eu.kiminiuslt.bdsm.mapper;
+package eu.kiminiuslt.bdsm.recipe.mapper;
 
-import eu.kiminiuslt.bdsm.model.dto.ProductAndQuantityDto;
+import eu.kiminiuslt.bdsm.recipe.model.dto.ProductAndQuantityDto;
 import eu.kiminiuslt.bdsm.model.entity.Product;
-import eu.kiminiuslt.bdsm.model.entity.ProductAndQuantity;
+import eu.kiminiuslt.bdsm.recipe.model.entity.ProductAndQuantity;
 import eu.kiminiuslt.bdsm.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
