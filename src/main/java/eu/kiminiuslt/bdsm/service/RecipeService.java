@@ -81,13 +81,13 @@ public class RecipeService {
     return productService.getProductByUUID(uuid);
   }
 
-  public RecipeDto getRecipeByUUID(UUID uuid) {
+  public RecipeDto getRecipeDtoByUUID(UUID uuid) {
     return recipeMapper.recipeMapToRecipeDto(recipeRepository.findByUuid(uuid));
   }
 
   public RecipeDto updateRecipe(UUID uuid) {
     if (this.temporaryRecipeDto == null) {
-      this.temporaryRecipeDto = getRecipeByUUID(uuid);
+      this.temporaryRecipeDto = getRecipeDtoByUUID(uuid);
       temporaryName = temporaryRecipeDto.getRecipeName();
       temporaryText = temporaryRecipeDto.getRecipeText();
       temporaryList = temporaryRecipeDto.getProductsList();
