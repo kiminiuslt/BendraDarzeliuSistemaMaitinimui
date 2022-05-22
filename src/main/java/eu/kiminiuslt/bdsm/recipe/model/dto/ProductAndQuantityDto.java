@@ -1,4 +1,4 @@
-package eu.kiminiuslt.bdsm.model.dto;
+package eu.kiminiuslt.bdsm.recipe.model.dto;
 
 import eu.kiminiuslt.bdsm.model.entity.Product;
 import lombok.Builder;

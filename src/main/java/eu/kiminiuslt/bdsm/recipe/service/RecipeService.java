@@ -1,11 +1,12 @@
-package eu.kiminiuslt.bdsm.service;
+package eu.kiminiuslt.bdsm.recipe.service;
 
-import eu.kiminiuslt.bdsm.mapper.RecipeMapper;
-import eu.kiminiuslt.bdsm.model.dto.ProductAndQuantityDto;
-import eu.kiminiuslt.bdsm.model.dto.ProductForRecipeDto;
-import eu.kiminiuslt.bdsm.model.dto.RecipeDto;
+import eu.kiminiuslt.bdsm.recipe.mapper.RecipeMapper;
+import eu.kiminiuslt.bdsm.recipe.model.dto.ProductAndQuantityDto;
+import eu.kiminiuslt.bdsm.recipe.model.dto.ProductForRecipeDto;
+import eu.kiminiuslt.bdsm.recipe.model.dto.RecipeDto;
 import eu.kiminiuslt.bdsm.model.entity.Product;
-import eu.kiminiuslt.bdsm.repository.RecipeRepository;
+import eu.kiminiuslt.bdsm.recipe.repository.RecipeRepository;
+import eu.kiminiuslt.bdsm.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

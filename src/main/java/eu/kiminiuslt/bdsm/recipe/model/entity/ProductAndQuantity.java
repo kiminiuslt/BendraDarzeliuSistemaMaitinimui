@@ -1,4 +1,4 @@
-package eu.kiminiuslt.bdsm.model.entity;
+package eu.kiminiuslt.bdsm.recipe.model.entity;
 
 import lombok.*;
 

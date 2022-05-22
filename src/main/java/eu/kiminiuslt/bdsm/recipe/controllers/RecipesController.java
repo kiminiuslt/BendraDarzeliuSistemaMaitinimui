@@ -1,9 +1,9 @@
-package eu.kiminiuslt.bdsm.controllers;
+package eu.kiminiuslt.bdsm.recipe.controllers;
 
 import eu.kiminiuslt.bdsm.helpers.MessageService;
-import eu.kiminiuslt.bdsm.model.dto.ProductAndQuantityDto;
-import eu.kiminiuslt.bdsm.model.dto.RecipeDto;
-import eu.kiminiuslt.bdsm.service.RecipeService;
+import eu.kiminiuslt.bdsm.recipe.model.dto.ProductAndQuantityDto;
+import eu.kiminiuslt.bdsm.recipe.model.dto.RecipeDto;
+import eu.kiminiuslt.bdsm.recipe.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

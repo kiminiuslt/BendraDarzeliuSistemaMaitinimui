@@ -1,6 +1,6 @@
-package eu.kiminiuslt.bdsm.repository;
+package eu.kiminiuslt.bdsm.recipe.repository;
 
-import eu.kiminiuslt.bdsm.model.entity.Recipe;
+import eu.kiminiuslt.bdsm.recipe.model.entity.Recipe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
