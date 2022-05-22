@@ -86,7 +86,7 @@ public class RecipeService {
     return recipeMapper.recipeMapToRecipeDto(recipeRepository.findByUuid(uuid));
   }
 
-  public RecipeDto updateRecipe(UUID uuid) {
+  public RecipeDto getUpdateRecipe(UUID uuid) {
     if (this.temporaryRecipeDto == null) {
       this.temporaryRecipeDto = getRecipeDtoByUUID(uuid);
       temporaryName = temporaryRecipeDto.getRecipeName();
