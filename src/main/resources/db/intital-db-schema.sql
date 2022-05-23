@@ -112,3 +112,13 @@ alter table bdsm.warehouse
 
 create unique index warehouse_id_uindex
     on bdsm.warehouse (id);
+
+-- USERS TABLE
+create table bdsm.users
+(
+    id       serial
+        constraint users_pk
+            primary key,
+    client   varchar not null,
+    password varchar not null
+);
