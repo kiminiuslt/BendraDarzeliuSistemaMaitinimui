@@ -3,6 +3,7 @@ package eu.kiminiuslt.bdsm.recipe.controllers;
 import eu.kiminiuslt.bdsm.recipe.model.dto.ProductAndQuantityDto;
 import eu.kiminiuslt.bdsm.recipe.service.RecipeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('DIETIST')")
 @RequestMapping("/recipes")
 public class AddProductController {
 
