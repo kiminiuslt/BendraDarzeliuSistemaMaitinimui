@@ -8,16 +8,15 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import javax.sql.DataSource;
 
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-  private final DataSource dataSource;
+  private final UserDetailsService userDetailsService;
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
@@ -37,19 +36,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   @Override
-  public void configure(WebSecurity web) throws Exception {
+  public void configure(WebSecurity web) {
     web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
   }
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.jdbcAuthentication()
-        .dataSource(dataSource)
-        .usersByUsernameQuery(
-            "SELECT client AS username, password, TRUE AS enabled FROM bdsm.users WHERE client = ?")
-        .authoritiesByUsernameQuery(
-            "SELECT client AS username, 'USER' AS authority FROM bdsm.users WHERE client = ?")
-        .passwordEncoder(passwordEncoder());
+    auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
   }
 
   @Bean
