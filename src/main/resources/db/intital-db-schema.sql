@@ -122,3 +122,30 @@ create table bdsm.users
     client   varchar not null,
     password varchar not null
 );
+-- ROLE TABLE
+create table bdsm.role
+(
+    id   serial
+        constraint role_pk
+            primary key,
+    name  varchar not null
+--             on update cascade on delete cascade,
+);
+
+-- USERS AND ROLES TABLE
+
+create table bdsm.users_roles
+(
+    client_id integer not null,
+    roles_id  integer not null
+--             on update cascade on delete cascade,
+);
+
+alter table bdsm.users_roles
+    add constraint users_id_roles_id_fk
+        foreign key (client_id) references bdsm.users (id);
+
+alter table bdsm.users_roles
+    add constraint users_roles_users_id_fk
+        foreign key (roles_id) references bdsm.role (id);
+
