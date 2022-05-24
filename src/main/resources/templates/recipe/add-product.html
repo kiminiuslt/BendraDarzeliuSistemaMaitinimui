@@ -7,7 +7,7 @@
 <div th:replace="fragments/menu :: godMenu"></div>
 
 <div class="container">
-    <form method="post" th:object="${productAndQuantityDto}">
+    <form method="post" th:object="${productAndQuantityDto}" th:action="@{${#httpServletRequest.requestURI}}">
     <select th:if="${!allProducts.isEmpty()}" th:field="${productAndQuantityDto.productUUID}" class="form-select">
         <option id="selection" th:each="productNames: ${allProducts}"
                 th:value="${productNames.uuid}"

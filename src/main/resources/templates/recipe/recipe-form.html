@@ -35,7 +35,7 @@
        th:href="@{/recipes/{uuid}/addProduct(uuid=${recipeDto.uuid})}"
        th:text="#{add.product.title}"></a>
 
-    <form method="post" th:object="${recipeDto}">
+    <form method="post" th:object="${recipeDto}" th:action="@{${#httpServletRequest.requestURI}}">
         <div th:replace="fragments/input :: input(#{recipe.name},'recipeName')"></div>
         <div th:replace="fragments/input :: input(#{recipe.recipeText},'recipeText')"></div>
 
