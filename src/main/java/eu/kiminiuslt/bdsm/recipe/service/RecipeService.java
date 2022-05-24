@@ -92,7 +92,6 @@ public class RecipeService {
       temporaryName = temporaryRecipeDto.getRecipeName();
       temporaryText = temporaryRecipeDto.getRecipeText();
       temporaryList = temporaryRecipeDto.getProductsList();
-      return this.temporaryRecipeDto;
     }
     return this.temporaryRecipeDto;
   }
