@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -25,26 +24,10 @@ public class RecipeService {
   private final RecipeRepository recipeRepository;
   private final RecipeMapper recipeMapper;
   private final ProductService productService;
-  private Set<ProductAndQuantityDto> temporaryList = new HashSet<>();
-  private String temporaryName = "";
-  private String temporaryText = "";
   private RecipeDto temporaryRecipeDto;
 
   public void addRecipe() {
-    if (this.temporaryRecipeDto == null) {
-      recipeRepository.save(
-          recipeMapper.recipeDtoMapToRecipe(
-              RecipeDto.builder()
-                  .recipeName(this.temporaryName)
-                  .recipeText(this.temporaryText)
-                  .productsList(this.temporaryList)
-                  .build()));
-    } else {
-      this.temporaryRecipeDto.setRecipeName(this.temporaryName);
-      this.temporaryRecipeDto.setRecipeText(this.temporaryText);
-      this.temporaryRecipeDto.setProductsList(this.temporaryList);
-      recipeRepository.save(recipeMapper.recipeDtoMapToRecipe(this.temporaryRecipeDto));
-    }
+    recipeRepository.save(recipeMapper.recipeDtoMapToRecipe(temporaryRecipeDto));
     resetRecipeDto();
   }
 
@@ -53,25 +36,30 @@ public class RecipeService {
   }
 
   public void saveNameAndText(RecipeDto recipeDto) {
-    this.temporaryName = recipeDto.getRecipeName();
-    this.temporaryText = recipeDto.getRecipeText();
+    temporaryRecipeDto.setRecipeName(recipeDto.getRecipeName());
+    temporaryRecipeDto.setRecipeText(recipeDto.getRecipeText());
   }
 
   public RecipeDto getCreatedRecipe() {
-    if (this.temporaryRecipeDto == null) {
-      return RecipeDto.builder().productsList(temporaryList).build();
+    if (temporaryRecipeDto == null) {
+      temporaryRecipeDto = RecipeDto.builder().productsList(new HashSet<>()).build();
     }
-    return this.temporaryRecipeDto;
+    return temporaryRecipeDto;
   }
 
   public void addProductToRecipe(ProductAndQuantityDto productAndQuantityDto) {
     productAndQuantityDto.setProduct(getProductByUUID(productAndQuantityDto.getProductUUID()));
-    temporaryList.add(productAndQuantityDto);
+    temporaryRecipeDto.getProductsList().add(productAndQuantityDto);
   }
 
   public void deleteProductFromRecipe(UUID uuid) {
-    temporaryList.remove(
-        temporaryList.stream().filter(e -> uuid.equals(e.getProductUUID())).findAny().orElse(null));
+    temporaryRecipeDto
+        .getProductsList()
+        .remove(
+            temporaryRecipeDto.getProductsList().stream()
+                .filter(e -> uuid.equals(e.getProductUUID()))
+                .findAny()
+                .orElse(null));
   }
 
   public List<ProductForRecipeDto> getAllProducts() {
@@ -87,21 +75,17 @@ public class RecipeService {
   }
 
   public RecipeDto getUpdateRecipe(UUID uuid) {
-    if (this.temporaryRecipeDto == null) {
-      this.temporaryRecipeDto = getRecipeDtoByUUID(uuid);
-      temporaryName = temporaryRecipeDto.getRecipeName();
-      temporaryText = temporaryRecipeDto.getRecipeText();
-      temporaryList = temporaryRecipeDto.getProductsList();
+    if (temporaryRecipeDto == null) {
+      temporaryRecipeDto = getRecipeDtoByUUID(uuid);
     }
-    return this.temporaryRecipeDto;
+    return temporaryRecipeDto;
   }
 
   @Transactional
   public void updateRecipe(RecipeDto recipeDto) {
-    this.temporaryRecipeDto.setRecipeName(recipeDto.getRecipeName());
-    this.temporaryRecipeDto.setRecipeText(recipeDto.getRecipeText());
-    this.temporaryRecipeDto.getProductsList().addAll(temporaryList);
-    recipeRepository.save(recipeMapper.recipeDtoMapToRecipe(this.temporaryRecipeDto));
+    saveNameAndText(recipeDto);
+    recipeRepository.save(recipeMapper.recipeDtoMapToRecipe(temporaryRecipeDto));
+    //    FIXME: UPDATING RECIPE TABLE "PRODUCT_AND_QUANTITY" DOES NOT UPDATES
     resetRecipeDto();
   }
 
@@ -111,9 +95,6 @@ public class RecipeService {
   }
 
   public void resetRecipeDto() {
-    this.temporaryName = "";
-    this.temporaryText = "";
-    this.temporaryList = new HashSet<>();
-    this.temporaryRecipeDto = null;
+    temporaryRecipeDto = null;
   }
 }
