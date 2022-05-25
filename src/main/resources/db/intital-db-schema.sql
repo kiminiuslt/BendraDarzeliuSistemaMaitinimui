@@ -149,3 +149,31 @@ alter table bdsm.users_roles
     add constraint users_roles_users_id_fk
         foreign key (roles_id) references bdsm.role (id);
 
+
+--  MENU_DAY TABLE
+create table bdsm.menu_day
+(
+    id         serial
+        constraint menu_day_pk
+            primary key,
+    day_number int not null
+);
+
+create unique index menu_day_day_number_uindex
+    on bdsm.menu_day (day_number);
+
+
+-- MENU_DAY_DAY_RECIPES TABLE
+
+create table bdsm.menu_day_day_recipes
+(
+    menu_day_id    int not null
+        constraint menu_day_day_recipes_menu_day_id_fk
+            references bdsm.menu_day(id)
+            on update cascade on delete cascade,
+    day_recipes_id int not null
+        constraint menu_day_day_recipes_recipe_id_fk
+            references bdsm.recipe (id)
+);
+
+
