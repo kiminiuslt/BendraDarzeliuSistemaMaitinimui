@@ -33,8 +33,10 @@ public class RecipesController {
               size = 5,
               sort = {"name"},
               direction = Sort.Direction.ASC)
-          Pageable pageable) {
+          Pageable pageable,
+      String message) {
     model.addAttribute("recipeListPages", recipeService.getPageableRecipes(pageable));
+    model.addAttribute("message", message);
     return "recipe/recipe-all";
   }
 
@@ -50,7 +52,7 @@ public class RecipesController {
   public String saveRecipe(RecipeDto recipeDto) {
     recipeService.saveNameAndText(recipeDto);
     recipeService.addRecipe();
-    return "redirect:/recipes/recipeForm?message=recipe.create.successes";
+    return "redirect:/recipes?message=recipe.create.successes";
   }
 
   @GetMapping("/{uuid}/update")
