@@ -53,14 +53,13 @@ create unique index table_name_uuid_uindex
     on bdsm.product (uuid);
 
 
-
+-- RECIPE TABLE
 create table bdsm.recipe
 (
     id          serial,
     uuid        uuid not null,
     name        varchar,
-    recipe_text varchar,
-    products    varchar
+    recipe_text varchar
 );
 
 create unique index recipe_id_uindex
@@ -69,7 +68,35 @@ create unique index recipe_id_uindex
 create unique index recipe_uuid_uindex
     on bdsm.recipe (uuid);
 
+-- ProductAndQuantity table
+create table bdsm.product_and_quantity
+(
+    id         serial
+        constraint product_and_quantity_pk
+            primary key,
+    product_id int              not null,
+    quantity   double precision not null
+);
 
+create unique index product_and_quantity_id_uindex
+    on bdsm.product_and_quantity (id);
+
+-- RECIPE AND PRODUCTS TABLE
+create table bdsm.recipe_products_list
+(
+    recipe_id        int not null,
+    products_list_id int not null
+);
+alter table bdsm.recipe_products_list
+    add constraint recipe_product_product_id_fk
+        foreign key (products_list_id) references bdsm.product_and_quantity (id);
+
+alter table bdsm.recipe_products_list
+    add constraint recipe_product_recipe_id_fk
+        foreign key (recipe_id) references bdsm.recipe (id);
+
+
+-- WAREHOUSE TABLE
 create table bdsm.warehouse
 (
     id           serial,
@@ -86,4 +113,39 @@ alter table bdsm.warehouse
 create unique index warehouse_id_uindex
     on bdsm.warehouse (id);
 
+-- USERS TABLE
+create table bdsm.users
+(
+    id       serial
+        constraint users_pk
+            primary key,
+    client   varchar not null,
+    password varchar not null
+);
+-- ROLE TABLE
+create table bdsm.role
+(
+    id   serial
+        constraint role_pk
+            primary key,
+    name  varchar not null
+--             on update cascade on delete cascade,
+);
+
+-- USERS AND ROLES TABLE
+
+create table bdsm.users_roles
+(
+    client_id integer not null,
+    roles_id  integer not null
+--             on update cascade on delete cascade,
+);
+
+alter table bdsm.users_roles
+    add constraint users_id_roles_id_fk
+        foreign key (client_id) references bdsm.users (id);
+
+alter table bdsm.users_roles
+    add constraint users_roles_users_id_fk
+        foreign key (roles_id) references bdsm.role (id);
 
