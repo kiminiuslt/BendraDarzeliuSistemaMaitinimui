@@ -14,12 +14,12 @@
 </select>
 <h3 th:text="#{login.please.login}"></h3>
 
-<form method="post" th:object="${client}">
+<form method="post" th:action="@{/login}">
     <label th:text="#{login.user.name}"></label><br/>
-    <input type="text" placeholder="User name" th:field="*{username}"><br/>
+    <input type="text" placeholder="User name" name="loginUser"><br/>
 
     <label th:text="#{login.password}"></label><br/>
-    <input type="password" placeholder="Password" th:field="*{password}"><br/><br/>
+    <input type="password" placeholder="Password" name="loginPassword"><br/><br/>
 
     <button type="submit" th:text="#{login.login}"></button>
 </form>

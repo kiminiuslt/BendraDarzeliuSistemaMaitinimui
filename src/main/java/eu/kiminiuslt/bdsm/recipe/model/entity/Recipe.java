@@ -1,8 +1,9 @@
-package eu.kiminiuslt.bdsm.model.entity;
+package eu.kiminiuslt.bdsm.recipe.model.entity;
 
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -25,6 +26,7 @@ public class Recipe {
   @Column(name = "recipe_text")
   private String recipeText;
 
-  @Column(name = "products")
-  private String products;
+  @ManyToMany(cascade = CascadeType.ALL)
+  @JoinTable(schema = "bdsm")
+  private Set<ProductAndQuantity> productsList;
 }
