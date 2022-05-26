@@ -1,6 +1,5 @@
-package eu.kiminiuslt.bdsm.model.entity;
+package eu.kiminiuslt.bdsm.warehouse.model.entity;
 
-import eu.kiminiuslt.bdsm.model.enums.ProductType;
 import lombok.*;
 
 import javax.persistence.*;
