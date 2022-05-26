@@ -9,5 +9,30 @@
 
 <h1 th:text="#{menu.food.menu}"></h1>
 
+<table class="table table-primary">
+    <thead>
+    <tr>
+        <th scope="col" class="tableColumnAuto" th:text="#{menu.day}"></th>
+        <th scope="col" class="tableColumn12percent" th:text="#{recipe.all.energyValueKcal}"></th>
+        <th scope="col" class="tableColumn13percent"></th>
+        <th scope="col" class="tableColumn13percent"></th>
+    </tr>
+    <!--   TABLE CONTENT-->
+    </thead>
+    <tbody>
+    <tr th:each="menuDay: ${menu.daysList}">
+        <td th:text="${menuDay.dayNumber} + ' ' + #{menu.day}"></td>
+        <td th:text="${menuDay.dayEnergyValue}"></td>
+        <td><a class="btn btn-warning" th:href="@{/recipes/{id}/update(id=${menuDay.id})}"
+               th:text="#{edit}"></a>
+        </td>
+        <td>
+            <a class="btn btn-danger" th:href="@{/recipes/{id}/delete(id=${menuDay.id})}"
+               th:text="#{delete}"></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>
