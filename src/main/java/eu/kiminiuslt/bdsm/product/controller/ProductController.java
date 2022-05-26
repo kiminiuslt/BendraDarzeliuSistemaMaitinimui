@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,7 @@ import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('DIETIST')")
 @RequestMapping("/products")
 public class ProductController {
 
@@ -53,7 +55,7 @@ public class ProductController {
 
   @GetMapping("/{uuid}/update")
   public String getUpdateProduct(Model model, @PathVariable("uuid") UUID id) {
-    model.addAttribute("ProductDto", productService.getProductDtoByUUID(id));
+    model.addAttribute("productDto", productService.getProductDtoByUUID(id));
     return "products/product-form";
   }
 

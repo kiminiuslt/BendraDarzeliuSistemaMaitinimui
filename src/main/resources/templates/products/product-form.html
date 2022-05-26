@@ -10,7 +10,8 @@
 <div th:if="${productDto.name ne null}"><h1 th:text="#{edit.product.word}"></h1></div>
 
 <div class="container">
-    <form method="post" th:object="${productDto}">
+    <div th:text="${message}"></div>
+    <form method="post" th:object="${productDto}" th:action="@{${#httpServletRequest.requestURI}}">
         <input type="hidden" th:field="*{uuid}">
 
         <!--    MAIN-->
@@ -63,8 +64,6 @@
         <div th:replace="fragments/input :: input(#{cholesterol},'cholesterol')"></div>
 
         <button type="submit" th:text="#{save}" class="btn btn-primary"></button>
-
-        <div th:text="${message}"></div>
     </form>
 </div>
 </body>
