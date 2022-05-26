@@ -1,10 +1,10 @@
 package eu.kiminiuslt.bdsm.warehouse.service;
 
 import eu.kiminiuslt.bdsm.warehouse.mapper.WarehouseMapper;
-import eu.kiminiuslt.bdsm.model.dto.ProductsNamesDto;
+import eu.kiminiuslt.bdsm.product.model.dto.ProductsNamesDto;
 import eu.kiminiuslt.bdsm.warehouse.model.dto.WarehouseDto;
 import eu.kiminiuslt.bdsm.warehouse.repository.WarehouseRepository;
-import eu.kiminiuslt.bdsm.service.ProductService;
+import eu.kiminiuslt.bdsm.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

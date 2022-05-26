@@ -1,14 +1,12 @@
-package eu.kiminiuslt.bdsm.repository;
+package eu.kiminiuslt.bdsm.product.repository;
 
-import eu.kiminiuslt.bdsm.model.entity.Product;
+import eu.kiminiuslt.bdsm.product.model.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
-@Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
   Product findByUuid(UUID id);

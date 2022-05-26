@@ -1,6 +1,6 @@
 package eu.kiminiuslt.bdsm.controllers;
 
-import eu.kiminiuslt.bdsm.service.ProductService;
+import eu.kiminiuslt.bdsm.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
