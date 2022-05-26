@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 
 <head th:replace="fragments/head :: head(#{warehouse.all.title})"></head>
 
@@ -10,7 +12,7 @@
 <h1 th:text="#{warehouse.all.title}"></h1>
 
 <div class="container">
-    <div class="container">
+    <div class="container" sec:authorize="hasAnyRole('DIETIST')">
         <a class="btn btn-success" th:href="@{'/warehouse/warehouse-record'}" role="button"
            th:text="#{warehouse.add.new.record}"></a>
     </div>
@@ -60,8 +62,16 @@
                        th:text="${warehouse.productName}"></a></td>
                 <td th:text="${warehouse.amount}"></td>
                 <td th:text="${warehouse.invoice}"></td>
-                <td><a class="btn btn-danger" th:href="@{/warehouse/{uuid}/delete(uuid=${warehouse.uuid})}"
-                       th:text="#{delete}"></a></td>
+                <td><a class="btn btn-danger"
+                       sec:authorize="hasAnyRole('DIETIST')"
+                       th:href="@{/warehouse/{uuid}/delete(uuid=${warehouse.uuid})}"
+                       th:text="#{delete}"></a>
+
+                    <a class="btn btn-warning"
+                       sec:authorize="hasAnyRole('CULINARY','DIETIST')"
+                       th:href="@{/warehouse/{uuid}/writeOff(uuid=${warehouse.uuid})}"
+                       th:text="#{writeOff.writeOff}"></a>
+                </td>
             </tr>
             </tbody>
         </table>

@@ -7,24 +7,24 @@
 <body>
 <div th:replace="fragments/menu :: godMenu"></div>
 
-<h1 th:text="#{warehouse.add.new.title}"></h1>
+<h1 th:if="${warehouseDto.uuid eq null}" th:text="#{warehouse.add.new.title}"></h1>
+<h1 th:if="${warehouseDto.uuid ne null}" th:text="#{warehouse.edit.record.title}"></h1>
 
 <div class="container">
-    <div class="input-group rounded">
-        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-               aria-describedby="search-addon"/>
-        <span class="input-group-text border-0" id="search-addon">
-    <i class="fas fa-search"></i>
-  </span>
-    </div>
 
-    <form method="post" th:object="${warehouseDto}">
+    <form method="post" th:object="${warehouseDto}" th:action="@{/warehouse/warehouse-record}">
 
-        <div th:replace="fragments/input :: input(#{product.word},'productName')"></div>
+        <select th:if="${warehouseDto.uuid eq null}" th:field="${warehouseDto.productName}" class="form-select">
+            <option th:each="productNames: ${allProductsList}"
+                    th:value="${productNames.name}"
+                    th:text="${productNames.name}"></option>
+        </select>
+
+        <div th:if="${warehouseDto.uuid ne null}"><h2 th:text="${warehouseDto.productName}"></h2></div>
         <div th:replace="fragments/input :: input(#{warehouse.amount},'amount')"></div>
         <div th:replace="fragments/input :: input(#{warehouse.invoice},'invoice')"></div>
 
-        <div th:text="${message}"></div>
+        <div th:text="${message}" class="messageSuccess"></div>
         <button type="submit" th:text="#{save}" class="btn btn-primary"></button>
 
     </form>

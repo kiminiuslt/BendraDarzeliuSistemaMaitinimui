@@ -2,7 +2,7 @@ package eu.kiminiuslt.bdsm.service;
 
 import eu.kiminiuslt.bdsm.mapper.ProductMapper;
 import eu.kiminiuslt.bdsm.model.dto.ProductDto;
-import eu.kiminiuslt.bdsm.model.dto.ProductForRecipeDto;
+import eu.kiminiuslt.bdsm.recipe.model.dto.ProductForRecipeDto;
 import eu.kiminiuslt.bdsm.model.dto.ProductsNamesDto;
 import eu.kiminiuslt.bdsm.model.entity.Product;
 import eu.kiminiuslt.bdsm.repository.ProductRepository;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -35,12 +36,14 @@ public class ProductService {
   public List<ProductForRecipeDto> getProductsListRecipeDto() {
     return getProductsList().stream()
         .map(productMapper::productMapToProductForRecipeDto)
+        .sorted(Comparator.comparing(ProductForRecipeDto::getName))
         .collect(Collectors.toList());
   }
 
   public List<ProductsNamesDto> getProductsListNamesDto() {
     return getProductsList().stream()
         .map(productMapper::productMapToProductNamesDto)
+        .sorted(Comparator.comparing(ProductsNamesDto::getName))
         .collect(Collectors.toList());
   }
 
@@ -48,8 +51,12 @@ public class ProductService {
     return new ArrayList<>(productRepository.findAll());
   }
 
-  public ProductDto getProductByUUID(UUID id) {
+  public ProductDto getProductDtoByUUID(UUID id) {
     return productMapper.mapToProductDto(productRepository.findByUuid(id));
+  }
+
+  public Product getProductByUUID(UUID uuid) {
+    return productRepository.findByUuid(uuid);
   }
 
   @Transactional
@@ -65,5 +72,19 @@ public class ProductService {
   @Transactional
   public void deleteProduct(UUID id) {
     productRepository.deleteById(productRepository.findByUuid(id).getId());
+  }
+
+  public Page<ProductDto> getProductByNamePageable(String findProductName, Pageable pageable) {
+    return productRepository
+        .findProductsByNameIsLike(convertToLikeResult(findProductName), pageable)
+        .map(productMapper::mapToProductDto);
+  }
+
+  public Product getProductById(int id) {
+    return productRepository.findById(id);
+  }
+
+  private String convertToLikeResult(String value) {
+    return '%' + value + '%';
   }
 }

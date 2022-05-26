@@ -53,7 +53,7 @@ public class ProductController {
 
   @GetMapping("/{uuid}/update")
   public String getUpdateProduct(Model model, @PathVariable("uuid") UUID id) {
-    model.addAttribute("ProductDto", productService.getProductByUUID(id));
+    model.addAttribute("ProductDto", productService.getProductDtoByUUID(id));
     return "products/product-form";
   }
 

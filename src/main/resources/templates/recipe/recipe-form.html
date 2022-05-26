@@ -6,40 +6,57 @@
 
 <body>
 <div th:replace="fragments/menu :: godMenu"></div>
-<h1 th:text="#{recipe.add.new.recipe}"></h1>
+<h1 th:if="${recipeDto.uuid eq null}" th:text="#{recipe.form.new.recipe}"></h1>
+<h1 th:if="${recipeDto.uuid ne null}" th:text="#{recipe.form.edit.recipe}"></h1>
 
 <div class="container">
 
     <div class="d-flex flex-row bd-highlight mb-3">
-        <span class="border border-primary" style="padding: 10px" th:text="#{recipe.all.protein}+' ' +5 + ' '"></span>
-        <span class="border border-primary" style="padding: 10px" th:text="#{recipe.all.fat}+' ' +5 + ' '"></span>
-        <span class="border border-primary" style="padding: 10px"
-              th:text="#{recipe.all.carbohydrates}+' ' +5 + ' '"></span>
-        <span class="border border-primary" style="padding: 10px"
-              th:text="#{recipe.all.energyValueKcal}+' ' +5 + ' '"></span>
-    </div>
-    <div class="input-group rounded">
-        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-               aria-describedby="search-addon"/>
-        <span class="input-group-text border-0" id="search-addon">
-    <i class="fas fa-search"></i>
-  </span>
+        <span class="border border-primary materialsCalculated"
+              th:text="#{recipe.all.protein}+' ' + ${recipeDto.allProteins()} +' '"></span>
+        <span class="border border-primary materialsCalculated"
+              th:text="#{recipe.all.fat}+' ' +${recipeDto.allFat()} +  ' '"></span>
+        <span class="border border-primary materialsCalculated"
+              th:text="#{recipe.all.carbohydrates}+' ' +${recipeDto.allCarbohydrates()} + ' '"></span>
+        <span class="border border-primary materialsCalculated"
+              th:text="#{recipe.all.energyValueKcal}+' ' +${recipeDto.allEnergyValueKcal()} + ' '"></span>
     </div>
 
-    <form method="post" th:object="${recipeDto}">
+    <!--FLASH REDIRECT-->
+    <!--    SESSION ATTRIBUTES-->
 
-        <label for="name" th:text="#{recipe.name}"></label><br/>
-        <input id="name" type="text" th:field="*{recipeName}"><br/><br/>
+    <a class="btn btn-primary"
+       th:if="${recipeDto.uuid eq null}"
+       th:href="@{/recipes/addProduct}"
+       th:text="#{add.product.title}"></a>
 
-        <label th:for="*{recipeText}" th:text="#{recipe.recipeText}"></label><br/>
-        <input th:id="*{recipeText}" type="text" th:field="*{recipeText}"><br/><br/>
+    <a class="btn btn-primary"
+       th:if="${recipeDto.uuid ne null}"
+       th:href="@{/recipes/{uuid}/addProduct(uuid=${recipeDto.uuid})}"
+       th:text="#{add.product.title}"></a>
 
-        <label th:for="*{products}" th:text="#{recipe.products}"></label><br/>
-        <textarea th:id="*{products}" type="text" th:field="*{products}"></textarea><br/><br/>
+    <form method="post" th:object="${recipeDto}" th:action="@{${#httpServletRequest.requestURI}}">
+        <div th:replace="fragments/input :: input(#{recipe.name},'recipeName')"></div>
+        <div th:replace="fragments/input :: input(#{recipe.recipeText},'recipeText')"></div>
 
+        <ul class="list-group" th:each="products : ${recipeDto.productsList}">
+            <li class="list-group-item">
+                <span th:text=" ${products.quantity} + 'g ' + ${products.product.name}"></span>
+                <a class="btn btn-danger"
+                   th:if="${recipeDto.uuid eq null}"
+                   th:href="@{/recipes/{uuid}/deleteProduct(uuid=${products.productUUID})}"
+                   th:text="#{remove}">
+                </a>
+                <a class="btn btn-danger"
+                   th:if="${recipeDto.uuid ne null}"
+                   th:href="@{/recipes/{uuid1}/{uuid}/deleteProduct(uuid=${products.productUUID},uuid1=${recipeDto.uuid})}"
+                   th:text="#{remove}">
+                </a>
+            </li>
+        </ul>
 
         <div th:text="${message}"></div>
-        <button type="submit" th:text="#{save}"></button>
+        <button type="submit" th:text="#{save}" class="btn btn-primary"></button>
     </form>
 
 </div>

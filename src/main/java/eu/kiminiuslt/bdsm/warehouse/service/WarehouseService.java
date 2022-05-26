@@ -1,9 +1,10 @@
-package eu.kiminiuslt.bdsm.service;
+package eu.kiminiuslt.bdsm.warehouse.service;
 
-import eu.kiminiuslt.bdsm.mapper.WarehouseMapper;
+import eu.kiminiuslt.bdsm.warehouse.mapper.WarehouseMapper;
 import eu.kiminiuslt.bdsm.model.dto.ProductsNamesDto;
-import eu.kiminiuslt.bdsm.model.dto.WarehouseDto;
-import eu.kiminiuslt.bdsm.repository.WarehouseRepository;
+import eu.kiminiuslt.bdsm.warehouse.model.dto.WarehouseDto;
+import eu.kiminiuslt.bdsm.warehouse.repository.WarehouseRepository;
+import eu.kiminiuslt.bdsm.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,11 +44,22 @@ public class WarehouseService {
             .amount(warehouseDto.getAmount())
             .invoice(warehouseDto.getInvoice())
             .build());
-    //    TODO: FIX PRODUCT NAME ABILITY TO BE CHANGED
   }
 
   @Transactional
   public void deleteWarehouseRecord(UUID uuid) {
     warehouseRepository.deleteById(warehouseRepository.findByUuid(uuid).getId());
+  }
+
+  public void writeOff(double writeOff, UUID uuid) {
+    WarehouseDto warehouseDto = getWarehouseDtoRecordByUUID(uuid);
+    if (writeOff > 0 && warehouseDto.getAmount() >= writeOff) {
+      if (warehouseDto.getAmount() == writeOff) {
+        deleteWarehouseRecord(warehouseDto.getUuid());
+      } else {
+        warehouseDto.setAmount(warehouseDto.getAmount() - writeOff);
+        updateWarehouse(warehouseDto);
+      }
+    }
   }
 }
