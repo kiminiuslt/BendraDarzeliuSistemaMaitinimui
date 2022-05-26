@@ -1,7 +1,7 @@
-package eu.kiminiuslt.bdsm.mapper;
+package eu.kiminiuslt.bdsm.warehouse.mapper;
 
-import eu.kiminiuslt.bdsm.model.dto.WarehouseDto;
-import eu.kiminiuslt.bdsm.model.entity.Warehouse;
+import eu.kiminiuslt.bdsm.warehouse.model.dto.WarehouseDto;
+import eu.kiminiuslt.bdsm.warehouse.model.entity.Warehouse;
 import eu.kiminiuslt.bdsm.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
