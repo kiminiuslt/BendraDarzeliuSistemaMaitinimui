@@ -1,20 +1,24 @@
-package eu.kiminiuslt.bdsm.controllers;
+package eu.kiminiuslt.bdsm.product.controller;
 
 import eu.kiminiuslt.bdsm.helpers.MessageService;
-import eu.kiminiuslt.bdsm.model.dto.ProductDto;
-import eu.kiminiuslt.bdsm.service.ProductService;
+import eu.kiminiuslt.bdsm.product.model.dto.ProductDto;
+import eu.kiminiuslt.bdsm.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('DIETIST')")
 @RequestMapping("/products")
 public class ProductController {
 
@@ -35,20 +39,23 @@ public class ProductController {
 
   @GetMapping("/productForm")
   public String openProductForm(Model model, String message) {
-    model.addAttribute("ProductDto", ProductDto.builder().build());
+    model.addAttribute("productDto", ProductDto.builder().build());
     model.addAttribute("message", messageService.getMessage(message));
     return "products/product-form";
   }
 
   @PostMapping("/productForm")
-  public String saveProduct(ProductDto product) {
-    productService.addProduct(product);
+  public String saveProduct(@Valid ProductDto productDto, BindingResult errors) {
+    if (errors.hasErrors()) {
+      return "products/product-form";
+    }
+    productService.addProduct(productDto);
     return "redirect:/products/productForm?message=create.product.successes";
   }
 
   @GetMapping("/{uuid}/update")
   public String getUpdateProduct(Model model, @PathVariable("uuid") UUID id) {
-    model.addAttribute("ProductDto", productService.getProductDtoByUUID(id));
+    model.addAttribute("productDto", productService.getProductDtoByUUID(id));
     return "products/product-form";
   }
 

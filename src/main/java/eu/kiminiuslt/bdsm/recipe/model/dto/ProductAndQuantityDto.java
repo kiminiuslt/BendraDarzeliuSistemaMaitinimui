@@ -1,6 +1,6 @@
 package eu.kiminiuslt.bdsm.recipe.model.dto;
 
-import eu.kiminiuslt.bdsm.model.entity.Product;
+import eu.kiminiuslt.bdsm.product.model.entity.Product;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

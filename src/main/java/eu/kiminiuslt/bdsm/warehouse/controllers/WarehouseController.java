@@ -1,12 +1,13 @@
-package eu.kiminiuslt.bdsm.controllers;
+package eu.kiminiuslt.bdsm.warehouse.controllers;
 
 import eu.kiminiuslt.bdsm.helpers.MessageService;
-import eu.kiminiuslt.bdsm.model.dto.WarehouseDto;
-import eu.kiminiuslt.bdsm.service.WarehouseService;
+import eu.kiminiuslt.bdsm.warehouse.model.dto.WarehouseDto;
+import eu.kiminiuslt.bdsm.warehouse.service.WarehouseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +21,7 @@ import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
+@PreAuthorize("hasAnyRole('DIETIST','CULINARY')")
 @RequestMapping("/warehouse")
 public class WarehouseController {
   private final WarehouseService warehouseService;
@@ -38,6 +40,7 @@ public class WarehouseController {
     return "/warehouse/warehouse-all";
   }
 
+  @PreAuthorize("hasAnyRole('DIETIST')")
   @GetMapping("/warehouse-record")
   public String newWarehouseRecord(Model model, String message) {
     model.addAttribute("warehouseDto", WarehouseDto.builder().build());
@@ -46,6 +49,7 @@ public class WarehouseController {
     return "warehouse/warehouse-record";
   }
 
+  @PreAuthorize("hasAnyRole('DIETIST')")
   @PostMapping("/warehouse-record")
   public String saveWarehouseRecord(@Valid WarehouseDto warehouseDto, BindingResult errors) {
     if (errors.hasErrors()) {
@@ -55,12 +59,14 @@ public class WarehouseController {
     return "redirect:/warehouse/warehouse-record?message=warehouse.create.success.message";
   }
 
+  @PreAuthorize("hasAnyRole('DIETIST')")
   @GetMapping("/{uuid}/update")
   public String updateWarehouse(Model model, @PathVariable("uuid") UUID uuid) {
     model.addAttribute("warehouseDto", warehouseService.getWarehouseDtoRecordByUUID(uuid));
     return "/warehouse/warehouse-record";
   }
 
+  @PreAuthorize("hasAnyRole('DIETIST')")
   @PostMapping("/{uuid}/update")
   public String updateWarehouse(
       Model model,
@@ -75,6 +81,7 @@ public class WarehouseController {
     return "/warehouse/warehouse-all";
   }
 
+  @PreAuthorize("hasAnyRole('DIETIST')")
   @GetMapping("/{uuid}/delete")
   public String deleteWarehouse(
       Model model,
@@ -89,12 +96,14 @@ public class WarehouseController {
     return "/warehouse/warehouse-all";
   }
 
+  @PreAuthorize("hasAnyRole('DIETIST','CULINARY')")
   @GetMapping("/{uuid}/writeOff")
   public String writeOff(Model model, @PathVariable("uuid") UUID uuid) {
     model.addAttribute("warehouseDto", warehouseService.getWarehouseDtoRecordByUUID(uuid));
     return "/warehouse/write-off";
   }
 
+  @PreAuthorize("hasAnyRole('DIETIST','CULINARY')")
   @PostMapping("/{uuid}/writeOff")
   public String writeOff(
       @Valid WarehouseDto warehouseDto, BindingResult errors, @PathVariable("uuid") UUID uuid) {

@@ -1,9 +1,9 @@
-package eu.kiminiuslt.bdsm.mapper;
+package eu.kiminiuslt.bdsm.product.mapper;
 
-import eu.kiminiuslt.bdsm.model.dto.ProductDto;
+import eu.kiminiuslt.bdsm.product.model.dto.ProductDto;
 import eu.kiminiuslt.bdsm.recipe.model.dto.ProductForRecipeDto;
-import eu.kiminiuslt.bdsm.model.dto.ProductsNamesDto;
-import eu.kiminiuslt.bdsm.model.entity.Product;
+import eu.kiminiuslt.bdsm.product.model.dto.ProductsNamesDto;
+import eu.kiminiuslt.bdsm.product.model.entity.Product;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;

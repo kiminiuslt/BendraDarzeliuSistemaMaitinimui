@@ -1,4 +1,4 @@
-package eu.kiminiuslt.bdsm.model.dto;
+package eu.kiminiuslt.bdsm.warehouse.model.dto;
 
 import lombok.*;
 
