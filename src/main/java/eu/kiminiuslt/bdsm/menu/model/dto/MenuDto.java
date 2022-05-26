@@ -1,6 +1,5 @@
 package eu.kiminiuslt.bdsm.menu.model.dto;
 
-import eu.kiminiuslt.bdsm.menu.model.entity.MenuDay;
 import lombok.*;
 
 import java.util.List;
@@ -11,5 +10,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MenuDto {
-  private List<MenuDay> daysList;
+  private List<MenuDayDto> daysList;
 }
