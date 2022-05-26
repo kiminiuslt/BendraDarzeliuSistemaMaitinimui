@@ -1,6 +1,6 @@
-package eu.kiminiuslt.bdsm.repository;
+package eu.kiminiuslt.bdsm.warehouse.repository;
 
-import eu.kiminiuslt.bdsm.model.entity.Warehouse;
+import eu.kiminiuslt.bdsm.warehouse.model.entity.Warehouse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
