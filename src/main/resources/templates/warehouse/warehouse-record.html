@@ -12,7 +12,7 @@
 
 <div class="container">
 
-    <form method="post" th:object="${warehouseDto}">
+    <form method="post" th:object="${warehouseDto}" th:action="@{/warehouse/warehouse-record}">
 
         <select th:if="${warehouseDto.uuid eq null}" th:field="${warehouseDto.productName}" class="form-select">
             <option th:each="productNames: ${allProductsList}"
