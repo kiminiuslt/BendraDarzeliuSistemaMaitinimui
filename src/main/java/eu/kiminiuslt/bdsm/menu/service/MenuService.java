@@ -4,6 +4,8 @@ import eu.kiminiuslt.bdsm.menu.mapper.MenuDayMapper;
 import eu.kiminiuslt.bdsm.menu.model.dto.MenuDayDto;
 import eu.kiminiuslt.bdsm.menu.model.dto.MenuDto;
 import eu.kiminiuslt.bdsm.menu.repository.MenuDayRepository;
+import eu.kiminiuslt.bdsm.recipe.model.dto.RecipeDto;
+import eu.kiminiuslt.bdsm.recipe.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 public class MenuService {
   private final MenuDayRepository menuDayRepository;
   private final MenuDayMapper menuDayMapper;
+  private final RecipeService recipeService;
 
   public MenuDto getMenu() {
     return MenuDto.builder().daysList(getAllDayList()).build();
@@ -30,5 +33,13 @@ public class MenuService {
 
   public void delete() {
     menuDayRepository.deleteById(1);
+  }
+
+  public MenuDayDto getMenuDayByID(int id) {
+    return menuDayMapper.entityToDto(menuDayRepository.getById(id));
+  }
+
+  public List<RecipeDto> getAllRecipesList() {
+    return recipeService.getAllRecipes();
   }
 }

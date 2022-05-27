@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -96,5 +97,11 @@ public class RecipeService {
 
   public void resetRecipeDto() {
     temporaryRecipeDto = null;
+  }
+
+  public List<RecipeDto> getAllRecipes() {
+    return recipeRepository.findAll().stream()
+        .map(recipeMapper::recipeMapToRecipeDto)
+        .collect(Collectors.toList());
   }
 }

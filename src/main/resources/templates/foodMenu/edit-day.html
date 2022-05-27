@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head(#{edit.day.title})"></head>
+
+<body>
+<div th:replace="fragments/menu :: godMenu"></div>
+
+<h1 th:text="#{edit.day.title}+' '+ ${menuDay.dayNumber}"></h1>
+</body>
+</html>

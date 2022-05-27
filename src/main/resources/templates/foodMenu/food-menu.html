@@ -22,7 +22,7 @@
     <tr th:each="menuDay: ${menu.daysList}">
         <td th:text="${menuDay.dayNumber} + ' ' + #{menu.day}"></td>
         <td th:text="${menuDay.dayEnergyValue}"></td>
-        <td><a class="btn btn-warning" th:href="@{/recipes/{id}/update(id=${menuDay.id})}"
+        <td><a class="btn btn-warning" th:href="@{/food-menu/{id}/update(id=${menuDay.id})}"
                th:text="#{edit}"></a>
         </td>
     </tr>
