@@ -13,9 +13,6 @@ import java.util.Set;
 public class MenuDayDto {
   private Integer id;
   private Integer dayNumber;
+  private Double dayEnergyValue;
   private Set<RecipeDto> dayRecipesDto;
-
-  public Double getDayEnergyValue() {
-    return dayRecipesDto.stream().mapToDouble(RecipeDto::allEnergyValueKcal).sum();
-  }
 }
