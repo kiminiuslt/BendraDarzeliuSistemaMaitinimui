@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,17 +30,23 @@ public class MenuService {
         .collect(Collectors.toList());
   }
 
-  public void save(MenuDto menu) {}
-
-  public void delete() {
-    menuDayRepository.deleteById(1);
-  }
-
   public MenuDayDto getMenuDayByID(int id) {
     return menuDayMapper.entityToDto(menuDayRepository.getById(id));
   }
 
   public List<RecipeDto> getAllRecipesList() {
     return recipeService.getAllRecipes();
+  }
+
+  public void addRecipeToDay(Integer id, String recipeUUID) {
+    menuDayRepository.addDayRecipeToTable(id, getRecipeIdByUUID(UUID.fromString(recipeUUID)));
+  }
+
+  public void removeRecipeFromDay(Integer dayId, UUID uuid) {
+    menuDayRepository.removeDayRecipeFromTable(dayId, getRecipeIdByUUID(uuid));
+  }
+
+  private Integer getRecipeIdByUUID(UUID uuid) {
+    return recipeService.getRecipeDtoByUUID(uuid).getId();
   }
 }
