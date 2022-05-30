@@ -1,5 +1,6 @@
 package eu.kiminiuslt.bdsm.menu.controller;
 
+import eu.kiminiuslt.bdsm.menu.model.dto.MenuDayDto;
 import eu.kiminiuslt.bdsm.menu.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,13 +28,15 @@ public class FoodMenuController {
 
   @GetMapping("/{id}/update")
   public String getUpdate(Model model, @PathVariable("id") int id) {
-    model.addAttribute("menuDay", menuService.getMenuDayByID(id));
-    model.addAttribute("recipesList", menuService.getAllRecipesList());
+    MenuDayDto menuDayDto = menuService.getMenuDayByID(id);
+    model.addAttribute(
+        "recipesList", menuService.getFiltredRecipesList(menuDayDto.getDayRecipesDto()));
+    model.addAttribute("menuDay", menuDayDto);
     return "/foodMenu/edit-day";
   }
 
   @PostMapping("/{id}/update")
-  public String recipeToDay(Model model, @PathVariable("id") Integer id, String recipeUUID) {
+  public String recipeToDay(@PathVariable("id") Integer id, String recipeUUID) {
     menuService.addRecipeToDay(id, recipeUUID);
     return "redirect:/food-menu/" + id + "/update";
   }

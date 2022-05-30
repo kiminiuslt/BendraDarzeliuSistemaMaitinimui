@@ -9,7 +9,9 @@ import eu.kiminiuslt.bdsm.recipe.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -48,5 +50,18 @@ public class MenuService {
 
   private Integer getRecipeIdByUUID(UUID uuid) {
     return recipeService.getRecipeDtoByUUID(uuid).getId();
+  }
+
+  public List<RecipeDto> getFiltredRecipesList(Set<RecipeDto> dayRecipesDto) {
+    if (dayRecipesDto.size() == 0) {
+      return getAllRecipesList();
+    }
+    List<RecipeDto> dayRecipes = new ArrayList<>(dayRecipesDto);
+    List<RecipeDto> result = getAllRecipesList();
+    for (int i = 0; i < dayRecipesDto.size(); i++) {
+      int id = dayRecipes.get(i).getId();
+      result.removeIf(recipeDto -> recipeDto.getId() == id);
+    }
+    return result;
   }
 }
