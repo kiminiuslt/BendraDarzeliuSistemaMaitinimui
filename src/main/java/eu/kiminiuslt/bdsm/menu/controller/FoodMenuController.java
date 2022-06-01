@@ -1,15 +1,14 @@
 package eu.kiminiuslt.bdsm.menu.controller;
 
 import eu.kiminiuslt.bdsm.menu.model.dto.MenuDayDto;
+import eu.kiminiuslt.bdsm.menu.model.dto.PeopleCountDto;
 import eu.kiminiuslt.bdsm.menu.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.UUID;
 
@@ -21,10 +20,17 @@ public class FoodMenuController {
   private final MenuService menuService;
 
   @GetMapping
-  public String foodMenu(Model model) {
-    model.addAttribute("menu", menuService.getMenu());
+  public String foodMenu(
+      Model model, @ModelAttribute("passedPeopleCount") PeopleCountDto peopleCountDto) {
+    model.addAttribute("menu", menuService.getMenu(peopleCountDto));
     model.addAttribute("peopleCount", menuService.getPeopleCount());
     return "/foodMenu/food-menu";
+  }
+
+  @PostMapping
+  public String foodMenu(RedirectAttributes redirectAttributes, PeopleCountDto peopleCountDto) {
+    redirectAttributes.addFlashAttribute("passedPeopleCount", peopleCountDto);
+    return "redirect:/food-menu";
   }
 
   @GetMapping("/{id}/update")
