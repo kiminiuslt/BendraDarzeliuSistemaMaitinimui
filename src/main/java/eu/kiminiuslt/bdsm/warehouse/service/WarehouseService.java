@@ -3,6 +3,7 @@ package eu.kiminiuslt.bdsm.warehouse.service;
 import eu.kiminiuslt.bdsm.warehouse.mapper.WarehouseMapper;
 import eu.kiminiuslt.bdsm.product.model.dto.ProductsNamesDto;
 import eu.kiminiuslt.bdsm.warehouse.model.dto.WarehouseDto;
+import eu.kiminiuslt.bdsm.warehouse.model.entity.Warehouse;
 import eu.kiminiuslt.bdsm.warehouse.repository.WarehouseRepository;
 import eu.kiminiuslt.bdsm.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -61,5 +62,9 @@ public class WarehouseService {
         updateWarehouse(warehouseDto);
       }
     }
+  }
+
+  public Warehouse getWarehouseDtoById(Integer id) {
+    return  warehouseRepository.findByProductId(id);
   }
 }

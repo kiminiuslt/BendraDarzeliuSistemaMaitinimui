@@ -10,4 +10,6 @@ import java.util.UUID;
 public interface WarehouseRepository extends JpaRepository<Warehouse, Integer> {
 
   Warehouse findByUuid(UUID uuid);
+
+  Warehouse findByProductId(Integer id);
 }
