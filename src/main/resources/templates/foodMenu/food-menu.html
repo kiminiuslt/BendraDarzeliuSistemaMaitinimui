@@ -34,7 +34,7 @@
                 <input type="number" th:id="${menuDay.dayNumber}+'worker'" th:field="${peopleCount.workers}"
                        class="form-control" th:placeholder="#{food.menu.worker.count}">
 
-                <input type="hidden" th:id="${menuDay.dayNumber}+'hidden'" th:value="${menuDay.dayNumber}"
+                <input type="hidden" th:id="${menuDay.dayNumber}+'hidden'" th:value="${menuDay.dayNumber}-1"
                        th:name="dayOfMenu">
                 <button type="submit" th:text="#{save}" class="btn btn-primary"></button>
             </form>
