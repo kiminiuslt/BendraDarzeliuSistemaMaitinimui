@@ -30,7 +30,7 @@ public class FoodMenuController {
   public String getUpdate(Model model, @PathVariable("id") int id) {
     MenuDayDto menuDayDto = menuService.getMenuDayByID(id);
     model.addAttribute(
-        "recipesList", menuService.getFiltredRecipesList(menuDayDto.getDayRecipesDto()));
+        "recipesList", menuService.getFilteredRecipesList(menuDayDto.getDayRecipesDto()));
     model.addAttribute("menuDay", menuDayDto);
     return "/foodMenu/edit-day";
   }

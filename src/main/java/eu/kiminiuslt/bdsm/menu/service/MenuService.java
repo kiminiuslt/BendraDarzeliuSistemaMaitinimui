@@ -52,7 +52,7 @@ public class MenuService {
     return recipeService.getRecipeDtoByUUID(uuid).getId();
   }
 
-  public List<RecipeDto> getFiltredRecipesList(Set<RecipeDto> dayRecipesDto) {
+  public List<RecipeDto> getFilteredRecipesList(Set<RecipeDto> dayRecipesDto) {
     if (dayRecipesDto.size() == 0) {
       return getAllRecipesList();
     }
