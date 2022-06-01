@@ -6,23 +6,24 @@
 
 </head>
 <body>
-<h1 th:text="#{login.common.kindergarten.feeding.system}"></h1><br>
-<select id="languageSelector">
+<h1 th:text="#{login.common.kindergarten.feeding.system}"></h1>
+<select id="languageSelector" class="form-select language">
     <option value="" th:text="#{lang.option}"></option>
     <option value="LT" th:text="Lietuvių"></option>
     <option value="US" th:text="English"></option>
 </select>
-<h3 th:text="#{login.please.login}"></h3>
+<div class="loginClass">
+    <h3 th:text="#{login.please.login}"></h3>
 
-<form method="post" th:action="@{/login}">
-    <label th:text="#{login.user.name}"></label><br/>
-    <input type="text" placeholder="User name" name="loginUser"><br/>
+    <form method="post" th:action="@{/login}">
+        <label th:text="#{login.user.name}"></label><br/>
+        <input type="text" placeholder="User name" name="loginUser" class="form-control"><br/>
 
-    <label th:text="#{login.password}"></label><br/>
-    <input type="password" placeholder="Password" name="loginPassword"><br/><br/>
+        <label th:text="#{login.password}"></label><br/>
+        <input type="password" placeholder="Password" name="loginPassword" class="form-control"><br/><br/>
 
-    <button type="submit" th:text="#{login.login}"></button>
-</form>
-
+        <button type="submit" th:text="#{login.login}" class="btn btn-primary"></button>
+    </form>
+</div>
 </body>
 </html>
