@@ -4,12 +4,13 @@ import eu.kiminiuslt.bdsm.menu.model.dto.MenuDayDto;
 import eu.kiminiuslt.bdsm.menu.model.dto.PeopleCountDto;
 import eu.kiminiuslt.bdsm.menu.model.dto.ProductShortageDto;
 import eu.kiminiuslt.bdsm.recipe.model.dto.ProductAndQuantityDto;
-import eu.kiminiuslt.bdsm.warehouse.model.dto.WarehouseDto;
 import eu.kiminiuslt.bdsm.warehouse.model.entity.Warehouse;
 import eu.kiminiuslt.bdsm.warehouse.service.WarehouseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 @Service
@@ -30,22 +31,23 @@ public class ProductsShortageService {
             createProductShortageDto(allRequiredDayProducts, allRequiredDayProducts.get(i)));
       }
     }
-
-    return getFilteredListByWarehouse(summedRequiredGramsList, peopleCountDto);
+    double totalPeople = getTotalPeople(peopleCountDto);
+    return getFilteredListByWarehouse(summedRequiredGramsList, totalPeople);
   }
 
   private List<ProductShortageDto> getFilteredListByWarehouse(
-      List<ProductShortageDto> summedRequiredGramsList, PeopleCountDto peopleCountDto) {
+      List<ProductShortageDto> summedRequiredGramsList, double totalPeople) {
     List<ProductShortageDto> result = new ArrayList<>();
 
     for (int i = 0; i < summedRequiredGramsList.size(); i++) {
       Warehouse warehouse =
           warehouseService.getWarehouseDtoById(summedRequiredGramsList.get(i).getProductId());
       if (warehouse == null) {
-        result.add(setShortageMax(summedRequiredGramsList.get(i)));
+        result.add(setShortageMax(summedRequiredGramsList.get(i), totalPeople));
       } else {
-        if (warehouse.getAmount() < (summedRequiredGramsList.get(i).getRequiredGrams() / 1000)) {
-          result.add(setShortage(warehouse, summedRequiredGramsList.get(i), peopleCountDto));
+        if (warehouse.getAmount()
+            < (summedRequiredGramsList.get(i).getRequiredGrams() / 1000) * totalPeople) {
+          result.add(setShortage(warehouse, summedRequiredGramsList.get(i), totalPeople));
         }
       }
     }
@@ -53,31 +55,19 @@ public class ProductsShortageService {
   }
 
   private ProductShortageDto setShortage(
-      Warehouse warehouse, ProductShortageDto productShortageDto, PeopleCountDto peopleCountDto) {
-    double totalPeople = getTotalPeople(peopleCountDto);
+      Warehouse warehouse, ProductShortageDto productShortageDto, double totalPeople) {
     productShortageDto.setOwnedKg(warehouse.getAmount());
     productShortageDto.setShortageKg(
-        (productShortageDto.getRequiredGrams() / 1000) * totalPeople - warehouse.getAmount());
+        countShortage(productShortageDto.getRequiredGrams(), totalPeople) - warehouse.getAmount());
     return productShortageDto;
   }
 
-  private double getTotalPeople(PeopleCountDto peopleCountDto) {
-    double result = peopleCountDto.getLittleOnes() * 0.8;
-    result = result + peopleCountDto.getOlderKids();
-    result = result + peopleCountDto.getWorkers() * 0.5;
-    return result;
-  }
-
-  private ProductShortageDto setShortageMax(ProductShortageDto productShortageDto) {
-    productShortageDto.setShortageKg(productShortageDto.getRequiredGrams() / 1000);
+  private ProductShortageDto setShortageMax(
+      ProductShortageDto productShortageDto, double totalPeople) {
+    productShortageDto.setShortageKg(
+        countShortage(productShortageDto.getRequiredGrams(), totalPeople));
     productShortageDto.setOwnedKg(0.0);
     return productShortageDto;
-  }
-
-  private boolean isInWarehouse(
-      List<WarehouseDto> warehouse, ProductShortageDto productShortageDto) {
-    return warehouse.stream()
-        .anyMatch(o -> productShortageDto.getName().equals(o.getProductName()));
   }
 
   private boolean containsInList(
@@ -97,5 +87,20 @@ public class ProductsShortageService {
                 .filter(o -> o.getProductUUID().equals(e.getProductUUID()))
                 .reduce(0.0, (subtotal, element) -> subtotal + element.getQuantity(), Double::sum))
         .build();
+  }
+
+  private double getTotalPeople(PeopleCountDto peopleCountDto) {
+    double result = peopleCountDto.getLittleOnes();
+    result = result + peopleCountDto.getOlderKids();
+    result = result + peopleCountDto.getWorkers();
+    return result;
+  }
+
+  private Double countShortage(Double requiredGrams, double totalPeople) {
+    return round(requiredGrams / 1000 * totalPeople);
+  }
+
+  private double round(double value) {
+    return BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP).doubleValue();
   }
 }
