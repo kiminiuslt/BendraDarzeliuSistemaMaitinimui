@@ -3,6 +3,7 @@ package eu.kiminiuslt.bdsm.menu.service;
 import eu.kiminiuslt.bdsm.menu.mapper.MenuDayMapper;
 import eu.kiminiuslt.bdsm.menu.model.dto.MenuDayDto;
 import eu.kiminiuslt.bdsm.menu.model.dto.MenuDto;
+import eu.kiminiuslt.bdsm.menu.model.dto.PeopleCountDto;
 import eu.kiminiuslt.bdsm.menu.repository.MenuDayRepository;
 import eu.kiminiuslt.bdsm.recipe.model.dto.RecipeDto;
 import eu.kiminiuslt.bdsm.recipe.service.RecipeService;
@@ -63,5 +64,9 @@ public class MenuService {
       result.removeIf(recipeDto -> recipeDto.getId() == id);
     }
     return result;
+  }
+
+  public PeopleCountDto getPeopleCount() {
+    return PeopleCountDto.builder().build();
   }
 }
