@@ -13,6 +13,7 @@
     <thead>
     <tr>
         <th scope="col" class="tableColumnAuto" th:text="#{menu.day}"></th>
+        <th scope="col" class="tableColumnAuto" th:text="#{food.menu.missing.products}"></th>
         <th scope="col" class="tableColumn13percent" th:text="#{food.menu.people.count}"></th>
         <th scope="col" class="tableColumn12percent" th:text="#{recipe.all.energyValueKcal}"></th>
         <th scope="col" class="tableColumn13percent"></th>
@@ -22,6 +23,11 @@
     <tbody>
     <tr th:each="menuDay: ${menu.daysList}">
         <td th:text="${menuDay.dayNumber} + ' ' + #{menu.day}"></td>
+        <td>
+            <ul th:each="shortageList: ${menuDay.productShortage}">
+                <li th:text="${shortageList.name}+ ' ' + ${shortageList.shortageKg}+ ' kg'"></li>
+            </ul>
+        </td>
         <td>
             <form method="post" th:object="${peopleCount}" th:action="@{${#httpServletRequest.requestURI}}">
 
@@ -36,7 +42,7 @@
 
                 <input type="hidden" th:id="${menuDay.dayNumber}+'hidden'" th:value="${menuDay.dayNumber}-1"
                        th:name="dayOfMenu">
-                <button type="submit" th:text="#{save}" class="btn btn-primary"></button>
+                <button type="submit" th:text="#{calculate}" class="btn btn-primary"></button>
             </form>
         </td>
         <td th:text="${menuDay.dayEnergyValue}"></td>
