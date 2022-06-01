@@ -13,6 +13,7 @@
     <thead>
     <tr>
         <th scope="col" class="tableColumnAuto" th:text="#{menu.day}"></th>
+        <th scope="col" class="tableColumn13percent" th:text="#{food.menu.people.count}"></th>
         <th scope="col" class="tableColumn12percent" th:text="#{recipe.all.energyValueKcal}"></th>
         <th scope="col" class="tableColumn13percent"></th>
     </tr>
@@ -21,6 +22,23 @@
     <tbody>
     <tr th:each="menuDay: ${menu.daysList}">
         <td th:text="${menuDay.dayNumber} + ' ' + #{menu.day}"></td>
+        <td>
+            <form method="post" th:object="${peopleCount}" th:action="@{${#httpServletRequest.requestURI}}">
+
+                <input type="number" th:id="${menuDay.dayNumber}+'small'" th:field="${peopleCount.littleOnes}"
+                       class="form-control" th:placeholder="#{food.menu.little.one}">
+
+                <input type="number" th:id="${menuDay.dayNumber}+'big'" th:field="${peopleCount.olderKids}"
+                       class="form-control" th:placeholder="#{food.menu.older.kids}">
+
+                <input type="number" th:id="${menuDay.dayNumber}+'worker'" th:field="${peopleCount.workers}"
+                       class="form-control" th:placeholder="#{food.menu.worker.count}">
+
+                <input type="hidden" th:id="${menuDay.dayNumber}+'hidden'" th:value="${menuDay.dayNumber}"
+                       th:name="dayOfMenu">
+                <button type="submit" th:text="#{save}" class="btn btn-primary"></button>
+            </form>
+        </td>
         <td th:text="${menuDay.dayEnergyValue}"></td>
         <td><a class="btn btn-warning" th:href="@{/food-menu/{id}/update(id=${menuDay.id})}"
                th:text="#{edit}"></a>
