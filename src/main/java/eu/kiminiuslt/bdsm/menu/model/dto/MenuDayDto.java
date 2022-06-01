@@ -3,6 +3,7 @@ package eu.kiminiuslt.bdsm.menu.model.dto;
 import eu.kiminiuslt.bdsm.recipe.model.dto.RecipeDto;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -15,4 +16,5 @@ public class MenuDayDto {
   private Integer dayNumber;
   private Double dayEnergyValue;
   private Set<RecipeDto> dayRecipesDto;
+  private List<ProductShortageDto> productShortage;
 }
