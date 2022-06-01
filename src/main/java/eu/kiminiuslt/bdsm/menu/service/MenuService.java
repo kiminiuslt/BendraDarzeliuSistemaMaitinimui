@@ -4,6 +4,7 @@ import eu.kiminiuslt.bdsm.menu.mapper.MenuDayMapper;
 import eu.kiminiuslt.bdsm.menu.model.dto.MenuDayDto;
 import eu.kiminiuslt.bdsm.menu.model.dto.MenuDto;
 import eu.kiminiuslt.bdsm.menu.model.dto.PeopleCountDto;
+import eu.kiminiuslt.bdsm.menu.model.dto.ProductShortageDto;
 import eu.kiminiuslt.bdsm.menu.repository.MenuDayRepository;
 import eu.kiminiuslt.bdsm.recipe.model.dto.RecipeDto;
 import eu.kiminiuslt.bdsm.recipe.service.RecipeService;
@@ -22,9 +23,23 @@ public class MenuService {
   private final MenuDayRepository menuDayRepository;
   private final MenuDayMapper menuDayMapper;
   private final RecipeService recipeService;
+  private final ProductsShortageService productsShortageService;
 
-  public MenuDto getMenu() {
-    return MenuDto.builder().daysList(getAllDayList()).build();
+  public MenuDto getMenu(PeopleCountDto peopleCountDto) {
+    MenuDto menuDto = MenuDto.builder().daysList(getAllDayList()).build();
+    if (peopleCountDto.getDayOfMenu() != null) {
+      menuDto = setDayShortage(menuDto, peopleCountDto);
+    }
+    return menuDto;
+  }
+
+  private MenuDto setDayShortage(MenuDto menuDto, PeopleCountDto peopleCountDto) {
+    List<ProductShortageDto> result =
+        productsShortageService.getProductsShortageList(
+            menuDto.getDaysList().get(peopleCountDto.getDayOfMenu()), peopleCountDto);
+
+    menuDto.getDaysList().get(peopleCountDto.getDayOfMenu()).getProductShortage().addAll(result);
+    return menuDto;
   }
 
   private List<MenuDayDto> getAllDayList() {

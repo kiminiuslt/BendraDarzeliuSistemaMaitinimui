@@ -10,6 +10,7 @@ import eu.kiminiuslt.bdsm.recipe.model.entity.Recipe;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,16 +19,17 @@ import java.util.stream.Collectors;
 public class MenuDayMapper {
   private final RecipeMapper recipeMapper;
   private final MenuCalculationsService menuCalculationsService;
-  private final ProductsShortageService productsShortageService;
 
   public MenuDayDto entityToDto(MenuDay entity) {
-    MenuDayDto menuDayDto = MenuDayDto.builder()
-        .id(entity.getId())
-        .dayNumber(entity.getDayNumber())
-        .dayRecipesDto(getRecipeDtoSet(entity.getDayRecipes()))
-        .build();
-    menuDayDto.setDayEnergyValue(menuCalculationsService.getDayEnergyValue(menuDayDto.getDayRecipesDto()));
-    menuDayDto.setProductShortage(productsShortageService.getProductsShortageList(menuDayDto));
+    MenuDayDto menuDayDto =
+        MenuDayDto.builder()
+            .id(entity.getId())
+            .dayNumber(entity.getDayNumber())
+            .dayRecipesDto(getRecipeDtoSet(entity.getDayRecipes()))
+            .productShortage(new ArrayList<>())
+            .build();
+    menuDayDto.setDayEnergyValue(
+        menuCalculationsService.getDayEnergyValue(menuDayDto.getDayRecipesDto()));
     return menuDayDto;
   }
 
