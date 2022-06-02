@@ -18,3 +18,13 @@
 .tableColumnAuto{
     width: auto;
 }
+.loginClass{
+    padding-top: 80px;
+    padding-right: 400px;
+    padding-left: 400px;
+}
+.language{
+    margin-right: 10px;
+    margin-left: auto;
+    width: 150px;
+}
