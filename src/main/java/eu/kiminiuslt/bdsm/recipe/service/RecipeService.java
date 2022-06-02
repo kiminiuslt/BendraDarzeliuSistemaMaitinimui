@@ -50,6 +50,7 @@ public class RecipeService {
     if (temporaryRecipeDto == null) {
       temporaryRecipeDto = RecipeDto.builder().productsList(new HashSet<>()).build();
     }
+    temporaryRecipeDto = recipeCalculationsService.sumOfMainMaterials(temporaryRecipeDto);
     return temporaryRecipeDto;
   }
 
