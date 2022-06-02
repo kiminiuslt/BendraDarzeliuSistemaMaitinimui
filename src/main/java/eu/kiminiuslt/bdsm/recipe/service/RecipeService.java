@@ -26,6 +26,7 @@ public class RecipeService {
   private final RecipeRepository recipeRepository;
   private final RecipeMapper recipeMapper;
   private final ProductService productService;
+  private final RecipeCalculationsService recipeCalculationsService;
   private RecipeDto temporaryRecipeDto;
 
   public void addRecipe() {
@@ -34,7 +35,10 @@ public class RecipeService {
   }
 
   public Page<RecipeDto> getPageableRecipes(Pageable pageable) {
-    return recipeRepository.findAll(pageable).map(recipeMapper::recipeMapToRecipeDto);
+    return recipeRepository
+        .findAll(pageable)
+        .map(recipeMapper::recipeMapToRecipeDto)
+        .map(recipeCalculationsService::sumOfMainMaterials);
   }
 
   public void saveNameAndText(RecipeDto recipeDto) {
