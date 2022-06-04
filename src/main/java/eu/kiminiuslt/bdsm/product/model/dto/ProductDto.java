@@ -1,21 +1,16 @@
 package eu.kiminiuslt.bdsm.product.model.dto;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-import javax.validation.constraints.NotBlank;
-import java.util.UUID;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class ProductDto {
-  private final int AMOUNT_OF_MATERIAL_GRAMS = 100;
-  private UUID uuid;
+@SuperBuilder
+public class ProductDto extends ProductsNamesDto {
 
-  @NotBlank(message = "{validate.name.blank}")
-  private String name;
   private double water;
   private double dryMaterial;
   private double proteins;
