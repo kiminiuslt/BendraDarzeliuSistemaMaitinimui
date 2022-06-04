@@ -9,10 +9,10 @@ import java.util.UUID;
 
 @Setter
 @Getter
-@Builder(toBuilder = true)
+@Builder
 public class ProductAndQuantityDto {
   private Integer id;
   private UUID productUUID;
   private Product product;
-  private double quantity;
+  private Double quantity;
 }
