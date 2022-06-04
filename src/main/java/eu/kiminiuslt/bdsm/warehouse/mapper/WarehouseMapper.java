@@ -30,4 +30,13 @@ public class WarehouseMapper {
         .productId(productRepository.findByName(warehousedto.getProductName()).getId())
         .build();
   }
+//
+//  public WarehouseDto warehouseWithNameToWarehouseDto(WarehouseWithName warehouseWithName){
+//    return WarehouseDto.builder()
+//            .uuid(warehouseWithName.getUuid())
+//            .amount(warehouseWithName.getAmount())
+//            .invoice(warehouseWithName.getInvoice())
+//            .productName(warehouseWithName.getName())
+//            .build();
+//  }
 }
