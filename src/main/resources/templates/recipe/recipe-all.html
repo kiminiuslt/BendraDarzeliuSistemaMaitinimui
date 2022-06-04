@@ -48,10 +48,10 @@
         <tbody>
         <tr th:each="recipe: ${recipeListPages}">
             <td th:text="${recipe.recipeName}"></td>
-            <td th:text="${recipe.allProteins()}"></td>
-            <td th:text="${recipe.allFat()}"></td>
-            <td th:text="${recipe.allCarbohydrates()}"></td>
-            <td th:text="${recipe.allEnergyValueKcal()}"></td>
+            <td th:text="${recipe.allProteins}"></td>
+            <td th:text="${recipe.allFat}"></td>
+            <td th:text="${recipe.allCarbohydrates}"></td>
+            <td th:text="${recipe.allEnergyValueKcal}"></td>
             <td><a class="btn btn-warning" th:href="@{/recipes/{uuid}/update(uuid=${recipe.uuid})}"
                    th:text="#{edit}"></a>
             </td>

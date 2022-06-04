@@ -2,7 +2,7 @@ package eu.kiminiuslt.bdsm.recipe.service;
 
 import eu.kiminiuslt.bdsm.recipe.mapper.RecipeMapper;
 import eu.kiminiuslt.bdsm.recipe.model.dto.ProductAndQuantityDto;
-import eu.kiminiuslt.bdsm.recipe.model.dto.ProductForRecipeDto;
+import eu.kiminiuslt.bdsm.product.model.dto.ProductForRecipeDto;
 import eu.kiminiuslt.bdsm.recipe.model.dto.RecipeDto;
 import eu.kiminiuslt.bdsm.product.model.entity.Product;
 import eu.kiminiuslt.bdsm.recipe.repository.RecipeRepository;
@@ -26,6 +26,7 @@ public class RecipeService {
   private final RecipeRepository recipeRepository;
   private final RecipeMapper recipeMapper;
   private final ProductService productService;
+  private final RecipeCalculationsService recipeCalculationsService;
   private RecipeDto temporaryRecipeDto;
 
   public void addRecipe() {
@@ -34,7 +35,10 @@ public class RecipeService {
   }
 
   public Page<RecipeDto> getPageableRecipes(Pageable pageable) {
-    return recipeRepository.findAll(pageable).map(recipeMapper::recipeMapToRecipeDto);
+    return recipeRepository
+        .findAll(pageable)
+        .map(recipeMapper::recipeMapToRecipeDto)
+        .map(recipeCalculationsService::sumOfMainMaterials);
   }
 
   public void saveNameAndText(RecipeDto recipeDto) {
@@ -46,6 +50,7 @@ public class RecipeService {
     if (temporaryRecipeDto == null) {
       temporaryRecipeDto = RecipeDto.builder().productsList(new HashSet<>()).build();
     }
+    temporaryRecipeDto = recipeCalculationsService.sumOfMainMaterials(temporaryRecipeDto);
     return temporaryRecipeDto;
   }
 
