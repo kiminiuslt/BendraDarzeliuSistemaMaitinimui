@@ -1,26 +1,18 @@
 package eu.kiminiuslt.bdsm.product.model.dto;
 
 import lombok.*;
-
-import javax.validation.constraints.NotBlank;
-import java.util.UUID;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class ProductDto {
-  private final int AMOUNT_OF_MATERIAL_GRAMS = 100;
-  private UUID uuid;
+@SuperBuilder
+public class ProductDto extends ProductForRecipeDto {
 
-  @NotBlank(message = "{validate.name.blank}")
-  private String name;
   private double water;
   private double dryMaterial;
-  private double proteins;
   private double vegetableProtein;
-  private double carbohydrates;
   private double mineralSubstances;
   private double sodium;
   private double magnesium;
@@ -34,11 +26,9 @@ public class ProductDto {
   private double vitaminB6;
   private double alcohol;
   private double energyKj;
-  private double energyValueKcal;
   private double iron;
   private double vitaminB1;
   private double zinc;
-  private double fat;
   private double saturatedFattyAcids;
   private double monounsaturatedFattyAcids;
   private double polyunsaturatedFattyAcids;

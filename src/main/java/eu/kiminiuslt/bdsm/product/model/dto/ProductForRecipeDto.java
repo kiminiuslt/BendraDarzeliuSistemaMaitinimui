@@ -1,6 +1,7 @@
 package eu.kiminiuslt.bdsm.product.model.dto;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.UUID;
 
@@ -8,10 +9,8 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class ProductForRecipeDto {
-  private UUID uuid;
-  private String name;
+@SuperBuilder
+public class ProductForRecipeDto extends ProductsNamesDto {
   private double proteins;
   private double fat;
   private double carbohydrates;
