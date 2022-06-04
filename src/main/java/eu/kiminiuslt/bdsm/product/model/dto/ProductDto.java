@@ -3,19 +3,16 @@ package eu.kiminiuslt.bdsm.product.model.dto;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class ProductDto extends ProductsNamesDto {
+public class ProductDto extends ProductForRecipeDto {
 
   private double water;
   private double dryMaterial;
-  private double proteins;
   private double vegetableProtein;
-  private double carbohydrates;
   private double mineralSubstances;
   private double sodium;
   private double magnesium;
@@ -29,11 +26,9 @@ public class ProductDto extends ProductsNamesDto {
   private double vitaminB6;
   private double alcohol;
   private double energyKj;
-  private double energyValueKcal;
   private double iron;
   private double vitaminB1;
   private double zinc;
-  private double fat;
   private double saturatedFattyAcids;
   private double monounsaturatedFattyAcids;
   private double polyunsaturatedFattyAcids;
