@@ -1,4 +1,4 @@
-package eu.kiminiuslt.bdsm.recipe.model.dto;
+package eu.kiminiuslt.bdsm.product.model.dto;
 
 import lombok.*;
 
@@ -8,7 +8,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder(toBuilder = true)
+@Builder
 public class ProductForRecipeDto {
   private UUID uuid;
   private String name;

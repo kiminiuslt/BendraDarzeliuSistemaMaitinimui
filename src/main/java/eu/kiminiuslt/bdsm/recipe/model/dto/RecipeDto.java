@@ -17,37 +17,9 @@ public class RecipeDto {
   private UUID uuid;
   private String recipeName;
   private String recipeText;
+  private Double allProteins;
+  private Double allFat;
+  private Double allCarbohydrates;
+  private Double allEnergyValueKcal;
   private Set<ProductAndQuantityDto> productsList;
-
-  public Double allProteins() {
-    return round(
-        productsList.stream()
-            .mapToDouble(e -> (e.getProduct().getProteins() / 100) * e.getQuantity())
-            .sum());
-  }
-
-  public Double allFat() {
-    return round(
-        productsList.stream()
-            .mapToDouble(e -> (e.getProduct().getFat() / 100) * e.getQuantity())
-            .sum());
-  }
-
-  public Double allCarbohydrates() {
-    return round(
-        productsList.stream()
-            .mapToDouble(e -> (e.getProduct().getCarbohydrates() / 100) * e.getQuantity())
-            .sum());
-  }
-
-  public Double allEnergyValueKcal() {
-    return round(
-        productsList.stream()
-            .mapToDouble(e -> (e.getProduct().getEnergyValueKcal() / 100) * e.getQuantity())
-            .sum());
-  }
-
-  private double round(double value) {
-    return BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP).doubleValue();
-  }
 }
