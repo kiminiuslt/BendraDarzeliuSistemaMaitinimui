@@ -10,7 +10,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder(toBuilder = true)
+@Builder
 public class MenuDayDto {
   private Integer id;
   private Integer dayNumber;
