@@ -6,7 +6,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@Builder(toBuilder = true)
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class MenuDto {
