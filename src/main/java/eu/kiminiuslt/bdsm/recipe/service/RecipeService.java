@@ -2,7 +2,7 @@ package eu.kiminiuslt.bdsm.recipe.service;
 
 import eu.kiminiuslt.bdsm.recipe.mapper.RecipeMapper;
 import eu.kiminiuslt.bdsm.recipe.model.dto.ProductAndQuantityDto;
-import eu.kiminiuslt.bdsm.recipe.model.dto.ProductForRecipeDto;
+import eu.kiminiuslt.bdsm.product.model.dto.ProductForRecipeDto;
 import eu.kiminiuslt.bdsm.recipe.model.dto.RecipeDto;
 import eu.kiminiuslt.bdsm.product.model.entity.Product;
 import eu.kiminiuslt.bdsm.recipe.repository.RecipeRepository;

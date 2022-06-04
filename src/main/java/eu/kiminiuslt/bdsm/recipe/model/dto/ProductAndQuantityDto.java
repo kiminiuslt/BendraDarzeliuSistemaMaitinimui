@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Setter
 @Getter
-@Builder(toBuilder = true)
+@Builder
 public class ProductAndQuantityDto {
   private Integer id;
   private UUID productUUID;
