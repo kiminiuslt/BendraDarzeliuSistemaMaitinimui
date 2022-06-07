@@ -136,4 +136,8 @@ public class Product {
 
   @Column(name = "sugar_g")
   private Double sugar;
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
 }

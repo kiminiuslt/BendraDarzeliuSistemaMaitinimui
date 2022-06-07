@@ -12,13 +12,48 @@ import java.util.UUID;
 public class ProductMapper {
   public ProductDto mapToProductDto(Product product) {
     return ProductDto.builder()
-        .energyValueKcal(product.getEnergyValueKcal())
-        .carbohydrates(product.getCarbohydrates())
-        .fat(product.getFat())
-        .proteins(product.getProteins())
-        .name(product.getName())
-        .uuid(product.getUuid())
-        .build();
+            .uuid(product.getUuid())
+            .name(product.getName())
+            .proteins(product.getProteins())
+            .fat(product.getFat())
+            .carbohydrates(product.getCarbohydrates())
+            .energyValueKcal(product.getEnergyValueKcal())
+            .water(product.getWater())
+            .dryMaterial(product.getDryMaterial())
+            .vegetableProtein(product.getVegetableProtein())
+            .mineralSubstances(product.getMineralSubstances())
+            .sodium(product.getSodium())
+            .magnesium(product.getMagnesium())
+            .phosphorus(product.getPhosphorus())
+            .potassium(product.getPotassium())
+            .calcium(product.getCalcium())
+            .iodine(product.getIodine())
+            .vitaminB2(product.getVitaminB2())
+            .niacinVitaminPP(product.getNiacinVitaminPP())
+            .niacinEquivalent(product.getNiacinEquivalent())
+            .vitaminB6(product.getVitaminB6())
+            .alcohol(product.getAlcohol())
+            .energyKj(product.getEnergyKj())
+            .iron(product.getIron())
+            .vitaminB1(product.getVitaminB1())
+            .zinc(product.getZinc())
+            .saturatedFattyAcids(product.getSaturatedFattyAcids())
+            .monounsaturatedFattyAcids(product.getSaturatedFattyAcids())
+            .polyunsaturatedFattyAcids(product.getPolyunsaturatedFattyAcids())
+            .starch(product.getStarch())
+            .fiberMaterials(product.getFiberMaterials())
+            .selenium(product.getSelenium())
+            .vitaminARetinol(product.getVitaminARetinol())
+            .vitaminETocopherol(product.getVitaminETocopherol())
+            .folicAcid(product.getFolicAcid())
+            .vitaminC(product.getVitaminC())
+            .animalProtein(product.getAnimalProtein())
+            .cholesterol(product.getCholesterol())
+            .vitaminD(product.getVitaminD())
+            .vitaminB12(product.getVitaminB12())
+            .energyValueKcal(product.getEnergyValueKcal())
+            .sugar(product.getSugar())
+            .build();
   }
 
   public Product mapToProduct(ProductDto productDto) {
@@ -80,5 +115,11 @@ public class ProductMapper {
 
   public ProductsNamesDto productMapToProductNamesDto(Product product) {
     return ProductsNamesDto.builder().uuid(product.getUuid()).name(product.getName()).build();
+  }
+
+  public Product mapToProductForUpdate(ProductDto productDto, Product product) {
+    Product result = mapToProduct(productDto);
+    result.setId(product.getId());
+    return result;
   }
 }

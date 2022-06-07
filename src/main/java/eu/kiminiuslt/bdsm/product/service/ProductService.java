@@ -62,11 +62,8 @@ public class ProductService {
   @Transactional
   public void updateProduct(ProductDto productDto) {
     productRepository.save(
-        productRepository.findByUuid(productDto.getUuid()).toBuilder()
-            .name(productDto.getName())
-            .carbohydrates(productDto.getCarbohydrates())
-            .energyValueKcal(productDto.getEnergyValueKcal())
-            .build());
+        productMapper.mapToProductForUpdate(
+            productDto, productRepository.findByUuid(productDto.getUuid())));
   }
 
   @Transactional
