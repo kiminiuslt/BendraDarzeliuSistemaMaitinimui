@@ -84,4 +84,8 @@ public class ProductService {
   private String convertToLikeResult(String value) {
     return '%' + value + '%';
   }
+
+  public ProductDto getEmptyProductDto() {
+    return ProductDto.builder().build();
+  }
 }

@@ -10,7 +10,6 @@
 <div th:if="${productDto.name ne null}"><h1 th:text="#{edit.product.word}"></h1></div>
 
 <div class="container">
-    <div th:text="${message}"></div>
     <form method="post" th:object="${productDto}" th:action="@{${#httpServletRequest.requestURI}}">
         <input type="hidden" th:field="*{uuid}">
 
