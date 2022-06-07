@@ -53,7 +53,6 @@ public class ProductMother {
         .cholesterol(4.7)
         .vitaminD(1.11)
         .vitaminB12(6.57)
-        .energyValueKcal(0.28)
         .sugar(1.0)
         .build();
   }
@@ -87,7 +86,7 @@ public class ProductMother {
         .zinc(product.getZinc())
         .fat(product.getFat())
         .saturatedFattyAcids(product.getSaturatedFattyAcids())
-        .monounsaturatedFattyAcids(product.getSaturatedFattyAcids())
+        .monounsaturatedFattyAcids(product.getMonounsaturatedFattyAcids())
         .polyunsaturatedFattyAcids(product.getPolyunsaturatedFattyAcids())
         .starch(product.getStarch())
         .fiberMaterials(product.getFiberMaterials())
@@ -100,7 +99,6 @@ public class ProductMother {
         .cholesterol(product.getCholesterol())
         .vitaminD(product.getVitaminD())
         .vitaminB12(product.getVitaminB12())
-        .energyValueKcal(product.getEnergyValueKcal())
         .sugar(product.getSugar())
         .build();
   }
