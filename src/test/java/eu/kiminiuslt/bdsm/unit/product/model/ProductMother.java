@@ -2,6 +2,7 @@ package eu.kiminiuslt.bdsm.unit.product.model;
 
 import eu.kiminiuslt.bdsm.product.model.dto.ProductDto;
 import eu.kiminiuslt.bdsm.product.model.dto.ProductForRecipeDto;
+import eu.kiminiuslt.bdsm.product.model.dto.ProductsNamesDto;
 import eu.kiminiuslt.bdsm.product.model.entity.Product;
 
 import java.util.UUID;
@@ -113,5 +114,9 @@ public class ProductMother {
         .carbohydrates(product.getCarbohydrates())
         .energyValueKcal(product.getEnergyValueKcal())
         .build();
+  }
+
+  public static ProductsNamesDto getProductsNamesDto() {
+    return ProductsNamesDto.builder().uuid(UU_ID).name(NAME).build();
   }
 }
