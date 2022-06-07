@@ -40,9 +40,8 @@ public class ProductController {
   }
 
   @GetMapping("/productForm")
-  public String openProductForm(Model model, String message) {
+  public String openProductForm(Model model) {
     model.addAttribute("productDto", productService.getEmptyProductDto());
-    model.addAttribute("message", messageService.getMessage(message));
     return "products/product-form";
   }
 
