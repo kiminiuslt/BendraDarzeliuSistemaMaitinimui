@@ -32,15 +32,16 @@ public class ProductController {
               size = 30,
               sort = {"name"},
               direction = Sort.Direction.ASC)
-          Pageable pageable) {
+          Pageable pageable,
+      String message) {
     model.addAttribute("productListPages", productService.getPageableProduct(pageable));
+    model.addAttribute("message", messageService.getMessage(message));
     return "/products/products";
   }
 
   @GetMapping("/productForm")
-  public String openProductForm(Model model, String message) {
-    model.addAttribute("productDto", ProductDto.builder().build());
-    model.addAttribute("message", messageService.getMessage(message));
+  public String openProductForm(Model model) {
+    model.addAttribute("productDto", productService.getEmptyProductDto());
     return "products/product-form";
   }
 
@@ -50,7 +51,7 @@ public class ProductController {
       return "products/product-form";
     }
     productService.addProduct(productDto);
-    return "redirect:/products/productForm?message=create.product.successes";
+    return "redirect:/products?message=product.create.successes";
   }
 
   @GetMapping("/{uuid}/update")
@@ -60,30 +61,14 @@ public class ProductController {
   }
 
   @PostMapping("/{uuid}/update")
-  public String updateProduct(
-      Model model,
-      ProductDto product,
-      @PageableDefault(
-              size = 30,
-              sort = {"name"},
-              direction = Sort.Direction.ASC)
-          Pageable pageable) {
+  public String updateProduct(ProductDto product) {
     productService.updateProduct(product);
-    model.addAttribute("productListPages", productService.getPageableProduct(pageable));
-    return "/products/products";
+    return "redirect:/products?message=product.update.successes";
   }
 
   @GetMapping("/{uuid}/delete")
-  public String deleteProduct(
-      Model model,
-      @PathVariable("uuid") UUID id,
-      @PageableDefault(
-              size = 30,
-              sort = {"name"},
-              direction = Sort.Direction.ASC)
-          Pageable pageable) {
+  public String deleteProduct(@PathVariable("uuid") UUID id) {
     productService.deleteProduct(id);
-    model.addAttribute("productListPages", productService.getPageableProduct(pageable));
-    return "/products/products";
+    return "redirect:/products?message=product.delete.successes";
   }
 }
