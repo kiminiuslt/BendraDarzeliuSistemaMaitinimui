@@ -11,23 +11,39 @@
 <h1 th:if="${warehouseDto.uuid ne null}" th:text="#{warehouse.edit.record.title}"></h1>
 
 <div class="container">
+    <div th:if="${warehouseDto.uuid eq null}">
+        <form method="post" th:object="${warehouseDto}" th:action="@{/warehouse/warehouse-record}">
 
-    <form method="post" th:object="${warehouseDto}" th:action="@{/warehouse/warehouse-record}">
+            <select th:field="${warehouseDto.productName}" class="form-select">
+                <option th:each="productNames: ${allProductsList}"
+                        th:value="${productNames.name}"
+                        th:text="${productNames.name}"></option>
+            </select>
 
-        <select th:if="${warehouseDto.uuid eq null}" th:field="${warehouseDto.productName}" class="form-select">
-            <option th:each="productNames: ${allProductsList}"
-                    th:value="${productNames.name}"
-                    th:text="${productNames.name}"></option>
-        </select>
+            <div th:replace="fragments/input :: input(#{warehouse.amount},'amount')"></div>
+            <div th:replace="fragments/input :: input(#{warehouse.invoice},'invoice')"></div>
 
-        <div th:if="${warehouseDto.uuid ne null}"><h2 th:text="${warehouseDto.productName}"></h2></div>
-        <div th:replace="fragments/input :: input(#{warehouse.amount},'amount')"></div>
-        <div th:replace="fragments/input :: input(#{warehouse.invoice},'invoice')"></div>
+            <div th:text="${message}" class="messageSuccess"></div>
+            <button type="submit" th:text="#{save}" class="btn btn-primary"></button>
 
-        <div th:text="${message}" class="messageSuccess"></div>
-        <button type="submit" th:text="#{save}" class="btn btn-primary"></button>
+        </form>
+    </div>
+    <div th:if="${warehouseDto.uuid ne null}">
+        <form method="post"
+              th:object="${warehouseDto}"
+              th:action="@{/warehouse/{uuid}/update(uuid=${warehouseDto.uuid})}">
 
-    </form>
+            <div><h2 th:text="${warehouseDto.productName}"></h2></div>
+            <div th:replace="fragments/input :: input(#{warehouse.amount},'amount')"></div>
+            <div th:replace="fragments/input :: input(#{warehouse.invoice},'invoice')"></div>
+            <input type="hidden" th:value="${warehouseDto.productName}" th:attr="name='productName'">
+            <input type="hidden" th:value="${warehouseDto.productId}" th:attr="name='productId'">
+
+            <div th:text="${message}" class="messageSuccess"></div>
+            <button type="submit" th:text="#{save}" class="btn btn-primary"></button>
+
+        </form>
+    </div>
 
 </div>
 
