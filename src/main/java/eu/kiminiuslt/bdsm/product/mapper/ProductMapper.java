@@ -10,6 +10,13 @@ import java.util.UUID;
 
 @Component
 public class ProductMapper {
+
+  /***
+   * Mapping Product entity to ProductDto
+   * @param product not null
+   * @return ProductDto
+   * @since 1.0.0
+   */
   public ProductDto mapToProductDto(Product product) {
     return ProductDto.builder()
         .uuid(product.getUuid())
@@ -55,6 +62,12 @@ public class ProductMapper {
         .build();
   }
 
+  /***
+   * Mapping ProductDto to Product entity
+   * @param productDto not null
+   * @return Product
+   * @since 1.0.0
+   */
   public Product mapToProduct(ProductDto productDto) {
     return Product.builder()
         .uuid(UUID.randomUUID())
@@ -100,6 +113,12 @@ public class ProductMapper {
         .build();
   }
 
+  /***
+   * Mapping Product entity to ProductForRecipeDto
+   * @param product not null
+   * @return ProductForRecipeDto
+   * @since 1.0.0
+   */
   public ProductForRecipeDto productMapToProductForRecipeDto(Product product) {
     return ProductForRecipeDto.builder()
         .uuid(product.getUuid())
@@ -111,10 +130,23 @@ public class ProductMapper {
         .build();
   }
 
+  /***
+   * Mapping Product entity to ProductsNamesDto
+   * @param product not null
+   * @return ProductsNamesDto
+   * @since 1.0.0
+   */
   public ProductsNamesDto productMapToProductNamesDto(Product product) {
     return ProductsNamesDto.builder().uuid(product.getUuid()).name(product.getName()).build();
   }
 
+  /***
+   * Mapping ProductDto to Product entity with entity ID reusing mapToProduct() method
+   * @param productDto not null
+   * @param product must contain id
+   * @return Product
+   * @since 1.0.0
+   */
   public Product mapToProductForUpdate(ProductDto productDto, Product product) {
     Product result = mapToProduct(productDto);
     result.setId(product.getId());
