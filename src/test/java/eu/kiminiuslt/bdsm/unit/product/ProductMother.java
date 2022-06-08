@@ -1,4 +1,4 @@
-package eu.kiminiuslt.bdsm.unit.product.model;
+package eu.kiminiuslt.bdsm.unit.product;
 
 import eu.kiminiuslt.bdsm.product.model.dto.ProductDto;
 import eu.kiminiuslt.bdsm.product.model.dto.ProductForRecipeDto;
