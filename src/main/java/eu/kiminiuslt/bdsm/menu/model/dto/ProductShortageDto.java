@@ -1,15 +1,14 @@
 package eu.kiminiuslt.bdsm.menu.model.dto;
 
+import eu.kiminiuslt.bdsm.product.model.dto.ProductsNamesDto;
 import lombok.*;
-
-import java.util.UUID;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@Builder
-public class ProductShortageDto {
-  private String name;
-  private UUID uuid;
+@SuperBuilder
+public class ProductShortageDto extends ProductsNamesDto {
+
   private Integer productId;
   private Double requiredGrams;
   private Double ownedKg;

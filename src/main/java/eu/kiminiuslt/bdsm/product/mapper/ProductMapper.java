@@ -10,17 +10,64 @@ import java.util.UUID;
 
 @Component
 public class ProductMapper {
+
+  /***
+   * Mapping Product entity to ProductDto
+   * @param product not null
+   * @return ProductDto
+   * @since 1.0.0
+   */
   public ProductDto mapToProductDto(Product product) {
     return ProductDto.builder()
-        .energyValueKcal(product.getEnergyValueKcal())
-        .carbohydrates(product.getCarbohydrates())
-        .fat(product.getFat())
-        .proteins(product.getProteins())
-        .name(product.getName())
         .uuid(product.getUuid())
+        .name(product.getName())
+        .proteins(product.getProteins())
+        .fat(product.getFat())
+        .carbohydrates(product.getCarbohydrates())
+        .energyValueKcal(product.getEnergyValueKcal())
+        .water(product.getWater())
+        .dryMaterial(product.getDryMaterial())
+        .vegetableProtein(product.getVegetableProtein())
+        .mineralSubstances(product.getMineralSubstances())
+        .sodium(product.getSodium())
+        .magnesium(product.getMagnesium())
+        .phosphorus(product.getPhosphorus())
+        .potassium(product.getPotassium())
+        .calcium(product.getCalcium())
+        .iodine(product.getIodine())
+        .vitaminB2(product.getVitaminB2())
+        .niacinVitaminPP(product.getNiacinVitaminPP())
+        .niacinEquivalent(product.getNiacinEquivalent())
+        .vitaminB6(product.getVitaminB6())
+        .alcohol(product.getAlcohol())
+        .energyKj(product.getEnergyKj())
+        .iron(product.getIron())
+        .vitaminB1(product.getVitaminB1())
+        .zinc(product.getZinc())
+        .saturatedFattyAcids(product.getSaturatedFattyAcids())
+        .monounsaturatedFattyAcids(product.getMonounsaturatedFattyAcids())
+        .polyunsaturatedFattyAcids(product.getPolyunsaturatedFattyAcids())
+        .starch(product.getStarch())
+        .fiberMaterials(product.getFiberMaterials())
+        .selenium(product.getSelenium())
+        .vitaminARetinol(product.getVitaminARetinol())
+        .vitaminETocopherol(product.getVitaminETocopherol())
+        .folicAcid(product.getFolicAcid())
+        .vitaminC(product.getVitaminC())
+        .animalProtein(product.getAnimalProtein())
+        .cholesterol(product.getCholesterol())
+        .vitaminD(product.getVitaminD())
+        .vitaminB12(product.getVitaminB12())
+        .sugar(product.getSugar())
         .build();
   }
 
+  /***
+   * Mapping ProductDto to Product entity
+   * @param productDto not null
+   * @return Product
+   * @since 1.0.0
+   */
   public Product mapToProduct(ProductDto productDto) {
     return Product.builder()
         .uuid(UUID.randomUUID())
@@ -49,7 +96,7 @@ public class ProductMapper {
         .zinc(productDto.getZinc())
         .fat(productDto.getFat())
         .saturatedFattyAcids(productDto.getSaturatedFattyAcids())
-        .monounsaturatedFattyAcids(productDto.getSaturatedFattyAcids())
+        .monounsaturatedFattyAcids(productDto.getMonounsaturatedFattyAcids())
         .polyunsaturatedFattyAcids(productDto.getPolyunsaturatedFattyAcids())
         .starch(productDto.getStarch())
         .fiberMaterials(productDto.getFiberMaterials())
@@ -62,11 +109,16 @@ public class ProductMapper {
         .cholesterol(productDto.getCholesterol())
         .vitaminD(productDto.getVitaminD())
         .vitaminB12(productDto.getVitaminB12())
-        .energyValueKcal(productDto.getEnergyValueKcal())
         .sugar(productDto.getSugar())
         .build();
   }
 
+  /***
+   * Mapping Product entity to ProductForRecipeDto
+   * @param product not null
+   * @return ProductForRecipeDto
+   * @since 1.0.0
+   */
   public ProductForRecipeDto productMapToProductForRecipeDto(Product product) {
     return ProductForRecipeDto.builder()
         .uuid(product.getUuid())
@@ -78,7 +130,26 @@ public class ProductMapper {
         .build();
   }
 
+  /***
+   * Mapping Product entity to ProductsNamesDto
+   * @param product not null
+   * @return ProductsNamesDto
+   * @since 1.0.0
+   */
   public ProductsNamesDto productMapToProductNamesDto(Product product) {
     return ProductsNamesDto.builder().uuid(product.getUuid()).name(product.getName()).build();
+  }
+
+  /***
+   * Mapping ProductDto to Product entity with entity ID reusing mapToProduct() method
+   * @param productDto not null
+   * @param product must contain id
+   * @return Product
+   * @since 1.0.0
+   */
+  public Product mapToProductForUpdate(ProductDto productDto, Product product) {
+    Product result = mapToProduct(productDto);
+    result.setId(product.getId());
+    return result;
   }
 }
