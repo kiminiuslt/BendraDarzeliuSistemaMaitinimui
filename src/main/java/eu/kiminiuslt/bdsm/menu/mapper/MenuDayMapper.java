@@ -7,6 +7,7 @@ import eu.kiminiuslt.bdsm.menu.service.ProductsShortageService;
 import eu.kiminiuslt.bdsm.recipe.mapper.RecipeMapper;
 import eu.kiminiuslt.bdsm.recipe.model.dto.RecipeDto;
 import eu.kiminiuslt.bdsm.recipe.model.entity.Recipe;
+import eu.kiminiuslt.bdsm.recipe.service.RecipeCalculationsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 public class MenuDayMapper {
   private final RecipeMapper recipeMapper;
   private final MenuCalculationsService menuCalculationsService;
+  private final RecipeCalculationsService recipeCalculationsService;
 
   public MenuDayDto entityToDto(MenuDay entity) {
     MenuDayDto menuDayDto =
@@ -34,6 +36,9 @@ public class MenuDayMapper {
   }
 
   private Set<RecipeDto> getRecipeDtoSet(Set<Recipe> dayRecipes) {
-    return dayRecipes.stream().map(recipeMapper::recipeMapToRecipeDto).collect(Collectors.toSet());
+    return dayRecipes.stream()
+            .map(recipeMapper::recipeMapToRecipeDto)
+            .map(recipeCalculationsService::sumOfMainMaterials)
+            .collect(Collectors.toSet());
   }
 }
