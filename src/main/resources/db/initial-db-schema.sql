@@ -1,3 +1,17 @@
+DROP TABLE IF EXISTS bdsm.warehouse;
+DROP TABLE IF EXISTS bdsm.users_roles;
+DROP TABLE IF EXISTS bdsm.users;
+DROP TABLE IF EXISTS bdsm.role;
+DROP TABLE IF EXISTS bdsm.recipe_products_list;
+DROP TABLE IF EXISTS bdsm.product_and_quantity;
+DROP TABLE IF EXISTS bdsm.menu_day_day_recipes;
+DROP TABLE IF EXISTS bdsm.recipe;
+DROP TABLE IF EXISTS bdsm.menu_day;
+DROP TABLE IF EXISTS bdsm.product;
+DROP SCHEMA IF EXISTS bdsm;
+
+CREATE SCHEMA IF not exists bdsm;
+
 create table bdsm.product
 (
     id                            serial
@@ -103,8 +117,7 @@ create table bdsm.warehouse
     uuid         uuid             not null,
     product_id   integer          not null,
     amount       double precision not null,
-    invoice      varchar(255)     not null,
-    product_type pg_enum
+    invoice      varchar(255)     not null
 );
 
 alter table bdsm.warehouse
