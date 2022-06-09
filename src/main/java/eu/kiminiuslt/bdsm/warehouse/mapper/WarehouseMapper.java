@@ -28,7 +28,7 @@ public class WarehouseMapper {
         .uuid(UUID.randomUUID())
         .amount(warehousedto.getAmount())
         .invoice(warehousedto.getInvoice())
-        .productId(warehousedto.getProductId())
+        .productId(productRepository.findByName(warehousedto.getProductName()).getId())
         .build();
   }
 
