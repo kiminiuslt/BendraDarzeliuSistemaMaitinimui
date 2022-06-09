@@ -30,6 +30,7 @@ public class WarehouseController {
   @GetMapping
   public String warehouseStart(
       Model model,
+      String message,
       @PageableDefault(
               size = 15,
               //              TODO: SORTING BY DTO VARIABLE
@@ -37,13 +38,14 @@ public class WarehouseController {
               direction = Sort.Direction.ASC)
           Pageable pageable) {
     model.addAttribute("warehousePages", warehouseService.getWarehouseList(pageable));
+    model.addAttribute("message", messageService.getMessage(message));
     return "/warehouse/warehouse-all";
   }
 
   @PreAuthorize("hasAnyRole('DIETIST')")
   @GetMapping("/warehouse-record")
   public String newWarehouseRecord(Model model, String message) {
-    model.addAttribute("warehouseDto", WarehouseDto.builder().build());
+    model.addAttribute("warehouseDto", warehouseService.getEmptyWarehouseDto());
     model.addAttribute("allProductsList", warehouseService.getAllProductsNames());
     model.addAttribute("message", messageService.getMessage(message));
     return "warehouse/warehouse-record";
@@ -68,32 +70,16 @@ public class WarehouseController {
 
   @PreAuthorize("hasAnyRole('DIETIST')")
   @PostMapping("/{uuid}/update")
-  public String updateWarehouse(
-      Model model,
-      WarehouseDto warehouseDto,
-      @PageableDefault(
-              size = 15,
-              sort = {"productId"},
-              direction = Sort.Direction.ASC)
-          Pageable pageable) {
+  public String updateWarehouse(WarehouseDto warehouseDto) {
     warehouseService.updateWarehouse(warehouseDto);
-    model.addAttribute("warehousePages", warehouseService.getWarehouseList(pageable));
-    return "/warehouse/warehouse-all";
+    return "redirect:/warehouse?message=warehouse.update.successes";
   }
 
   @PreAuthorize("hasAnyRole('DIETIST')")
   @GetMapping("/{uuid}/delete")
-  public String deleteWarehouse(
-      Model model,
-      @PathVariable("uuid") UUID uuid,
-      @PageableDefault(
-              size = 15,
-              sort = {"productId"},
-              direction = Sort.Direction.ASC)
-          Pageable pageable) {
+  public String deleteWarehouse(@PathVariable("uuid") UUID uuid) {
     warehouseService.deleteWarehouseRecord(uuid);
-    model.addAttribute("warehousePages", warehouseService.getWarehouseList(pageable));
-    return "/warehouse/warehouse-all";
+    return "redirect:/warehouse?message=warehouse.delete.successes";
   }
 
   @PreAuthorize("hasAnyRole('DIETIST','CULINARY')")
@@ -111,6 +97,6 @@ public class WarehouseController {
       return "/warehouse/write-off";
     }
     warehouseService.writeOff(warehouseDto.getWriteOff(), uuid);
-    return "redirect:/warehouse";
+    return "redirect:/warehouse?message=warehouse.write.off.successes";
   }
 }

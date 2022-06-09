@@ -65,4 +65,8 @@ public class WarehouseService {
   public Warehouse getWarehouseDtoById(Integer id) {
     return warehouseRepository.findByProductId(id);
   }
+
+    public WarehouseDto getEmptyWarehouseDto() {
+    return WarehouseDto.builder().build();
+    }
 }

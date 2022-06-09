@@ -21,6 +21,11 @@
         <span th:text="#{warehouse.all.elements} +' ' +${warehousePages.totalElements}"></span><br>
         <span th:text="#{warehouse.all.pages} +' ' +${warehousePages.totalPages}"></span><br>
 
+        <div class="alert alert-success" role="alert"
+             th:if="${message} ne null and ${message} ne ''"
+             th:text="${message.toString()}"
+        ></div>
+
         <!--    PAGINATION-->
         <div th:replace="fragments/pagination :: pagination(object=${warehousePages}, link=@{/warehouse})"></div>
 
