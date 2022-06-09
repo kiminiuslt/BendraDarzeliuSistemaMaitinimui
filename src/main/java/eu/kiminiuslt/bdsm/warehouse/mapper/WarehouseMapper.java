@@ -18,6 +18,7 @@ public class WarehouseMapper {
         .uuid(warehouse.getUuid())
         .amount(warehouse.getAmount())
         .invoice(warehouse.getInvoice())
+        .productId(warehouse.getProductId())
         .productName(productRepository.findById(warehouse.getProductId()).getName())
         .build();
   }
@@ -27,7 +28,14 @@ public class WarehouseMapper {
         .uuid(UUID.randomUUID())
         .amount(warehousedto.getAmount())
         .invoice(warehousedto.getInvoice())
-        .productId(productRepository.findByName(warehousedto.getProductName()).getId())
+        .productId(warehousedto.getProductId())
         .build();
+  }
+
+  public Warehouse warehouseDtoToWarehouseForUpdate(
+      WarehouseDto warehouseDto, Warehouse warehouse) {
+    Warehouse result = warehouseDtoToWarehouse(warehouseDto);
+    result.setId(warehouse.getId());
+    return result;
   }
 }

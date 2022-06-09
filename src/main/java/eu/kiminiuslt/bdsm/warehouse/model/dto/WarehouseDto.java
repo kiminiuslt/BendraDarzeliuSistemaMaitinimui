@@ -9,7 +9,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder(toBuilder = true)
+@Builder
 public class WarehouseDto {
   private UUID uuid;
 
@@ -20,6 +20,8 @@ public class WarehouseDto {
   private double amount;
 
   private String invoice;
+
+  private Integer productId;
 
   private double writeOff;
 }

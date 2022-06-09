@@ -41,10 +41,8 @@ public class WarehouseService {
   @Transactional
   public void updateWarehouse(WarehouseDto warehouseDto) {
     warehouseRepository.save(
-        warehouseRepository.findByUuid(warehouseDto.getUuid()).toBuilder()
-            .amount(warehouseDto.getAmount())
-            .invoice(warehouseDto.getInvoice())
-            .build());
+        warehouseMapper.warehouseDtoToWarehouseForUpdate(
+            warehouseDto, warehouseRepository.findByUuid(warehouseDto.getUuid())));
   }
 
   @Transactional
@@ -65,6 +63,6 @@ public class WarehouseService {
   }
 
   public Warehouse getWarehouseDtoById(Integer id) {
-    return  warehouseRepository.findByProductId(id);
+    return warehouseRepository.findByProductId(id);
   }
 }
