@@ -11,17 +11,15 @@ import java.util.Set;
 public class MenuCalculationsService {
 
   public Double getDayEnergyValue(Set<RecipeDto> dayRecipesDto) {
-    return dayRecipesDto.stream().mapToDouble(this::allEnergyValueKcal).sum();
+    return dayRecipesDto.stream().mapToDouble(this::allEnergyValueKcal).map(this::round).sum();
   }
 
-// Should be in MenuCalculationsService class
   public Double allEnergyValueKcal(RecipeDto recipeDto) {
-    return round(
-        recipeDto.getProductsList().stream()
-            .mapToDouble(obj -> (obj.getProduct().getEnergyValueKcal() / 100) * obj.getQuantity())
-            .sum());
+    return recipeDto.getProductsList().stream()
+        .mapToDouble(obj -> (obj.getProduct().getEnergyValueKcal() / 100) * obj.getQuantity())
+        .sum();
   }
-  // Should be in MenuCalculationsService class
+
   private double round(double value) {
     return BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP).doubleValue();
   }
