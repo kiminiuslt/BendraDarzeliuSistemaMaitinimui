@@ -1,6 +1,11 @@
 # Common Kindergarten Feeding System
 WEB for Spring MVC project
 
+### About
+This program purpose is to make kindergarten feeding more efficient.
+
+Main features is to track warehouse shortages and by that data get what products need to order
+
 ### Requirements
 * Language Adopt Open JDK 11 Hotspot
 * PostgreSQL server
@@ -32,3 +37,11 @@ In program run configuration define VM options:
 -DdbUser=yourPostgesqlUser 
 
 -DdbPass=yourPostgesqlPassword
+
+### Login to application
+
+in demo data is two users with same passwords as usernames:
+
+DIETIST role username - admin 
+
+CULINARY role username - irena 
