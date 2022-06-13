@@ -14,7 +14,7 @@ public class MenuCalculationsService {
     return dayRecipesDto.stream().mapToDouble(this::allEnergyValueKcal).map(this::round).sum();
   }
 
-  public Double allEnergyValueKcal(RecipeDto recipeDto) {
+  private Double allEnergyValueKcal(RecipeDto recipeDto) {
     return recipeDto.getProductsList().stream()
         .mapToDouble(obj -> (obj.getProduct().getEnergyValueKcal() / 100) * obj.getQuantity())
         .sum();
