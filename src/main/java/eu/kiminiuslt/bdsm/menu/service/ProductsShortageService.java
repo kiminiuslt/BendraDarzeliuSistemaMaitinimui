@@ -41,7 +41,7 @@ public class ProductsShortageService {
 
     for (int i = 0; i < summedRequiredGramsList.size(); i++) {
       Warehouse warehouse =
-          warehouseService.getWarehouseDtoById(summedRequiredGramsList.get(i).getProductId());
+          warehouseService.getWarehouseById(summedRequiredGramsList.get(i).getProductId());
       if (warehouse == null) {
         result.add(setShortageMax(summedRequiredGramsList.get(i), totalPeople));
       } else {

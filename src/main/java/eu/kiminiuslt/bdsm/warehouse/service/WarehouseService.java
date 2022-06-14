@@ -62,7 +62,7 @@ public class WarehouseService {
     }
   }
 
-  public Warehouse getWarehouseDtoById(Integer id) {
+  public Warehouse getWarehouseById(Integer id) {
     return warehouseRepository.findByProductId(id);
   }
 
