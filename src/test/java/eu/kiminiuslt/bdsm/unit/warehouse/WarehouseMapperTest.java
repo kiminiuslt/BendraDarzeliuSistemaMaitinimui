@@ -40,6 +40,8 @@ class WarehouseMapperTest {
   void warehouseDtoToWarehouse() {
     WarehouseDto given = WarehouseMother.getWarehouseDto();
     Warehouse expected = WarehouseMother.getWarehouse();
+    Product givenProduct = ProductMother.getProduct();
+    when(productRepository.findByName(given.getProductName())).thenReturn(givenProduct);
     Warehouse result = warehouseMapper.warehouseDtoToWarehouse(given);
     assertEquals(expected.getAmount(), result.getAmount());
     assertEquals(expected.getInvoice(), result.getInvoice());
@@ -51,6 +53,8 @@ class WarehouseMapperTest {
     WarehouseDto given = WarehouseMother.getWarehouseDto();
     Warehouse givenWarehouse = WarehouseMother.getWarehouse();
     Warehouse expected = WarehouseMother.getWarehouse();
+    Product givenProduct = ProductMother.getProduct();
+    when(productRepository.findByName(given.getProductName())).thenReturn(givenProduct);
     Warehouse result = warehouseMapper.warehouseDtoToWarehouseForUpdate(given, givenWarehouse);
     assertEquals(givenWarehouse.getId(), result.getId());
     assertEquals(expected.getAmount(), result.getAmount());

@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class WarehouseMother {
   private static final Integer ID = 5;
-  private static final Integer PRODUCT_ID = 18;
+  private static final Integer PRODUCT_ID = 2;
   private static final Double AMOUNT = 13.8;
   private static final String INVOICE = "LT-1877-2002-15855EP";
   private static final String PRODUCT_NAME = "Yogurt";
