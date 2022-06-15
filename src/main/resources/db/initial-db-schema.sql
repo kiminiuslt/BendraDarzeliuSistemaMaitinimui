@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS bdsm.menu_day_day_recipes;
 DROP TABLE IF EXISTS bdsm.recipe;
 DROP TABLE IF EXISTS bdsm.menu_day;
 DROP TABLE IF EXISTS bdsm.product;
+DROP TABLE IF EXISTS bdsm.history;
 DROP SCHEMA IF EXISTS bdsm;
 
 CREATE SCHEMA IF not exists bdsm;
@@ -113,11 +114,11 @@ alter table bdsm.recipe_products_list
 -- WAREHOUSE TABLE
 create table bdsm.warehouse
 (
-    id           serial,
-    uuid         uuid             not null,
-    product_id   integer          not null,
-    amount       double precision not null,
-    invoice      varchar(255)     not null
+    id         serial,
+    uuid       uuid             not null,
+    product_id integer          not null,
+    amount     double precision not null,
+    invoice    varchar(255)     not null
 );
 
 alter table bdsm.warehouse
@@ -125,8 +126,6 @@ alter table bdsm.warehouse
 
 create unique index warehouse_id_uindex
     on bdsm.warehouse (id);
-
-
 
 
 --  MENU_DAY TABLE
@@ -148,7 +147,7 @@ create table bdsm.menu_day_day_recipes
 (
     menu_day_id    int not null
         constraint menu_day_day_recipes_menu_day_id_fk
-            references bdsm.menu_day(id)
+            references bdsm.menu_day (id)
             on update cascade on delete cascade,
     day_recipes_id int not null
         constraint menu_day_day_recipes_recipe_id_fk
@@ -170,7 +169,7 @@ create table bdsm.role
     id   serial
         constraint role_pk
             primary key,
-    name  varchar not null
+    name varchar not null
 --             on update cascade on delete cascade,
 );
 
@@ -190,3 +189,14 @@ alter table bdsm.users_roles
 alter table bdsm.users_roles
     add constraint users_roles_users_id_fk
         foreign key (roles_id) references bdsm.role (id);
+
+--  HISTORY
+create table bdsm.history
+(
+    id                    serial
+        constraint history_pk primary key,
+    name                  varchar(255) not null,
+    user_preformed_action varchar(255) not null,
+    preformed_action      varchar(255) not null,
+    timestamp             timestamp default current_timestamp
+);
