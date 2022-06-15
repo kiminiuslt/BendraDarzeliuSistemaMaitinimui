@@ -2,40 +2,53 @@ package eu.kiminiuslt.bdsm.product.controller;
 
 import eu.kiminiuslt.bdsm.product.model.dto.ProductDto;
 import eu.kiminiuslt.bdsm.product.service.ProductService;
+import eu.kiminiuslt.bdsm.warehouse.controllers.CrudApiDocumentation;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-public class ProductApiController implements ProductApiDocumentation {
+@RequestMapping("/api/products")
+@Api(tags = "Product Controller")
+public class ProductApiController implements CrudApiDocumentation<ProductDto> {
 
   private final ProductService productService;
 
   @Override
-  public Page<ProductDto> getProductsPaginated(int page, int size) {
-    return productService.getPageableProduct(PageRequest.of(page, size));
-  }
-
-  @Override
-  public ResponseEntity<Void> createProduct(ProductDto productDto) {
-    productService.addProduct(productDto);
+  @ApiOperation(value = "Create product", httpMethod = "POST")
+  public ResponseEntity<Void> create(ProductDto object) {
+    productService.addProduct(object);
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
   @Override
-  public ResponseEntity<Void> updateProduct(ProductDto productDto) {
-    productService.updateProduct(productDto);
+  @ApiOperation(
+      value = "Get products page",
+      notes = "Chunk of all products list implemented by pagination",
+      httpMethod = "GET")
+  public Page<ProductDto> readPaginated(int page, int size) {
+    return productService.getPageableProduct(PageRequest.of(page, size));
+  }
+
+  @Override
+  @ApiOperation(value = "Update product", httpMethod = "PUT", notes = "Updates only one product")
+  public ResponseEntity<Void> update(ProductDto object) {
+    productService.updateProduct(object);
     return ResponseEntity.status(HttpStatus.OK).build();
   }
 
   @Override
-  public ResponseEntity<Void> deleteProduct(UUID uuid) {
+  @ApiOperation(value = "Delete product", httpMethod = "DELETE")
+  public ResponseEntity<Void> delete(UUID uuid) {
     productService.deleteProduct(uuid);
     return ResponseEntity.status(HttpStatus.OK).build();
   }
