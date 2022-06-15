@@ -1,4 +1,4 @@
-package eu.kiminiuslt.bdsm.warehouse.controllers;
+package eu.kiminiuslt.bdsm.commons;
 
 import io.swagger.annotations.*;
 import org.springframework.data.domain.Page;

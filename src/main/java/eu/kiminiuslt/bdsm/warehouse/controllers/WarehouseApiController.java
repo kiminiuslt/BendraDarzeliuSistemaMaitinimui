@@ -1,5 +1,6 @@
 package eu.kiminiuslt.bdsm.warehouse.controllers;
 
+import eu.kiminiuslt.bdsm.commons.CrudApiDocumentation;
 import eu.kiminiuslt.bdsm.warehouse.model.dto.WarehouseDto;
 import eu.kiminiuslt.bdsm.warehouse.service.WarehouseService;
 import io.swagger.annotations.Api;
