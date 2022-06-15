@@ -8,13 +8,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
-@RequestMapping("/api")
+@RequestMapping("/api/products")
 @Api(tags = "Product Controller")
 public interface ProductApiDocumentation {
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  @ApiOperation(value = "Get products page", notes = "Chunk of all products list implemented by pagination")
+  @ApiOperation(
+      value = "Get products page",
+      notes = "Chunk of all products list implemented by pagination",
+      httpMethod = "GET")
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "Successfully delivered page"),
@@ -39,13 +43,33 @@ public interface ProductApiDocumentation {
           @RequestParam("size")
           int size);
 
-  @PostMapping("/create")
+  @PostMapping
   @ApiOperation(value = "Create product", httpMethod = "POST")
   @ApiResponses(
       value = {
         @ApiResponse(code = 201, message = "Successfully saved new product"),
         @ApiResponse(code = 401, message = "Authentication required"),
-        @ApiResponse(code = 403, message = "User don't have permission to create product")
+        @ApiResponse(code = 403, message = "User don't have permission create product")
       })
   ResponseEntity<Void> createProduct(@Valid @RequestBody ProductDto productDto);
+
+  @PutMapping
+  @ApiOperation(value = "Update product", httpMethod = "PUT", notes = "Updates only one product")
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = "Product updated successfully"),
+        @ApiResponse(code = 401, message = "Authentication required"),
+        @ApiResponse(code = 403, message = "User don't have permission update product")
+      })
+  ResponseEntity<Void> updateProduct(@Valid @RequestBody ProductDto productDto);
+
+  @DeleteMapping("/{uuid}")
+  @ApiOperation(value = "Delete product", httpMethod = "DELETE")
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = "Product deleted successfully"),
+        @ApiResponse(code = 401, message = "Authentication required"),
+        @ApiResponse(code = 403, message = "User don't have permission delete product")
+      })
+  ResponseEntity<Void> deleteProduct(@PathVariable("uuid") UUID uuid);
 }

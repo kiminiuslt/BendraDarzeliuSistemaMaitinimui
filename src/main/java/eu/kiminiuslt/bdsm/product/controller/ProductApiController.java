@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequiredArgsConstructor
 public class ProductApiController implements ProductApiDocumentation {
@@ -24,5 +26,17 @@ public class ProductApiController implements ProductApiDocumentation {
   public ResponseEntity<Void> createProduct(ProductDto productDto) {
     productService.addProduct(productDto);
     return ResponseEntity.status(HttpStatus.CREATED).build();
+  }
+
+  @Override
+  public ResponseEntity<Void> updateProduct(ProductDto productDto) {
+    productService.updateProduct(productDto);
+    return ResponseEntity.status(HttpStatus.OK).build();
+  }
+
+  @Override
+  public ResponseEntity<Void> deleteProduct(UUID uuid) {
+    productService.deleteProduct(uuid);
+    return ResponseEntity.status(HttpStatus.OK).build();
   }
 }
