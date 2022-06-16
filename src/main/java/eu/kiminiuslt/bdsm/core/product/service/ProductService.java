@@ -114,12 +114,6 @@ public class ProductService {
     productRepository.deleteById(productRepository.findByUuid(id).getId());
   }
 
-  public Page<ProductDto> getProductByNamePageable(String findProductName, Pageable pageable) {
-    return productRepository
-        .findProductsByNameIsLike(convertToLikeResult(findProductName), pageable)
-        .map(productMapper::mapToProductDto);
-  }
-
   /***
    * Finds and returns object by id from database
    * @param id not null
@@ -127,10 +121,6 @@ public class ProductService {
    */
   public Product getProductById(int id) {
     return productRepository.findById(id);
-  }
-
-  private String convertToLikeResult(String value) {
-    return '%' + value + '%';
   }
 
   public ProductDto getEmptyProductDto() {
