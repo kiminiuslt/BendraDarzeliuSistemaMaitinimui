@@ -1,11 +1,11 @@
 package eu.kiminiuslt.bdsm.unit.warehouse;
 
-import eu.kiminiuslt.bdsm.product.model.entity.Product;
-import eu.kiminiuslt.bdsm.product.repository.ProductRepository;
+import eu.kiminiuslt.bdsm.jpa.entity.Product;
+import eu.kiminiuslt.bdsm.jpa.repository.ProductRepository;
 import eu.kiminiuslt.bdsm.unit.product.ProductMother;
-import eu.kiminiuslt.bdsm.warehouse.mapper.WarehouseMapper;
-import eu.kiminiuslt.bdsm.warehouse.model.dto.WarehouseDto;
-import eu.kiminiuslt.bdsm.warehouse.model.entity.Warehouse;
+import eu.kiminiuslt.bdsm.core.warehouse.mapper.WarehouseMapper;
+import eu.kiminiuslt.bdsm.core.warehouse.model.dto.WarehouseDto;
+import eu.kiminiuslt.bdsm.jpa.entity.Warehouse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

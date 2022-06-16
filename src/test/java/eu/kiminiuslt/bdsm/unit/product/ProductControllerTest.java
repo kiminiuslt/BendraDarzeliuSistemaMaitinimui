@@ -1,9 +1,9 @@
 package eu.kiminiuslt.bdsm.unit.product;
 
-import eu.kiminiuslt.bdsm.helpers.MessageService;
-import eu.kiminiuslt.bdsm.product.controller.ProductController;
-import eu.kiminiuslt.bdsm.product.model.dto.ProductDto;
-import eu.kiminiuslt.bdsm.product.service.ProductService;
+import eu.kiminiuslt.bdsm.core.helpers.MessageService;
+import eu.kiminiuslt.bdsm.core.product.controller.ProductController;
+import eu.kiminiuslt.bdsm.core.product.model.dto.ProductDto;
+import eu.kiminiuslt.bdsm.core.product.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

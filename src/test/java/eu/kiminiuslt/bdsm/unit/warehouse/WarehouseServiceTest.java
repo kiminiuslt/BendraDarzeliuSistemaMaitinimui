@@ -1,13 +1,13 @@
 package eu.kiminiuslt.bdsm.unit.warehouse;
 
-import eu.kiminiuslt.bdsm.product.model.dto.ProductsNamesDto;
-import eu.kiminiuslt.bdsm.product.service.ProductService;
+import eu.kiminiuslt.bdsm.core.product.model.dto.ProductsNamesDto;
+import eu.kiminiuslt.bdsm.core.product.service.ProductService;
 import eu.kiminiuslt.bdsm.unit.product.ProductMother;
-import eu.kiminiuslt.bdsm.warehouse.mapper.WarehouseMapper;
-import eu.kiminiuslt.bdsm.warehouse.model.dto.WarehouseDto;
-import eu.kiminiuslt.bdsm.warehouse.model.entity.Warehouse;
-import eu.kiminiuslt.bdsm.warehouse.repository.WarehouseRepository;
-import eu.kiminiuslt.bdsm.warehouse.service.WarehouseService;
+import eu.kiminiuslt.bdsm.core.warehouse.mapper.WarehouseMapper;
+import eu.kiminiuslt.bdsm.core.warehouse.model.dto.WarehouseDto;
+import eu.kiminiuslt.bdsm.jpa.entity.Warehouse;
+import eu.kiminiuslt.bdsm.jpa.repository.WarehouseRepository;
+import eu.kiminiuslt.bdsm.core.warehouse.service.WarehouseService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -144,11 +144,11 @@ class WarehouseServiceTest {
     Integer id = given.getId();
     when(warehouseRepository.findByProductId(id)).thenReturn(given);
     Warehouse result = warehouseService.getWarehouseById(id);
-    assertEquals(given.getId(),result.getId());
-    assertEquals(given.getProductId(),result.getProductId());
-    assertEquals(given.getUuid(),result.getUuid());
-    assertEquals(given.getAmount(),result.getAmount());
-    assertEquals(given.getInvoice(),result.getInvoice());
+    assertEquals(given.getId(), result.getId());
+    assertEquals(given.getProductId(), result.getProductId());
+    assertEquals(given.getUuid(), result.getUuid());
+    assertEquals(given.getAmount(), result.getAmount());
+    assertEquals(given.getInvoice(), result.getInvoice());
     verify(warehouseRepository, times(1)).findByProductId(id);
   }
 
@@ -156,11 +156,11 @@ class WarehouseServiceTest {
   void getEmptyWarehouseDto() {
     WarehouseDto given = WarehouseDto.builder().build();
     WarehouseDto result = warehouseService.getEmptyWarehouseDto();
-    assertEquals(given.getProductId(),result.getProductId());
-    assertEquals(given.getUuid(),result.getUuid());
-    assertEquals(given.getAmount(),result.getAmount());
-    assertEquals(given.getInvoice(),result.getInvoice());
-    assertEquals(given.getProductName(),result.getProductName());
-    assertEquals(given.getWriteOff(),result.getWriteOff());
+    assertEquals(given.getProductId(), result.getProductId());
+    assertEquals(given.getUuid(), result.getUuid());
+    assertEquals(given.getAmount(), result.getAmount());
+    assertEquals(given.getInvoice(), result.getInvoice());
+    assertEquals(given.getProductName(), result.getProductName());
+    assertEquals(given.getWriteOff(), result.getWriteOff());
   }
 }

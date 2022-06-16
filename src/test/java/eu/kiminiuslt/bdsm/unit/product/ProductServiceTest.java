@@ -1,12 +1,12 @@
 package eu.kiminiuslt.bdsm.unit.product;
 
-import eu.kiminiuslt.bdsm.product.mapper.ProductMapper;
-import eu.kiminiuslt.bdsm.product.model.dto.ProductDto;
-import eu.kiminiuslt.bdsm.product.model.dto.ProductForRecipeDto;
-import eu.kiminiuslt.bdsm.product.model.dto.ProductsNamesDto;
-import eu.kiminiuslt.bdsm.product.model.entity.Product;
-import eu.kiminiuslt.bdsm.product.repository.ProductRepository;
-import eu.kiminiuslt.bdsm.product.service.ProductService;
+import eu.kiminiuslt.bdsm.core.product.mapper.ProductMapper;
+import eu.kiminiuslt.bdsm.core.product.model.dto.ProductDto;
+import eu.kiminiuslt.bdsm.core.product.model.dto.ProductForRecipeDto;
+import eu.kiminiuslt.bdsm.core.product.model.dto.ProductsNamesDto;
+import eu.kiminiuslt.bdsm.jpa.entity.Product;
+import eu.kiminiuslt.bdsm.jpa.repository.ProductRepository;
+import eu.kiminiuslt.bdsm.core.product.service.ProductService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -135,7 +135,7 @@ class ProductServiceTest {
     given.setUuid(uuid);
     Product givenProduct = ProductMother.getProduct();
     Mockito.when(productRepository.findByUuid(uuid)).thenReturn(givenProduct);
-    Mockito.when(productMapper.mapToProductForUpdate(given,givenProduct)).thenReturn(givenProduct);
+    Mockito.when(productMapper.mapToProductForUpdate(given, givenProduct)).thenReturn(givenProduct);
     productService.updateProduct(given);
     verify(productRepository, times(1)).findByUuid(uuid);
     verify(productRepository, times(1)).save(givenProduct);

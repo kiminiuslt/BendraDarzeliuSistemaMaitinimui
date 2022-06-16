@@ -1,10 +1,10 @@
 package eu.kiminiuslt.bdsm.unit.product;
 
-import eu.kiminiuslt.bdsm.product.mapper.ProductMapper;
-import eu.kiminiuslt.bdsm.product.model.dto.ProductDto;
-import eu.kiminiuslt.bdsm.product.model.dto.ProductForRecipeDto;
-import eu.kiminiuslt.bdsm.product.model.dto.ProductsNamesDto;
-import eu.kiminiuslt.bdsm.product.model.entity.Product;
+import eu.kiminiuslt.bdsm.core.product.mapper.ProductMapper;
+import eu.kiminiuslt.bdsm.core.product.model.dto.ProductDto;
+import eu.kiminiuslt.bdsm.core.product.model.dto.ProductForRecipeDto;
+import eu.kiminiuslt.bdsm.core.product.model.dto.ProductsNamesDto;
+import eu.kiminiuslt.bdsm.jpa.entity.Product;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

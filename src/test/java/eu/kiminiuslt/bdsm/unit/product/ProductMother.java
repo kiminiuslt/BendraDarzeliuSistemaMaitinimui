@@ -1,9 +1,9 @@
 package eu.kiminiuslt.bdsm.unit.product;
 
-import eu.kiminiuslt.bdsm.product.model.dto.ProductDto;
-import eu.kiminiuslt.bdsm.product.model.dto.ProductForRecipeDto;
-import eu.kiminiuslt.bdsm.product.model.dto.ProductsNamesDto;
-import eu.kiminiuslt.bdsm.product.model.entity.Product;
+import eu.kiminiuslt.bdsm.core.product.model.dto.ProductDto;
+import eu.kiminiuslt.bdsm.core.product.model.dto.ProductForRecipeDto;
+import eu.kiminiuslt.bdsm.core.product.model.dto.ProductsNamesDto;
+import eu.kiminiuslt.bdsm.jpa.entity.Product;
 
 import java.util.UUID;
 

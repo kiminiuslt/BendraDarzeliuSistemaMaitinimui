@@ -1,7 +1,7 @@
 package eu.kiminiuslt.bdsm.unit.warehouse;
 
-import eu.kiminiuslt.bdsm.warehouse.model.dto.WarehouseDto;
-import eu.kiminiuslt.bdsm.warehouse.model.entity.Warehouse;
+import eu.kiminiuslt.bdsm.core.warehouse.model.dto.WarehouseDto;
+import eu.kiminiuslt.bdsm.jpa.entity.Warehouse;
 
 import java.util.UUID;
 

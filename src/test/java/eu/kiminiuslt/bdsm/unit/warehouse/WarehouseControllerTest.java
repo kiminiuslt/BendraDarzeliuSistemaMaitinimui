@@ -1,11 +1,11 @@
 package eu.kiminiuslt.bdsm.unit.warehouse;
 
-import eu.kiminiuslt.bdsm.helpers.MessageService;
-import eu.kiminiuslt.bdsm.product.model.dto.ProductsNamesDto;
+import eu.kiminiuslt.bdsm.core.helpers.MessageService;
+import eu.kiminiuslt.bdsm.core.product.model.dto.ProductsNamesDto;
 import eu.kiminiuslt.bdsm.unit.product.ProductMother;
-import eu.kiminiuslt.bdsm.warehouse.controllers.WarehouseController;
-import eu.kiminiuslt.bdsm.warehouse.model.dto.WarehouseDto;
-import eu.kiminiuslt.bdsm.warehouse.service.WarehouseService;
+import eu.kiminiuslt.bdsm.core.warehouse.controllers.WarehouseController;
+import eu.kiminiuslt.bdsm.core.warehouse.model.dto.WarehouseDto;
+import eu.kiminiuslt.bdsm.core.warehouse.service.WarehouseService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
