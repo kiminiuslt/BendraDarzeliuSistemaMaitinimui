@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,12 +24,14 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/warehouse")
+@PreAuthorize("hasAnyRole('DIETIST','CULINARY')")
 @Api(tags = "Warehouse Controller")
 public class WarehouseApiController implements CrudApiDocumentation<WarehouseDto> {
 
   private final WarehouseService warehouseService;
 
   @Override
+  @PreAuthorize("hasAnyRole('DIETIST')")
   @ApiOperation(value = "Create warehouse record", httpMethod = "POST")
   public ResponseEntity<Void> create(WarehouseDto object) {
     warehouseService.addWarehouseRecord(object);
@@ -36,6 +39,7 @@ public class WarehouseApiController implements CrudApiDocumentation<WarehouseDto
   }
 
   @Override
+  @PreAuthorize("hasAnyRole('DIETIST')")
   @ApiOperation(
       value = "Get warehouse records page",
       notes = "Chunk of all warehouse records list implemented by pagination",
@@ -45,6 +49,7 @@ public class WarehouseApiController implements CrudApiDocumentation<WarehouseDto
   }
 
   @Override
+  @PreAuthorize("hasAnyRole('DIETIST')")
   @ApiOperation(
       value = "Update warehouse record",
       httpMethod = "PUT",
@@ -55,6 +60,7 @@ public class WarehouseApiController implements CrudApiDocumentation<WarehouseDto
   }
 
   @Override
+  @PreAuthorize("hasAnyRole('DIETIST')")
   @ApiOperation(value = "Delete warehouse record", httpMethod = "DELETE")
   public ResponseEntity<Void> delete(UUID uuid) {
     warehouseService.deleteWarehouseRecord(uuid);
@@ -62,6 +68,7 @@ public class WarehouseApiController implements CrudApiDocumentation<WarehouseDto
   }
 
   @PostMapping("/writeOff/{uuid}")
+  @PreAuthorize("hasAnyRole('DIETIST','CULINARY')")
   @ApiOperation(value = "Write off warehouse", httpMethod = "POST")
   @ApiResponses(
       value = {
