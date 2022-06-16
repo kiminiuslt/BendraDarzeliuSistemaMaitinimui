@@ -23,3 +23,7 @@ spring:
       pageable:
         default-page-size: 5
 
+security:
+  jwt:
+    # validity time in hours
+    validity-time: 1

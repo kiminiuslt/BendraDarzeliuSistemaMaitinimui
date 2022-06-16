@@ -1,7 +1,9 @@
 package eu.kiminiuslt.bdsm.security.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import eu.kiminiuslt.bdsm.security.filter.MyFilter;
+import eu.kiminiuslt.bdsm.security.filter.JwtAuthenticationFilter;
+import eu.kiminiuslt.bdsm.security.filter.JwtAuthorizationFilter;
+import eu.kiminiuslt.bdsm.security.service.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,11 +14,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+  private final JwtProvider jwtProvider;
   private final ObjectMapper objectMapper;
   private final UserDetailsService userDetailsService;
 
@@ -37,7 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .anyRequest()
         .authenticated()
         .and()
-        .addFilter(new MyFilter(authenticationManager(), objectMapper));
+        .addFilter(new JwtAuthenticationFilter(authenticationManager(), objectMapper, jwtProvider))
+        .addFilterBefore(
+            new JwtAuthorizationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);
   }
 
   @Override
