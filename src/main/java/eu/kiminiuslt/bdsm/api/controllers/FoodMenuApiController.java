@@ -1,0 +1,29 @@
+package eu.kiminiuslt.bdsm.api.controllers;
+
+import eu.kiminiuslt.bdsm.core.menu.model.dto.MenuDto;
+import eu.kiminiuslt.bdsm.core.menu.model.dto.PeopleCountDto;
+import eu.kiminiuslt.bdsm.core.menu.service.MenuService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequiredArgsConstructor
+@PreAuthorize("hasRole('DIETIST')")
+public class FoodMenuApiController implements FoodMenuApiDocumentation {
+  private final MenuService menuService;
+
+  @Override
+  public MenuDto getMenu(@RequestBody PeopleCountDto peopleCountDto) {
+    return menuService.getMenu(peopleCountDto);
+  }
+
+  @Override
+  public ResponseEntity<Void> addRecipeIntoDay(Integer id, String recipeUUID) {
+    menuService.addRecipeToDay(id, recipeUUID);
+    return ResponseEntity.status(HttpStatus.OK).build();
+  }
+}
