@@ -28,11 +28,9 @@ public class RecipeService {
   private final RecipeMapper recipeMapper;
   private final ProductService productService;
   private final RecipeCalculationsService recipeCalculationsService;
-  private RecipeDto temporaryRecipeDto;
 
-  public void addRecipe() {
-    recipeRepository.save(recipeMapper.recipeDtoMapToRecipe(temporaryRecipeDto));
-    resetRecipeDto();
+  public void addRecipe(RecipeDto recipeDto) {
+    recipeRepository.save(recipeMapper.recipeDtoMapToRecipe(recipeDto));
   }
 
   public Page<RecipeDto> getPageableRecipes(Pageable pageable) {
@@ -42,68 +40,23 @@ public class RecipeService {
         .map(recipeCalculationsService::sumOfMainMaterials);
   }
 
-  public void saveNameAndText(RecipeDto recipeDto) {
-    temporaryRecipeDto.setRecipeName(recipeDto.getRecipeName());
-    temporaryRecipeDto.setRecipeText(recipeDto.getRecipeText());
-  }
-
-  public RecipeDto getCreatedRecipe() {
-    if (temporaryRecipeDto == null) {
-      temporaryRecipeDto = RecipeDto.builder().productsList(new HashSet<>()).build();
-    }
-    temporaryRecipeDto = recipeCalculationsService.sumOfMainMaterials(temporaryRecipeDto);
-    return temporaryRecipeDto;
-  }
-
-  public void addProductToRecipe(ProductAndQuantityDto productAndQuantityDto) {
-    productAndQuantityDto.setProduct(getProductByUUID(productAndQuantityDto.getProductUUID()));
-    temporaryRecipeDto.getProductsList().add(productAndQuantityDto);
-  }
-
-  public void deleteProductFromRecipe(UUID uuid) {
-    temporaryRecipeDto
-        .getProductsList()
-        .remove(
-            temporaryRecipeDto.getProductsList().stream()
-                .filter(e -> uuid.equals(e.getProductUUID()))
-                .findAny()
-                .orElse(null));
-  }
-
   public List<ProductsNamesDto> getAllProducts() {
     return productService.getProductsListRecipeDto();
-  }
-
-  public Product getProductByUUID(UUID uuid) {
-    return productService.getProductByUUID(uuid);
   }
 
   public RecipeDto getRecipeDtoByUUID(UUID uuid) {
     return recipeMapper.recipeMapToRecipeDto(recipeRepository.findByUuid(uuid));
   }
 
-  public RecipeDto getUpdateRecipe(UUID uuid) {
-    if (temporaryRecipeDto == null) {
-      temporaryRecipeDto = getRecipeDtoByUUID(uuid);
-    }
-    return temporaryRecipeDto;
-  }
-
   @Transactional
   public void updateRecipe(RecipeDto recipeDto) {
-    saveNameAndText(recipeDto);
-    recipeRepository.save(recipeMapper.recipeDtoMapToRecipe(temporaryRecipeDto));
+    recipeRepository.save(recipeMapper.recipeDtoMapToRecipe(recipeDto));
     //    FIXME: UPDATING RECIPE TABLE "PRODUCT_AND_QUANTITY" DOES NOT UPDATES
-    resetRecipeDto();
   }
 
   @Transactional
   public void deleteRecipe(UUID uuid) {
     recipeRepository.deleteById(recipeRepository.findByUuid(uuid).getId());
-  }
-
-  public void resetRecipeDto() {
-    temporaryRecipeDto = null;
   }
 
   public List<RecipeDto> getAllRecipes() {
@@ -127,6 +80,16 @@ public class RecipeService {
 
     productAndQuantityDto.setProduct(product);
     newRecipeDto.getRecipeDto().getProductsList().add(productAndQuantityDto);
+    return calculationsAndReset(newRecipeDto);
+  }
+
+  public NewRecipeDto removeProductAndQuantityFromRecipe(NewRecipeDto newRecipeDto) {
+    UUID uuid = newRecipeDto.getProductAndQuantityDto().getProductUUID();
+    newRecipeDto.getRecipeDto().getProductsList().removeIf(o -> o.getProductUUID().equals(uuid));
+    return calculationsAndReset(newRecipeDto);
+  }
+
+  private NewRecipeDto calculationsAndReset(NewRecipeDto newRecipeDto) {
     newRecipeDto.setRecipeDto(
         recipeCalculationsService.sumOfMainMaterials(newRecipeDto.getRecipeDto()));
     newRecipeDto.setProductAndQuantityDto(ProductAndQuantityDto.builder().build());

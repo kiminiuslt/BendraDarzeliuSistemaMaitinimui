@@ -30,7 +30,7 @@ public class RecipeApiController implements CrudApiDocumentation<RecipeDto> {
   @Override
   @ApiOperation(value = "Save new recipe", httpMethod = "POST")
   public ResponseEntity<Void> create(RecipeDto object) {
-    recipeService.addRecipe();
+    recipeService.addRecipe(object);
     return ResponseEntity.status(HttpStatus.OK).build();
   }
 
@@ -87,5 +87,21 @@ public class RecipeApiController implements CrudApiDocumentation<RecipeDto> {
       })
   public NewRecipeDto addProductToRecipe(@RequestBody NewRecipeDto newRecipeDto) {
     return recipeService.addProductAndQuantityToRecipe(newRecipeDto);
+  }
+
+  @PostMapping("/newRecipe/removeProduct")
+  @ApiOperation(
+          value = "Remove Product and quantity from recipe",
+          notes =
+                  "Returns newRecipeDto with removed product and quantity by uuid. ProductAndQuantityDto will be empty ",
+          httpMethod = "POST")
+  @ApiResponses(
+          value = {
+                  @ApiResponse(code = 200, message = "Successfully removed product from recipe"),
+                  @ApiResponse(code = 401, message = AUTHENTICATION),
+                  @ApiResponse(code = 403, message = AUTHORIZATION)
+          })
+  public NewRecipeDto removeProductFromRecipe(@RequestBody NewRecipeDto newRecipeDto) {
+    return recipeService.removeProductAndQuantityFromRecipe(newRecipeDto);
   }
 }
