@@ -2,7 +2,6 @@ package eu.kiminiuslt.bdsm.core.product.service;
 
 import eu.kiminiuslt.bdsm.core.product.mapper.ProductMapper;
 import eu.kiminiuslt.bdsm.core.product.model.dto.ProductDto;
-import eu.kiminiuslt.bdsm.core.product.model.dto.ProductForRecipeDto;
 import eu.kiminiuslt.bdsm.core.product.model.dto.ProductsNamesDto;
 import eu.kiminiuslt.bdsm.jpa.entity.Product;
 import eu.kiminiuslt.bdsm.jpa.repository.ProductRepository;
@@ -50,10 +49,10 @@ public class ProductService {
    *
    * @return mapped and sorted ProductForRecipeDto list
    */
-  public List<ProductForRecipeDto> getProductsListRecipeDto() {
+  public List<ProductsNamesDto> getProductsListRecipeDto() {
     return getProductsList().stream()
-        .map(productMapper::productMapToProductForRecipeDto)
-        .sorted(Comparator.comparing(ProductForRecipeDto::getName))
+        .map(productMapper::productMapToProductNamesDto)
+        .sorted(Comparator.comparing(ProductsNamesDto::getName))
         .collect(Collectors.toList());
   }
 

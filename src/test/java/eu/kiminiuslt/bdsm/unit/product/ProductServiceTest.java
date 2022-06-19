@@ -63,7 +63,7 @@ class ProductServiceTest {
     ProductForRecipeDto result = ProductMother.getProductForRecipeDto();
     when(productMapper.productMapToProductForRecipeDto(given)).thenReturn(result);
     when(productRepository.findAll()).thenReturn(List.of(given));
-    List<ProductForRecipeDto> resultList = productService.getProductsListRecipeDto();
+    List<ProductsNamesDto> resultList = productService.getProductsListRecipeDto();
     Assertions.assertEquals(result.getName(), resultList.get(0).getName());
     verify(productMapper, times(1)).productMapToProductForRecipeDto(given);
     verify(productRepository, times(1)).findAll();

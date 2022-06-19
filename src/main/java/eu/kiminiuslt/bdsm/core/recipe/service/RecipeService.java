@@ -1,9 +1,10 @@
 package eu.kiminiuslt.bdsm.core.recipe.service;
 
+import eu.kiminiuslt.bdsm.core.product.model.dto.ProductsNamesDto;
 import eu.kiminiuslt.bdsm.core.recipe.mapper.RecipeMapper;
+import eu.kiminiuslt.bdsm.core.recipe.model.dto.NewRecipeDto;
 import eu.kiminiuslt.bdsm.core.recipe.model.dto.RecipeDto;
 import eu.kiminiuslt.bdsm.core.recipe.model.dto.ProductAndQuantityDto;
-import eu.kiminiuslt.bdsm.core.product.model.dto.ProductForRecipeDto;
 import eu.kiminiuslt.bdsm.jpa.entity.Product;
 import eu.kiminiuslt.bdsm.jpa.repository.RecipeRepository;
 import eu.kiminiuslt.bdsm.core.product.service.ProductService;
@@ -69,7 +70,7 @@ public class RecipeService {
                 .orElse(null));
   }
 
-  public List<ProductForRecipeDto> getAllProducts() {
+  public List<ProductsNamesDto> getAllProducts() {
     return productService.getProductsListRecipeDto();
   }
 
@@ -110,5 +111,25 @@ public class RecipeService {
         .map(recipeMapper::recipeMapToRecipeDto)
         .sorted(Comparator.comparing(RecipeDto::getRecipeName))
         .collect(Collectors.toList());
+  }
+
+  public NewRecipeDto getNewRecipeDto() {
+    return NewRecipeDto.builder()
+        .recipeDto(RecipeDto.builder().productsList(new HashSet<>()).build())
+        .listOfProducts(getAllProducts())
+        .productAndQuantityDto(ProductAndQuantityDto.builder().build())
+        .build();
+  }
+
+  public NewRecipeDto addProductAndQuantityToRecipe(NewRecipeDto newRecipeDto) {
+    ProductAndQuantityDto productAndQuantityDto = newRecipeDto.getProductAndQuantityDto();
+    Product product = productService.getProductByUUID(productAndQuantityDto.getProductUUID());
+
+    productAndQuantityDto.setProduct(product);
+    newRecipeDto.getRecipeDto().getProductsList().add(productAndQuantityDto);
+    newRecipeDto.setRecipeDto(
+        recipeCalculationsService.sumOfMainMaterials(newRecipeDto.getRecipeDto()));
+    newRecipeDto.setProductAndQuantityDto(ProductAndQuantityDto.builder().build());
+    return newRecipeDto;
   }
 }
