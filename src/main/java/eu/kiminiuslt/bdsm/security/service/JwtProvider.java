@@ -25,14 +25,18 @@ public class JwtProvider {
   @Value("#{${security.jwt.validity-time} *60 *60 * 1000}")
   private long tokenValidityInMillis;
 
-  private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS512;
+  //  TODO: before production uncomment where marked, delete code below and remove variable form
+  // yml.
+  @Value("${security.jwt.secret-key}")
+  private byte[] secretKey;
 
-  private SecretKey secretKey;
-
-  @PostConstruct
-  protected void init() {
-    secretKey = Keys.secretKeyFor(signatureAlgorithm);
-  }
+  //  TODO: uncomment code here
+  //  private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS512;
+  //  private SecretKey secretKey;
+  //  @PostConstruct
+  //  protected void init() {
+  //    secretKey = Keys.secretKeyFor(signatureAlgorithm);
+  //  }
 
   public String getToken(Client principal) {
     return Jwts.builder()
@@ -47,7 +51,9 @@ public class JwtProvider {
             principal.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toSet()))
-        .signWith(secretKey)
+        .signWith(Keys.hmacShaKeyFor(secretKey), SignatureAlgorithm.HS512)
+        //  TODO: uncomment code here and remove line above.
+        //        .signWith(secretKey)
         .compact();
   }
 
