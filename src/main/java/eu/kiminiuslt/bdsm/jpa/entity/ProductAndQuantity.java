@@ -19,5 +19,15 @@ public class ProductAndQuantity {
   @Column(name = "product_id")
   private Integer productId;
 
-  private double quantity;
+  @Column(name = "quantity_gross")
+  private Double quantityGross;
+
+  @Column(name = "quantity_net")
+  private Double quantityNet;
+
+  @Column(name = "quantity_gross_little_ones")
+  private Double quantityGrossLittleOnes;
+
+  @Column(name = "quantity_net_little_ones")
+  private Double quantityNetLittleOnes;
 }

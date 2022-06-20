@@ -31,13 +31,19 @@ public class ProductAndQuantityMapper {
   private ProductAndQuantity getEntity(ProductAndQuantityDto e) {
     if (e.getId() == null) {
       return ProductAndQuantity.builder()
-          .quantity(e.getQuantity())
+          .quantityNet(e.getQuantityNet())
+          .quantityGross(e.getQuantityGross())
+          .quantityNetLittleOnes(e.getQuantityNetLittleOnes())
+          .quantityGrossLittleOnes(e.getQuantityGrossLittleOnes())
           .productId(productService.getProductByUUID(e.getProduct().getUuid()).getId())
           .build();
     }
     return ProductAndQuantity.builder()
         .id(e.getId())
-        .quantity(e.getQuantity())
+        .quantityNet(e.getQuantityNet())
+        .quantityGross(e.getQuantityGross())
+        .quantityNetLittleOnes(e.getQuantityNetLittleOnes())
+        .quantityGrossLittleOnes(e.getQuantityGrossLittleOnes())
         .productId(productService.getProductByUUID(e.getProduct().getUuid()).getId())
         .build();
   }
@@ -47,7 +53,10 @@ public class ProductAndQuantityMapper {
     return ProductAndQuantityDto.builder()
         .id(e.getId())
         .productUUID(product.getUuid())
-        .quantity(e.getQuantity())
+        .quantityNet(e.getQuantityNet())
+        .quantityGross(e.getQuantityGross())
+        .quantityNetLittleOnes(e.getQuantityNetLittleOnes())
+        .quantityGrossLittleOnes(e.getQuantityGrossLittleOnes())
         .product(product)
         .build();
   }

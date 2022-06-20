@@ -14,5 +14,8 @@ public class ProductAndQuantityDto {
   private Integer id;
   private UUID productUUID;
   private Product product;
-  private Double quantity;
+  private Double quantityGross;
+  private Double quantityNet;
+  private Double quantityGrossLittleOnes;
+  private Double quantityNetLittleOnes;
 }

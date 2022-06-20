@@ -17,34 +17,71 @@ public class RecipeCalculationsService {
     recipeDto.setAllCarbohydrates(allCarbohydrates(recipeDto.getProductsList()));
     recipeDto.setAllFat(allFat(recipeDto.getProductsList()));
     recipeDto.setAllProteins(allProteins(recipeDto.getProductsList()));
+
+    recipeDto.setAllEnergyValueKcalLittleOnes(
+        allEnergyValueKcalLittleOnes(recipeDto.getProductsList()));
+    recipeDto.setAllCarbohydratesLittleOnes(
+        allCarbohydratesLittleOnes(recipeDto.getProductsList()));
+    recipeDto.setAllFatLittleOnes(allFatLittleOnes(recipeDto.getProductsList()));
+    recipeDto.setAllProteinsLittleOnes(allProteinsLittleOnes(recipeDto.getProductsList()));
     return recipeDto;
+  }
+
+  private Double allProteinsLittleOnes(Set<ProductAndQuantityDto> productsList) {
+    return round(
+        productsList.stream()
+            .mapToDouble(e -> (e.getProduct().getProteins() / 100) * e.getQuantityNetLittleOnes())
+            .sum());
+  }
+
+  private Double allFatLittleOnes(Set<ProductAndQuantityDto> productsList) {
+    return round(
+        productsList.stream()
+            .mapToDouble(e -> (e.getProduct().getFat() / 100) * e.getQuantityNetLittleOnes())
+            .sum());
+  }
+
+  private Double allCarbohydratesLittleOnes(Set<ProductAndQuantityDto> productsList) {
+    return round(
+        productsList.stream()
+            .mapToDouble(
+                e -> (e.getProduct().getCarbohydrates() / 100) * e.getQuantityNetLittleOnes())
+            .sum());
+  }
+
+  private Double allEnergyValueKcalLittleOnes(Set<ProductAndQuantityDto> productsList) {
+    return round(
+        productsList.stream()
+            .mapToDouble(
+                e -> (e.getProduct().getEnergyValueKcal() / 100) * e.getQuantityNetLittleOnes())
+            .sum());
   }
 
   private Double allProteins(Set<ProductAndQuantityDto> productsList) {
     return round(
         productsList.stream()
-            .mapToDouble(e -> (e.getProduct().getProteins() / 100) * e.getQuantity())
+            .mapToDouble(e -> (e.getProduct().getProteins() / 100) * e.getQuantityNet())
             .sum());
   }
 
   private Double allFat(Set<ProductAndQuantityDto> productsList) {
     return round(
         productsList.stream()
-            .mapToDouble(e -> (e.getProduct().getFat() / 100) * e.getQuantity())
+            .mapToDouble(e -> (e.getProduct().getFat() / 100) * e.getQuantityNet())
             .sum());
   }
 
   private Double allCarbohydrates(Set<ProductAndQuantityDto> productsList) {
     return round(
         productsList.stream()
-            .mapToDouble(e -> (e.getProduct().getCarbohydrates() / 100) * e.getQuantity())
+            .mapToDouble(e -> (e.getProduct().getCarbohydrates() / 100) * e.getQuantityNet())
             .sum());
   }
 
   private Double allEnergyValueKcal(Set<ProductAndQuantityDto> productsList) {
     return round(
         productsList.stream()
-            .mapToDouble(e -> (e.getProduct().getEnergyValueKcal() / 100) * e.getQuantity())
+            .mapToDouble(e -> (e.getProduct().getEnergyValueKcal() / 100) * e.getQuantityNet())
             .sum());
   }
 

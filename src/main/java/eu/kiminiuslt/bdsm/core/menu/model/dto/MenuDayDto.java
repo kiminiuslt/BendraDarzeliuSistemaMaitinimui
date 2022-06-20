@@ -15,6 +15,7 @@ public class MenuDayDto {
   private Integer id;
   private Integer dayNumber;
   private Double dayEnergyValue;
+  private Double dayEnergyValueLittleOnes;
   private Set<RecipeDto> dayRecipesDto;
   private List<ProductShortageDto> productShortage;
 }

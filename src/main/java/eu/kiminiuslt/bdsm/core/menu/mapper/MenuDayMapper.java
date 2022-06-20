@@ -31,6 +31,8 @@ public class MenuDayMapper {
             .build();
     menuDayDto.setDayEnergyValue(
         menuCalculationsService.getDayEnergyValue(menuDayDto.getDayRecipesDto()));
+    menuDayDto.setDayEnergyValueLittleOnes(
+        menuCalculationsService.getDayEnergyValueLittleOnes(menuDayDto.getDayRecipesDto()));
     return menuDayDto;
   }
 

@@ -28,26 +28,25 @@ public class ProductsShortageService {
     for (int i = 0; i < allRequiredDayProducts.size(); i++) {
       if (!containsInList(summedRequiredGramsList, allRequiredDayProducts.get(i))) {
         summedRequiredGramsList.add(
-            createProductShortageDto(allRequiredDayProducts, allRequiredDayProducts.get(i)));
+            createProductShortageDto(
+                peopleCountDto, allRequiredDayProducts, allRequiredDayProducts.get(i)));
       }
     }
-    double totalPeople = getTotalPeople(peopleCountDto);
-    return getFilteredListByWarehouse(summedRequiredGramsList, totalPeople);
+    return getFilteredListByWarehouse(summedRequiredGramsList);
   }
 
   private List<ProductShortageDto> getFilteredListByWarehouse(
-      List<ProductShortageDto> summedRequiredGramsList, double totalPeople) {
+      List<ProductShortageDto> summedRequiredGramsList) {
     List<ProductShortageDto> result = new ArrayList<>();
 
     for (int i = 0; i < summedRequiredGramsList.size(); i++) {
       Warehouse warehouse =
           warehouseService.getWarehouseById(summedRequiredGramsList.get(i).getProductId());
       if (warehouse == null) {
-        result.add(setShortageMax(summedRequiredGramsList.get(i), totalPeople));
+        result.add(setShortageMax(summedRequiredGramsList.get(i)));
       } else {
-        if (warehouse.getAmount()
-            < (summedRequiredGramsList.get(i).getRequiredGrams() / 1000) * totalPeople) {
-          result.add(setShortage(warehouse, summedRequiredGramsList.get(i), totalPeople));
+        if (warehouse.getAmount() < (summedRequiredGramsList.get(i).getRequiredGrams() / 1000)) {
+          result.add(setShortage(warehouse, summedRequiredGramsList.get(i)));
         }
       }
     }
@@ -55,17 +54,15 @@ public class ProductsShortageService {
   }
 
   private ProductShortageDto setShortage(
-      Warehouse warehouse, ProductShortageDto productShortageDto, double totalPeople) {
+      Warehouse warehouse, ProductShortageDto productShortageDto) {
     productShortageDto.setOwnedKg(warehouse.getAmount());
     productShortageDto.setShortageKg(
-        countShortage(productShortageDto.getRequiredGrams(), totalPeople) - warehouse.getAmount());
+        countShortage(productShortageDto.getRequiredGrams()) - warehouse.getAmount());
     return productShortageDto;
   }
 
-  private ProductShortageDto setShortageMax(
-      ProductShortageDto productShortageDto, double totalPeople) {
-    productShortageDto.setShortageKg(
-        countShortage(productShortageDto.getRequiredGrams(), totalPeople));
+  private ProductShortageDto setShortageMax(ProductShortageDto productShortageDto) {
+    productShortageDto.setShortageKg(countShortage(productShortageDto.getRequiredGrams()));
     productShortageDto.setOwnedKg(0.0);
     return productShortageDto;
   }
@@ -77,27 +74,32 @@ public class ProductsShortageService {
   }
 
   private ProductShortageDto createProductShortageDto(
-      List<ProductAndQuantityDto> listOfProductAndQuantity, ProductAndQuantityDto e) {
+      PeopleCountDto peopleCountDto,
+      List<ProductAndQuantityDto> listOfProductAndQuantity,
+      ProductAndQuantityDto productAndQuantityDto) {
+
+    Integer smallPortions = peopleCountDto.getLittleOnes();
+    Integer normalPortions = peopleCountDto.getOlderKids() + peopleCountDto.getWorkers();
+
     return ProductShortageDto.builder()
-        .name(e.getProduct().getName())
-        .uuid(e.getProductUUID())
-        .productId(e.getProduct().getId())
+        .name(productAndQuantityDto.getProduct().getName())
+        .uuid(productAndQuantityDto.getProductUUID())
+        .productId(productAndQuantityDto.getProduct().getId())
         .requiredGrams(
             listOfProductAndQuantity.stream()
-                .filter(o -> o.getProductUUID().equals(e.getProductUUID()))
-                .reduce(0.0, (subtotal, element) -> subtotal + element.getQuantity(), Double::sum))
+                .filter(o -> o.getProductUUID().equals(productAndQuantityDto.getProductUUID()))
+                .reduce(
+                    0.0,
+                    (subtotal, e) ->
+                        subtotal
+                            + e.getQuantityGross() * normalPortions
+                            + e.getQuantityGrossLittleOnes() * smallPortions,
+                    Double::sum))
         .build();
   }
 
-  private double getTotalPeople(PeopleCountDto peopleCountDto) {
-    double result = peopleCountDto.getLittleOnes();
-    result = result + peopleCountDto.getOlderKids();
-    result = result + peopleCountDto.getWorkers();
-    return result;
-  }
-
-  private Double countShortage(Double requiredGrams, double totalPeople) {
-    return round(requiredGrams / 1000 * totalPeople);
+  private Double countShortage(Double requiredGrams) {
+    return round(requiredGrams / 1000);
   }
 
   private double round(double value) {

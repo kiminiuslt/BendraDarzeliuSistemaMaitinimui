@@ -11,12 +11,16 @@ import java.util.Set;
 public class MenuCalculationsService {
 
   public Double getDayEnergyValue(Set<RecipeDto> dayRecipesDto) {
-    return dayRecipesDto.stream().mapToDouble(this::allEnergyValueKcal).map(this::round).sum();
+    return dayRecipesDto.stream()
+        .mapToDouble(RecipeDto::getAllEnergyValueKcal)
+        .map(this::round)
+        .sum();
   }
 
-  private Double allEnergyValueKcal(RecipeDto recipeDto) {
-    return recipeDto.getProductsList().stream()
-        .mapToDouble(obj -> (obj.getProduct().getEnergyValueKcal() / 100) * obj.getQuantity())
+  public Double getDayEnergyValueLittleOnes(Set<RecipeDto> dayRecipesDto) {
+    return dayRecipesDto.stream()
+        .mapToDouble(RecipeDto::getAllEnergyValueKcalLittleOnes)
+        .map(this::round)
         .sum();
   }
 

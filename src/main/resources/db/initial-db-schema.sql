@@ -86,11 +86,14 @@ create unique index recipe_uuid_uindex
 -- ProductAndQuantity table
 create table bdsm.product_and_quantity
 (
-    id         serial
+    id                         serial
         constraint product_and_quantity_pk
             primary key,
-    product_id int              not null,
-    quantity   double precision not null
+    product_id                 int              not null,
+    quantity_gross             double precision not null,
+    quantity_net               double precision not null,
+    quantity_gross_little_ones double precision not null,
+    quantity_net_little_ones   double precision not null
 );
 
 create unique index product_and_quantity_id_uindex

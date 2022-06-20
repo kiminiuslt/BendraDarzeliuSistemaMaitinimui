@@ -19,5 +19,9 @@ public class RecipeDto {
   private Double allFat;
   private Double allCarbohydrates;
   private Double allEnergyValueKcal;
+  private Double allProteinsLittleOnes;
+  private Double allFatLittleOnes;
+  private Double allCarbohydratesLittleOnes;
+  private Double allEnergyValueKcalLittleOnes;
   private Set<ProductAndQuantityDto> productsList;
 }
