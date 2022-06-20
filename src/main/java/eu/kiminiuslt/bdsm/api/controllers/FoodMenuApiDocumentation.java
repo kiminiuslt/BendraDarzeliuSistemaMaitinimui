@@ -17,14 +17,16 @@ public interface FoodMenuApiDocumentation {
   String AUTHORIZATION = "User don't have permission use this function";
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  @ApiOperation(value = "Get all month menu", httpMethod = "GET")
+  @ApiOperation(value = "Get all month menu",
+          notes = "Returns MenuDto object that contains list of MenuDayDto",
+          httpMethod = "GET")
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "Successfully delivered menu"),
         @ApiResponse(code = 401, message = AUTHENTICATION),
         @ApiResponse(code = 403, message = AUTHORIZATION)
       })
-  MenuDto getMenu(PeopleCountDto peopleCountDto);
+  MenuDto getMenu();
 
   @PostMapping("/{id}")
   @ApiOperation(value = "Add one recipe to day", httpMethod = "POST")

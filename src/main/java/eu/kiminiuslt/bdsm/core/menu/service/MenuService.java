@@ -25,7 +25,11 @@ public class MenuService {
   private final RecipeService recipeService;
   private final ProductsShortageService productsShortageService;
 
-  public MenuDto getMenu(PeopleCountDto peopleCountDto) {
+  public MenuDto getMenu() {
+    return MenuDto.builder().daysList(getAllDayList()).build();
+  }
+
+  public MenuDto calculateMenuShortage(PeopleCountDto peopleCountDto){
     MenuDto menuDto = MenuDto.builder().daysList(getAllDayList()).build();
     if (peopleCountDto.getDayOfMenu() != null) {
       menuDto = setDayShortage(menuDto, peopleCountDto);

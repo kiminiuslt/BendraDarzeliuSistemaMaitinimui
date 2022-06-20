@@ -22,7 +22,7 @@ public class FoodMenuController {
   @GetMapping
   public String foodMenu(
       Model model, @ModelAttribute("passedPeopleCount") PeopleCountDto peopleCountDto) {
-    model.addAttribute("menu", menuService.getMenu(peopleCountDto));
+//    model.addAttribute("menu", menuService.getMenu(peopleCountDto));
     model.addAttribute("peopleCount", menuService.getPeopleCount());
     return "/foodMenu/food-menu";
   }
