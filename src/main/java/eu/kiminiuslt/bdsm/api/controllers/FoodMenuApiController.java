@@ -26,8 +26,8 @@ public class FoodMenuApiController implements FoodMenuApiDocumentation {
   }
 
   @Override
-  public ResponseEntity<Void> addRecipeIntoDay(Integer id, String recipeUUID) {
+  public MenuDayDto addRecipeIntoDay(Integer id, String recipeUUID) {
     menuService.addRecipeToDay(id, recipeUUID);
-    return ResponseEntity.status(HttpStatus.OK).build();
+    return menuService.getMenuDayByID(id);
   }
 }

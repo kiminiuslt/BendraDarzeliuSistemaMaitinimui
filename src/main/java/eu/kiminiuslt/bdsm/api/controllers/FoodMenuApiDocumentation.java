@@ -40,13 +40,15 @@ public interface FoodMenuApiDocumentation {
   MenuDayDto getDayMenu(@PathVariable("id") Integer id);
 
   @PostMapping("/{id}/{uuid}")
-  @ApiOperation(value = "Add one recipe to day", httpMethod = "POST")
+  @ApiOperation(value = "Add one recipe to day",
+          notes = "Returns same menu day, but with added recipe",
+          httpMethod = "POST")
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "Successfully delivered menu"),
         @ApiResponse(code = 401, message = AUTHENTICATION),
         @ApiResponse(code = 403, message = AUTHORIZATION)
       })
-  ResponseEntity<Void> addRecipeIntoDay(
+  MenuDayDto addRecipeIntoDay(
       @PathVariable("id") Integer id, @PathVariable("uuid") String recipeUUID);
 }

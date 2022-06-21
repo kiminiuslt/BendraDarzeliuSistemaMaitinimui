@@ -51,7 +51,7 @@ public class MenuService {
 
   public MenuDayDto getMenuDayByID(int id) {
     MenuDayDto menuDayDto = menuDayMapper.entityToDto(menuDayRepository.getById(id));
-    menuDayDto.setAllRecipesList(getAllRecipesList());
+    menuDayDto.setAllRecipesList(getFilteredRecipesList(menuDayDto.getDayRecipesNamesDto()));
     return menuDayDto;
   }
 
@@ -71,7 +71,7 @@ public class MenuService {
     return recipeService.getRecipeDtoByUUID(uuid).getId();
   }
 
-  public List<RecipeNamesDto> getFilteredRecipesList(Set<RecipeDto> dayRecipesDto) {
+  public List<RecipeNamesDto> getFilteredRecipesList(Set<RecipeNamesDto> dayRecipesDto) {
     if (dayRecipesDto.size() == 0) {
       return getAllRecipesList();
     }
