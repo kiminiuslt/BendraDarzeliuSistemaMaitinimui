@@ -4,10 +4,10 @@ import eu.kiminiuslt.bdsm.core.menu.model.dto.MenuDayDto;
 import eu.kiminiuslt.bdsm.core.menu.model.dto.MenuDto;
 import eu.kiminiuslt.bdsm.core.menu.service.MenuService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,8 +26,14 @@ public class FoodMenuApiController implements FoodMenuApiDocumentation {
   }
 
   @Override
-  public MenuDayDto addRecipeIntoDay(Integer id, String recipeUUID) {
+  public MenuDayDto addRecipeIntoDay(Integer id, UUID recipeUUID) {
     menuService.addRecipeToDay(id, recipeUUID);
     return menuService.getMenuDayByID(id);
+  }
+
+  @Override
+  public MenuDayDto removeRecipeFromDay(Integer dayId, UUID recipeUUID) {
+    menuService.removeRecipeFromDay(dayId, recipeUUID);
+    return menuService.getMenuDayByID(dayId);
   }
 }

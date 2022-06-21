@@ -22,7 +22,7 @@ public class FoodMenuController {
   @GetMapping
   public String foodMenu(
       Model model, @ModelAttribute("passedPeopleCount") PeopleCountDto peopleCountDto) {
-//    model.addAttribute("menu", menuService.getMenu(peopleCountDto));
+    //    model.addAttribute("menu", menuService.getMenu(peopleCountDto));
     model.addAttribute("peopleCount", menuService.getPeopleCount());
     return "/foodMenu/food-menu";
   }
@@ -36,15 +36,16 @@ public class FoodMenuController {
   @GetMapping("/{id}/update")
   public String getUpdate(Model model, @PathVariable("id") int id) {
     MenuDayDto menuDayDto = menuService.getMenuDayByID(id);
-//    model.addAttribute(
-//        "recipesList", menuService.getFilteredRecipesList(menuDayDto.getDayRecipesNamesDto()));
+    //    model.addAttribute(
+    //        "recipesList",
+    // menuService.getFilteredRecipesList(menuDayDto.getDayRecipesNamesDto()));
     model.addAttribute("menuDay", menuDayDto);
     return "/foodMenu/edit-day";
   }
 
   @PostMapping("/{id}/update")
   public String recipeToDay(@PathVariable("id") Integer id, String recipeUUID) {
-    menuService.addRecipeToDay(id, recipeUUID);
+    //    menuService.addRecipeToDay(id, recipeUUID);
     return "redirect:/food-menu/" + id + "/update";
   }
 

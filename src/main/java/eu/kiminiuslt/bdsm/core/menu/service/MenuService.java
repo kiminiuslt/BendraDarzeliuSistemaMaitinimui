@@ -7,7 +7,6 @@ import eu.kiminiuslt.bdsm.core.menu.model.dto.PeopleCountDto;
 import eu.kiminiuslt.bdsm.core.menu.model.dto.ProductShortageDto;
 import eu.kiminiuslt.bdsm.core.recipe.model.dto.RecipeNamesDto;
 import eu.kiminiuslt.bdsm.jpa.repository.MenuDayRepository;
-import eu.kiminiuslt.bdsm.core.recipe.model.dto.RecipeDto;
 import eu.kiminiuslt.bdsm.core.recipe.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -59,8 +58,8 @@ public class MenuService {
     return recipeService.getAllRecipes();
   }
 
-  public void addRecipeToDay(Integer id, String recipeUUID) {
-    menuDayRepository.addDayRecipeToTable(id, getRecipeIdByUUID(UUID.fromString(recipeUUID)));
+  public void addRecipeToDay(Integer id, UUID recipeUUID) {
+    menuDayRepository.addDayRecipeToTable(id, getRecipeIdByUUID(recipeUUID));
   }
 
   public void removeRecipeFromDay(Integer dayId, UUID uuid) {
