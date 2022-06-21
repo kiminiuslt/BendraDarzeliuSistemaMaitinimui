@@ -5,6 +5,7 @@ import eu.kiminiuslt.bdsm.core.menu.model.dto.MenuDayDto;
 import eu.kiminiuslt.bdsm.core.menu.model.dto.MenuDto;
 import eu.kiminiuslt.bdsm.core.menu.model.dto.PeopleCountDto;
 import eu.kiminiuslt.bdsm.core.menu.model.dto.ProductShortageDto;
+import eu.kiminiuslt.bdsm.core.recipe.model.dto.RecipeNamesDto;
 import eu.kiminiuslt.bdsm.jpa.repository.MenuDayRepository;
 import eu.kiminiuslt.bdsm.core.recipe.model.dto.RecipeDto;
 import eu.kiminiuslt.bdsm.core.recipe.service.RecipeService;
@@ -29,21 +30,17 @@ public class MenuService {
     return MenuDto.builder().daysList(getAllDayList()).build();
   }
 
-  public MenuDto calculateMenuShortage(PeopleCountDto peopleCountDto){
+  public MenuDto calculateMenuShortage(PeopleCountDto peopleCountDto) {
     MenuDto menuDto = MenuDto.builder().daysList(getAllDayList()).build();
     if (peopleCountDto.getDayOfMenu() != null) {
-      menuDto = setDayShortage(menuDto, peopleCountDto);
+      List<ProductShortageDto> list = setDayShortage(menuDto, peopleCountDto);
     }
     return menuDto;
   }
 
-  private MenuDto setDayShortage(MenuDto menuDto, PeopleCountDto peopleCountDto) {
-    List<ProductShortageDto> result =
-        productsShortageService.getProductsShortageList(
-            menuDto.getDaysList().get(peopleCountDto.getDayOfMenu()), peopleCountDto);
-
-    menuDto.getDaysList().get(peopleCountDto.getDayOfMenu()).getProductShortage().addAll(result);
-    return menuDto;
+  private List<ProductShortageDto> setDayShortage(MenuDto menuDto, PeopleCountDto peopleCountDto) {
+    return productsShortageService.getProductsShortageList(
+        menuDto.getDaysList().get(peopleCountDto.getDayOfMenu()), peopleCountDto);
   }
 
   private List<MenuDayDto> getAllDayList() {
@@ -53,10 +50,12 @@ public class MenuService {
   }
 
   public MenuDayDto getMenuDayByID(int id) {
-    return menuDayMapper.entityToDto(menuDayRepository.getById(id));
+    MenuDayDto menuDayDto = menuDayMapper.entityToDto(menuDayRepository.getById(id));
+    menuDayDto.setAllRecipesList(getAllRecipesList());
+    return menuDayDto;
   }
 
-  public List<RecipeDto> getAllRecipesList() {
+  public List<RecipeNamesDto> getAllRecipesList() {
     return recipeService.getAllRecipes();
   }
 
@@ -72,15 +71,15 @@ public class MenuService {
     return recipeService.getRecipeDtoByUUID(uuid).getId();
   }
 
-  public List<RecipeDto> getFilteredRecipesList(Set<RecipeDto> dayRecipesDto) {
+  public List<RecipeNamesDto> getFilteredRecipesList(Set<RecipeDto> dayRecipesDto) {
     if (dayRecipesDto.size() == 0) {
       return getAllRecipesList();
     }
-    List<RecipeDto> dayRecipes = new ArrayList<>(dayRecipesDto);
-    List<RecipeDto> result = getAllRecipesList();
+    List<RecipeNamesDto> dayRecipes = new ArrayList<>(dayRecipesDto);
+    List<RecipeNamesDto> result = getAllRecipesList();
     for (int i = 0; i < dayRecipesDto.size(); i++) {
-      int id = dayRecipes.get(i).getId();
-      result.removeIf(recipeDto -> recipeDto.getId() == id);
+      UUID uuid = dayRecipes.get(i).getUuid();
+      result.removeIf(recipeDto -> recipeDto.getUuid() == uuid);
     }
     return result;
   }

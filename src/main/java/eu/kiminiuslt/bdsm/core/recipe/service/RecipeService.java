@@ -5,6 +5,7 @@ import eu.kiminiuslt.bdsm.core.recipe.mapper.RecipeMapper;
 import eu.kiminiuslt.bdsm.core.recipe.model.dto.NewRecipeDto;
 import eu.kiminiuslt.bdsm.core.recipe.model.dto.RecipeDto;
 import eu.kiminiuslt.bdsm.core.recipe.model.dto.ProductAndQuantityDto;
+import eu.kiminiuslt.bdsm.core.recipe.model.dto.RecipeNamesDto;
 import eu.kiminiuslt.bdsm.jpa.entity.Product;
 import eu.kiminiuslt.bdsm.jpa.repository.RecipeRepository;
 import eu.kiminiuslt.bdsm.core.product.service.ProductService;
@@ -59,10 +60,12 @@ public class RecipeService {
     recipeRepository.deleteById(recipeRepository.findByUuid(uuid).getId());
   }
 
-  public List<RecipeDto> getAllRecipes() {
+  public List<RecipeNamesDto> getAllRecipes() {
     return recipeRepository.findAll().stream()
         .map(recipeMapper::recipeMapToRecipeDto)
-        .sorted(Comparator.comparing(RecipeDto::getRecipeName))
+        .map(recipeCalculationsService::sumOfMainMaterials)
+        .map(recipeMapper::recipeDtoMapToRecipeNamesDto)
+        .sorted(Comparator.comparing(RecipeNamesDto::getRecipeName))
         .collect(Collectors.toList());
   }
 

@@ -1,6 +1,7 @@
 package eu.kiminiuslt.bdsm.core.recipe.mapper;
 
 import eu.kiminiuslt.bdsm.core.recipe.model.dto.RecipeDto;
+import eu.kiminiuslt.bdsm.core.recipe.model.dto.RecipeNamesDto;
 import eu.kiminiuslt.bdsm.jpa.entity.Recipe;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -38,6 +39,25 @@ public class RecipeMapper {
         .name(recipeDto.getRecipeName())
         .recipeText(recipeDto.getRecipeText())
         .productsList(productAndQuantityMapper.dtoToEntity(recipeDto.getProductsList()))
+        .build();
+  }
+
+  public RecipeNamesDto recipeMapToRecipeNamesDto(Recipe recipe) {
+    return RecipeNamesDto.builder().recipeName(recipe.getName()).uuid(recipe.getUuid()).build();
+  }
+
+  public RecipeNamesDto recipeDtoMapToRecipeNamesDto(RecipeDto recipeDto) {
+    return RecipeNamesDto.builder()
+        .recipeName(recipeDto.getRecipeName())
+        .uuid(recipeDto.getUuid())
+        .allCarbohydrates(recipeDto.getAllCarbohydrates())
+        .allCarbohydratesLittleOnes(recipeDto.getAllCarbohydratesLittleOnes())
+        .allEnergyValueKcal(recipeDto.getAllEnergyValueKcal())
+        .allEnergyValueKcalLittleOnes(recipeDto.getAllEnergyValueKcalLittleOnes())
+        .allFat(recipeDto.getAllFat())
+        .allFatLittleOnes(recipeDto.getAllFatLittleOnes())
+        .allProteins(recipeDto.getAllProteins())
+        .allProteinsLittleOnes(recipeDto.getAllProteinsLittleOnes())
         .build();
   }
 }

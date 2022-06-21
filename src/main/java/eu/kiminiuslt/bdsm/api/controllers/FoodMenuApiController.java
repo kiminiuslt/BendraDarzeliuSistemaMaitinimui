@@ -1,5 +1,6 @@
 package eu.kiminiuslt.bdsm.api.controllers;
 
+import eu.kiminiuslt.bdsm.core.menu.model.dto.MenuDayDto;
 import eu.kiminiuslt.bdsm.core.menu.model.dto.MenuDto;
 import eu.kiminiuslt.bdsm.core.menu.service.MenuService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,11 @@ public class FoodMenuApiController implements FoodMenuApiDocumentation {
   @Override
   public MenuDto getMenu() {
     return menuService.getMenu();
+  }
+
+  @Override
+  public MenuDayDto getDayMenu(Integer id) {
+    return menuService.getMenuDayByID(id);
   }
 
   @Override

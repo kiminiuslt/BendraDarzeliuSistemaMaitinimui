@@ -1,6 +1,6 @@
 package eu.kiminiuslt.bdsm.core.menu.service;
 
-import eu.kiminiuslt.bdsm.core.recipe.model.dto.RecipeDto;
+import eu.kiminiuslt.bdsm.core.recipe.model.dto.RecipeNamesDto;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -10,16 +10,16 @@ import java.util.Set;
 @Service
 public class MenuCalculationsService {
 
-  public Double getDayEnergyValue(Set<RecipeDto> dayRecipesDto) {
+  public Double getDayEnergyValue(Set<RecipeNamesDto> dayRecipesDto) {
     return dayRecipesDto.stream()
-        .mapToDouble(RecipeDto::getAllEnergyValueKcal)
+        .mapToDouble(RecipeNamesDto::getAllEnergyValueKcal)
         .map(this::round)
         .sum();
   }
 
-  public Double getDayEnergyValueLittleOnes(Set<RecipeDto> dayRecipesDto) {
+  public Double getDayEnergyValueLittleOnes(Set<RecipeNamesDto> dayRecipesDto) {
     return dayRecipesDto.stream()
-        .mapToDouble(RecipeDto::getAllEnergyValueKcalLittleOnes)
+        .mapToDouble(RecipeNamesDto::getAllEnergyValueKcalLittleOnes)
         .map(this::round)
         .sum();
   }

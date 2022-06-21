@@ -1,7 +1,7 @@
 package eu.kiminiuslt.bdsm.api.controllers;
 
+import eu.kiminiuslt.bdsm.core.menu.model.dto.MenuDayDto;
 import eu.kiminiuslt.bdsm.core.menu.model.dto.MenuDto;
-import eu.kiminiuslt.bdsm.core.menu.model.dto.PeopleCountDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -17,9 +17,10 @@ public interface FoodMenuApiDocumentation {
   String AUTHORIZATION = "User don't have permission use this function";
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  @ApiOperation(value = "Get all month menu",
-          notes = "Returns MenuDto object that contains list of MenuDayDto",
-          httpMethod = "GET")
+  @ApiOperation(
+      value = "Get all month menu",
+      notes = "Returns MenuDto object that contains list of MenuDayDto",
+      httpMethod = "GET")
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "Successfully delivered menu"),
@@ -28,13 +29,24 @@ public interface FoodMenuApiDocumentation {
       })
   MenuDto getMenu();
 
-  @PostMapping("/{id}")
+  @GetMapping("/update/{id}")
+  @ApiOperation(value = "Get one day menu", notes = "Returns MenuDayDto object", httpMethod = "GET")
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = "Successfully delivered menu day"),
+        @ApiResponse(code = 401, message = AUTHENTICATION),
+        @ApiResponse(code = 403, message = AUTHORIZATION)
+      })
+  MenuDayDto getDayMenu(@PathVariable("id") Integer id);
+
+  @PostMapping("/{id}/{uuid}")
   @ApiOperation(value = "Add one recipe to day", httpMethod = "POST")
   @ApiResponses(
-          value = {
-                  @ApiResponse(code = 200, message = "Successfully delivered menu"),
-                  @ApiResponse(code = 401, message = AUTHENTICATION),
-                  @ApiResponse(code = 403, message = AUTHORIZATION)
-          })
-  ResponseEntity<Void> addRecipeIntoDay(@PathVariable("id") Integer id, String recipeUUID);
+      value = {
+        @ApiResponse(code = 200, message = "Successfully delivered menu"),
+        @ApiResponse(code = 401, message = AUTHENTICATION),
+        @ApiResponse(code = 403, message = AUTHORIZATION)
+      })
+  ResponseEntity<Void> addRecipeIntoDay(
+      @PathVariable("id") Integer id, @PathVariable("uuid") String recipeUUID);
 }

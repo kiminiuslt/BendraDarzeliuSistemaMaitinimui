@@ -23,7 +23,8 @@ public class ProductsShortageService {
 
     List<ProductAndQuantityDto> allRequiredDayProducts = new ArrayList<>();
     List<ProductShortageDto> summedRequiredGramsList = new ArrayList<>();
-    menuDayDto.getDayRecipesDto().forEach(e -> allRequiredDayProducts.addAll(e.getProductsList()));
+    //    menuDayDto.getDayRecipesDto().forEach(e ->
+    // allRequiredDayProducts.addAll(e.getProductsList()));
 
     for (int i = 0; i < allRequiredDayProducts.size(); i++) {
       if (!containsInList(summedRequiredGramsList, allRequiredDayProducts.get(i))) {
