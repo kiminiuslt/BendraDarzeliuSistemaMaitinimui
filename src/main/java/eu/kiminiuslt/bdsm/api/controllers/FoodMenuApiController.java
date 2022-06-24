@@ -1,12 +1,15 @@
 package eu.kiminiuslt.bdsm.api.controllers;
 
+import eu.kiminiuslt.bdsm.core.menu.model.dto.DayShortageDto;
 import eu.kiminiuslt.bdsm.core.menu.model.dto.MenuDayDto;
 import eu.kiminiuslt.bdsm.core.menu.model.dto.MenuDto;
+import eu.kiminiuslt.bdsm.core.menu.model.dto.PeopleCountDto;
 import eu.kiminiuslt.bdsm.core.menu.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -35,5 +38,10 @@ public class FoodMenuApiController implements FoodMenuApiDocumentation {
   public MenuDayDto removeRecipeFromDay(Integer dayId, UUID recipeUUID) {
     menuService.removeRecipeFromDay(dayId, recipeUUID);
     return menuService.getMenuDayByID(dayId);
+  }
+
+  @Override
+  public List<DayShortageDto> calculateShortage(List<PeopleCountDto> peopleCountDtoList) {
+    return menuService.calculateMenuShortage(peopleCountDtoList);
   }
 }

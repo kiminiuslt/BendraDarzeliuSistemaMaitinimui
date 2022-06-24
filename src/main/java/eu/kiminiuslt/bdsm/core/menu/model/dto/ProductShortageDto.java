@@ -11,6 +11,7 @@ public class ProductShortageDto extends ProductsNamesDto {
 
   private Integer productId;
   private Double requiredGrams;
+  private Double otherDaysRequiredGrams;
   private Double ownedKg;
   private Double shortageKg;
 }

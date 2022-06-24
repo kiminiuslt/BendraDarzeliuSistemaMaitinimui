@@ -1,20 +1,14 @@
 package eu.kiminiuslt.bdsm.core.menu.service;
 
 import eu.kiminiuslt.bdsm.core.menu.mapper.MenuDayMapper;
-import eu.kiminiuslt.bdsm.core.menu.model.dto.MenuDayDto;
-import eu.kiminiuslt.bdsm.core.menu.model.dto.MenuDto;
-import eu.kiminiuslt.bdsm.core.menu.model.dto.PeopleCountDto;
-import eu.kiminiuslt.bdsm.core.menu.model.dto.ProductShortageDto;
+import eu.kiminiuslt.bdsm.core.menu.model.dto.*;
 import eu.kiminiuslt.bdsm.core.recipe.model.dto.RecipeNamesDto;
 import eu.kiminiuslt.bdsm.jpa.repository.MenuDayRepository;
 import eu.kiminiuslt.bdsm.core.recipe.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,17 +23,9 @@ public class MenuService {
     return MenuDto.builder().daysList(getAllDayList()).build();
   }
 
-  public MenuDto calculateMenuShortage(PeopleCountDto peopleCountDto) {
+  public List<DayShortageDto> calculateMenuShortage(List<PeopleCountDto> peopleCountDto) {
     MenuDto menuDto = MenuDto.builder().daysList(getAllDayList()).build();
-    if (peopleCountDto.getDayOfMenu() != null) {
-      List<ProductShortageDto> list = setDayShortage(menuDto, peopleCountDto);
-    }
-    return menuDto;
-  }
-
-  private List<ProductShortageDto> setDayShortage(MenuDto menuDto, PeopleCountDto peopleCountDto) {
-    return productsShortageService.getProductsShortageList(
-        menuDto.getDaysList().get(peopleCountDto.getDayOfMenu()), peopleCountDto);
+    return productsShortageService.getProductsShortageList(menuDto, peopleCountDto);
   }
 
   private List<MenuDayDto> getAllDayList() {
@@ -81,9 +67,5 @@ public class MenuService {
       result.removeIf(recipeDto -> recipeDto.getUuid() == uuid);
     }
     return result;
-  }
-
-  public PeopleCountDto getPeopleCount() {
-    return PeopleCountDto.builder().build();
   }
 }

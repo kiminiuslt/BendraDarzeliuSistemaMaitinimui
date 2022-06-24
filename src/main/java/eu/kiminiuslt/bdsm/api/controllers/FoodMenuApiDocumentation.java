@@ -1,7 +1,9 @@
 package eu.kiminiuslt.bdsm.api.controllers;
 
+import eu.kiminiuslt.bdsm.core.menu.model.dto.DayShortageDto;
 import eu.kiminiuslt.bdsm.core.menu.model.dto.MenuDayDto;
 import eu.kiminiuslt.bdsm.core.menu.model.dto.MenuDto;
+import eu.kiminiuslt.bdsm.core.menu.model.dto.PeopleCountDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -9,6 +11,7 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/api/foodMenu")
@@ -67,4 +70,18 @@ public interface FoodMenuApiDocumentation {
       })
   MenuDayDto removeRecipeFromDay(
       @PathVariable("id") Integer id, @PathVariable("uuid") UUID recipeUUID);
+
+  @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  @ApiOperation(
+          value = "Returns list of days with calculated shortages",
+          notes = "One PeopleCountDto is for one menu day. " +
+                  "If day has no calculated shortages, productsShortageDtoList will be empty",
+          httpMethod = "POST")
+  @ApiResponses(
+          value = {
+                  @ApiResponse(code = 200, message = "Successfully delivered List"),
+                  @ApiResponse(code = 401, message = AUTHENTICATION),
+                  @ApiResponse(code = 403, message = AUTHORIZATION)
+          })
+  List<DayShortageDto> calculateShortage(@RequestBody List<PeopleCountDto> peopleCountDtoList);
 }
