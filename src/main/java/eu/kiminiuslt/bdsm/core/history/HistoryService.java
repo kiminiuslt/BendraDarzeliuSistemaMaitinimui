@@ -31,4 +31,16 @@ public class HistoryService {
             .timestamp(LocalDateTime.now())
             .build());
   }
+
+  public void deletedWarehouseRecord(Product product) {
+    Authentication auth = getAuthentication();
+    historyRepository.save(
+        History.builder()
+            .name(product.getName())
+            .preformedAction("Ištrinta")
+            .userPreformedAction(auth.getName())
+            .amount(0.0)
+            .timestamp(LocalDateTime.now())
+            .build());
+  }
 }
