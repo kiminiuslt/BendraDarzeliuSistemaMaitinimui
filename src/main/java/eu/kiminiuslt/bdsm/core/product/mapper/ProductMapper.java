@@ -1,7 +1,6 @@
 package eu.kiminiuslt.bdsm.core.product.mapper;
 
 import eu.kiminiuslt.bdsm.core.product.model.dto.ProductDto;
-import eu.kiminiuslt.bdsm.core.product.model.dto.ProductForRecipeDto;
 import eu.kiminiuslt.bdsm.core.product.model.dto.ProductsNamesDto;
 import eu.kiminiuslt.bdsm.jpa.entity.Product;
 import org.springframework.stereotype.Component;
@@ -72,6 +71,10 @@ public class ProductMapper {
     return Product.builder()
         .uuid(UUID.randomUUID())
         .name(productDto.getName())
+        .proteins(productDto.getProteins())
+        .fat(productDto.getFat())
+        .carbohydrates(productDto.getCarbohydrates())
+        .energyValueKcal(productDto.getEnergyValueKcal())
         .water(productDto.getWater())
         .dryMaterial(productDto.getDryMaterial())
         .proteins(productDto.getProteins())
@@ -110,23 +113,6 @@ public class ProductMapper {
         .vitaminD(productDto.getVitaminD())
         .vitaminB12(productDto.getVitaminB12())
         .sugar(productDto.getSugar())
-        .build();
-  }
-
-  /***
-   * Mapping Product entity to ProductForRecipeDto
-   * @param product not null
-   * @return ProductForRecipeDto
-   * @since 1.0.0
-   */
-  public ProductForRecipeDto productMapToProductForRecipeDto(Product product) {
-    return ProductForRecipeDto.builder()
-        .uuid(product.getUuid())
-        .name(product.getName())
-        .proteins(product.getProteins())
-        .fat(product.getFat())
-        .carbohydrates(product.getCarbohydrates())
-        .energyValueKcal(product.getEnergyValueKcal())
         .build();
   }
 

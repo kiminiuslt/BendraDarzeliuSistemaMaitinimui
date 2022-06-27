@@ -8,8 +8,12 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class ProductDto extends ProductForRecipeDto {
+public class ProductDto extends ProductsNamesDto {
 
+  private double proteins;
+  private double fat;
+  private double carbohydrates;
+  private double energyValueKcal;
   private double water;
   private double dryMaterial;
   private double vegetableProtein;

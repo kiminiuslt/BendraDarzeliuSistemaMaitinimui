@@ -2,7 +2,6 @@ package eu.kiminiuslt.bdsm.unit.product;
 
 import eu.kiminiuslt.bdsm.core.product.mapper.ProductMapper;
 import eu.kiminiuslt.bdsm.core.product.model.dto.ProductDto;
-import eu.kiminiuslt.bdsm.core.product.model.dto.ProductForRecipeDto;
 import eu.kiminiuslt.bdsm.core.product.model.dto.ProductsNamesDto;
 import eu.kiminiuslt.bdsm.jpa.entity.Product;
 import eu.kiminiuslt.bdsm.jpa.repository.ProductRepository;
@@ -60,19 +59,19 @@ class ProductServiceTest {
   @Test
   void getProductsListRecipeDto() {
     Product given = ProductMother.getProduct();
-    ProductForRecipeDto result = ProductMother.getProductForRecipeDto();
-    when(productMapper.productMapToProductForRecipeDto(given)).thenReturn(result);
+    ProductsNamesDto result = ProductMother.getProductsNamesDto();
+    when(productMapper.productMapToProductNamesDto(given)).thenReturn(result);
     when(productRepository.findAll()).thenReturn(List.of(given));
     List<ProductsNamesDto> resultList = productService.getProductsListRecipeDto();
     Assertions.assertEquals(result.getName(), resultList.get(0).getName());
-    verify(productMapper, times(1)).productMapToProductForRecipeDto(given);
+    verify(productMapper, times(1)).productMapToProductNamesDto(given);
     verify(productRepository, times(1)).findAll();
   }
 
   @Test
   void getProductsListNamesDto() {
     Product given = ProductMother.getProduct();
-    ProductsNamesDto result = ProductMother.getProductForRecipeDto();
+    ProductsNamesDto result = ProductMother.getProductsNamesDto();
     when(productMapper.productMapToProductNamesDto(given)).thenReturn(result);
     when(productRepository.findAll()).thenReturn(List.of(given));
     List<ProductsNamesDto> resultList = productService.getProductsListNamesDto();

@@ -2,7 +2,6 @@ package eu.kiminiuslt.bdsm.unit.product;
 
 import eu.kiminiuslt.bdsm.core.product.mapper.ProductMapper;
 import eu.kiminiuslt.bdsm.core.product.model.dto.ProductDto;
-import eu.kiminiuslt.bdsm.core.product.model.dto.ProductForRecipeDto;
 import eu.kiminiuslt.bdsm.core.product.model.dto.ProductsNamesDto;
 import eu.kiminiuslt.bdsm.jpa.entity.Product;
 import org.junit.jupiter.api.Test;
@@ -112,25 +111,12 @@ class ProductMapperTest {
     assertEquals(expected.getSugar(), result.getSugar());
   }
 
-  @Test
-  void productMapToProductForRecipeDto() {
-    Product given = ProductMother.getProduct();
-    ProductForRecipeDto expected = ProductMother.getProductForRecipeDto();
-    ProductForRecipeDto result = productMapper.productMapToProductForRecipeDto(given);
-
-    assertEquals(expected.getName(), result.getName());
-    assertEquals(expected.getUuid(), result.getUuid());
-    assertEquals(expected.getProteins(), result.getProteins());
-    assertEquals(expected.getFat(), result.getFat());
-    assertEquals(expected.getCarbohydrates(), result.getCarbohydrates());
-    assertEquals(expected.getEnergyValueKcal(), result.getEnergyValueKcal());
-  }
 
   @Test
   void productMapToProductNamesDto() {
     Product given = ProductMother.getProduct();
     ProductsNamesDto expected = ProductMother.getProductsNamesDto();
-    ProductsNamesDto result = productMapper.productMapToProductForRecipeDto(given);
+    ProductsNamesDto result = productMapper.productMapToProductNamesDto(given);
     assertEquals(expected.getName(), result.getName());
     assertEquals(expected.getUuid(), result.getUuid());
   }

@@ -1,7 +1,6 @@
 package eu.kiminiuslt.bdsm.unit.product;
 
 import eu.kiminiuslt.bdsm.core.product.model.dto.ProductDto;
-import eu.kiminiuslt.bdsm.core.product.model.dto.ProductForRecipeDto;
 import eu.kiminiuslt.bdsm.core.product.model.dto.ProductsNamesDto;
 import eu.kiminiuslt.bdsm.jpa.entity.Product;
 
@@ -104,17 +103,6 @@ public class ProductMother {
         .build();
   }
 
-  public static ProductForRecipeDto getProductForRecipeDto() {
-    Product product = getProduct();
-    return ProductForRecipeDto.builder()
-        .uuid(product.getUuid())
-        .name(product.getName())
-        .proteins(product.getProteins())
-        .fat(product.getFat())
-        .carbohydrates(product.getCarbohydrates())
-        .energyValueKcal(product.getEnergyValueKcal())
-        .build();
-  }
 
   public static ProductsNamesDto getProductsNamesDto() {
     return ProductsNamesDto.builder().uuid(UU_ID).name(NAME).build();
