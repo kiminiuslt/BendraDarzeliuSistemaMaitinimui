@@ -47,6 +47,7 @@ public class WarehouseService {
     warehouseRepository.save(
         warehouseMapper.warehouseDtoToWarehouseForUpdate(
             warehouseDto, warehouseRepository.findByUuid(warehouseDto.getUuid())));
+    historyService.updatedWarehouseRecord(warehouseDto.getProductName(),warehouseDto.getAmount());
   }
 
   @Transactional

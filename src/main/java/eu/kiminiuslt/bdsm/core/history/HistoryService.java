@@ -16,31 +16,30 @@ public class HistoryService {
 
   private final HistoryRepository historyRepository;
 
-  private Authentication getAuthentication() {
-    return SecurityContextHolder.getContext().getAuthentication();
-  }
-
   public void savedWarehouseRecord(String productName, double amount) {
-    Authentication auth = getAuthentication();
-    historyRepository.save(
-        History.builder()
-            .name(productName)
-            .preformedAction("Įrašyta")
-            .userPreformedAction(auth.getName())
-            .amount(amount)
-            .timestamp(LocalDateTime.now())
-            .build());
+    historyRepository.save(getPreBuildHistory("Įrašyta", productName, amount));
   }
 
   public void deletedWarehouseRecord(Product product) {
+    historyRepository.save(getPreBuildHistory("Ištrinta", product.getName(), 0.0));
+  }
+
+  public void updatedWarehouseRecord(String productName, double amount) {
+    historyRepository.save(getPreBuildHistory("Atnaujinta", productName, amount));
+  }
+
+  private History getPreBuildHistory(String action, String name, double amount) {
     Authentication auth = getAuthentication();
-    historyRepository.save(
-        History.builder()
-            .name(product.getName())
-            .preformedAction("Ištrinta")
-            .userPreformedAction(auth.getName())
-            .amount(0.0)
-            .timestamp(LocalDateTime.now())
-            .build());
+    return History.builder()
+        .name(name)
+        .preformedAction(action)
+        .userPreformedAction(auth.getName())
+        .amount(amount)
+        .timestamp(LocalDateTime.now())
+        .build();
+  }
+
+  private Authentication getAuthentication() {
+    return SecurityContextHolder.getContext().getAuthentication();
   }
 }
