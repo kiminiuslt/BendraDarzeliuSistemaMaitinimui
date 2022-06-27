@@ -42,7 +42,7 @@ public class WarehouseApiController implements CrudApiDocumentation<WarehouseDto
   }
 
   @Override
-  @PreAuthorize("hasAnyRole('DIETIST')")
+  @PreAuthorize("hasAnyRole('DIETIST','CULINARY')")
   @ApiOperation(
       value = "Get warehouse records page",
       notes = "Chunk of all warehouse records list implemented by pagination",
