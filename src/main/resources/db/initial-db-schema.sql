@@ -198,8 +198,9 @@ create table bdsm.history
 (
     id                    serial
         constraint history_pk primary key,
-    name                  varchar(255) not null,
-    user_preformed_action varchar(255) not null,
-    preformed_action      varchar(255) not null,
+    name                  varchar(255)     not null,
+    user_preformed_action varchar(255)     not null,
+    preformed_action      varchar(255)     not null,
+    amount                double precision not null,
     timestamp             timestamp default current_timestamp
 );

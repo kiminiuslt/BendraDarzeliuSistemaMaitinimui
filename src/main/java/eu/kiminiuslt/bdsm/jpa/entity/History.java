@@ -21,6 +21,8 @@ public class History {
 
   private String name;
 
+  private Double amount;
+
   @Column(name = "user_preformed_action")
   private String userPreformedAction;
 

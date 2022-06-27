@@ -1,6 +1,7 @@
 package eu.kiminiuslt.bdsm.api.controllers;
 
 import eu.kiminiuslt.bdsm.api.commons.apiDocumentation.CrudApiDocumentation;
+import eu.kiminiuslt.bdsm.core.history.HistoryService;
 import eu.kiminiuslt.bdsm.core.warehouse.model.dto.WarehouseDto;
 import eu.kiminiuslt.bdsm.core.warehouse.service.WarehouseService;
 import io.swagger.annotations.Api;
@@ -29,11 +30,13 @@ import java.util.UUID;
 public class WarehouseApiController implements CrudApiDocumentation<WarehouseDto> {
 
   private final WarehouseService warehouseService;
+  private final HistoryService historyService;
 
   @Override
   @PreAuthorize("hasAnyRole('DIETIST')")
   @ApiOperation(value = "Create warehouse record", httpMethod = "POST")
   public ResponseEntity<Void> create(WarehouseDto object) {
+    historyService.savedWarehouseRecord(object.getProductName(),object.getAmount());
     warehouseService.addWarehouseRecord(object);
     return ResponseEntity.status(HttpStatus.OK).build();
   }
