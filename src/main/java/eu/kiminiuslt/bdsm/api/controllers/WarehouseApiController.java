@@ -36,8 +36,8 @@ public class WarehouseApiController implements CrudApiDocumentation<WarehouseDto
   @PreAuthorize("hasAnyRole('DIETIST')")
   @ApiOperation(value = "Create warehouse record", httpMethod = "POST")
   public ResponseEntity<Void> create(WarehouseDto object) {
-    historyService.savedWarehouseRecord(object.getProductName(),object.getAmount());
     warehouseService.addWarehouseRecord(object);
+    historyService.savedWarehouseRecord(object.getProductName(),object.getAmount());
     return ResponseEntity.status(HttpStatus.OK).build();
   }
 
