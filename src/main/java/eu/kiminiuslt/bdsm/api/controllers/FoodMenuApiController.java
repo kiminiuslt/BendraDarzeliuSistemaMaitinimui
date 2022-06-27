@@ -1,5 +1,6 @@
 package eu.kiminiuslt.bdsm.api.controllers;
 
+import eu.kiminiuslt.bdsm.api.commons.apiDocumentation.FoodMenuApiDocumentation;
 import eu.kiminiuslt.bdsm.core.menu.model.dto.DayShortageDto;
 import eu.kiminiuslt.bdsm.core.menu.model.dto.MenuDayDto;
 import eu.kiminiuslt.bdsm.core.menu.model.dto.MenuDto;

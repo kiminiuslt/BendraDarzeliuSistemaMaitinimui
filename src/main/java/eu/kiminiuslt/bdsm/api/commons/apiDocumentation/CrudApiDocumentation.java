@@ -1,4 +1,4 @@
-package eu.kiminiuslt.bdsm.api.commons;
+package eu.kiminiuslt.bdsm.api.commons.apiDocumentation;
 
 import io.swagger.annotations.*;
 import org.springframework.data.domain.Page;

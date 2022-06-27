@@ -1,4 +1,4 @@
-package eu.kiminiuslt.bdsm.api.controllers;
+package eu.kiminiuslt.bdsm.api.commons.apiDocumentation;
 
 import eu.kiminiuslt.bdsm.core.menu.model.dto.DayShortageDto;
 import eu.kiminiuslt.bdsm.core.menu.model.dto.MenuDayDto;
