@@ -1,4 +1,4 @@
-package eu.kiminiuslt.bdsm.core.menu.service;
+package eu.kiminiuslt.bdsm.core.menu.helpers;
 
 import eu.kiminiuslt.bdsm.core.menu.model.dto.ProductShortageDto;
 import eu.kiminiuslt.bdsm.core.recipe.model.dto.ProductAndQuantityDto;

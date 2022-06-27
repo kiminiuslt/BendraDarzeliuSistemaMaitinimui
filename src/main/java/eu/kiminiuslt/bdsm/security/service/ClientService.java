@@ -1,4 +1,4 @@
-package eu.kiminiuslt.bdsm.core.client;
+package eu.kiminiuslt.bdsm.security.service;
 
 import eu.kiminiuslt.bdsm.jpa.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
