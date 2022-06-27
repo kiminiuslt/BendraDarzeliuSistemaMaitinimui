@@ -1,6 +1,7 @@
 package eu.kiminiuslt.bdsm.core.history;
 
 import eu.kiminiuslt.bdsm.jpa.entity.History;
+import eu.kiminiuslt.bdsm.jpa.entity.Product;
 import eu.kiminiuslt.bdsm.jpa.repository.HistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -24,7 +25,7 @@ public class HistoryService {
     historyRepository.save(
         History.builder()
             .name(productName)
-            .preformedAction("saved")
+            .preformedAction("Įrašyta")
             .userPreformedAction(auth.getName())
             .amount(amount)
             .timestamp(LocalDateTime.now())

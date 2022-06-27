@@ -1,8 +1,10 @@
 package eu.kiminiuslt.bdsm.core.warehouse.service;
 
+import eu.kiminiuslt.bdsm.core.history.HistoryService;
 import eu.kiminiuslt.bdsm.core.warehouse.mapper.WarehouseMapper;
 import eu.kiminiuslt.bdsm.core.product.model.dto.ProductsNamesDto;
 import eu.kiminiuslt.bdsm.core.warehouse.model.dto.WarehouseDto;
+import eu.kiminiuslt.bdsm.jpa.entity.Product;
 import eu.kiminiuslt.bdsm.jpa.entity.Warehouse;
 import eu.kiminiuslt.bdsm.jpa.repository.WarehouseRepository;
 import eu.kiminiuslt.bdsm.core.product.service.ProductService;
@@ -21,9 +23,11 @@ public class WarehouseService {
   private final WarehouseRepository warehouseRepository;
   private final WarehouseMapper warehouseMapper;
   private final ProductService productService;
+  private final HistoryService historyService;
 
   public void addWarehouseRecord(WarehouseDto warehouseDto) {
     warehouseRepository.save(warehouseMapper.warehouseDtoToWarehouse(warehouseDto));
+    historyService.savedWarehouseRecord(warehouseDto.getProductName(),warehouseDto.getAmount());
   }
 
   public Page<WarehouseDto> getWarehouseList(Pageable pageable) {
@@ -47,7 +51,10 @@ public class WarehouseService {
 
   @Transactional
   public void deleteWarehouseRecord(UUID uuid) {
-    warehouseRepository.deleteById(warehouseRepository.findByUuid(uuid).getId());
+    Warehouse warehouse = warehouseRepository.findByUuid(uuid);
+    Product product = productService.getProductById(warehouse.getProductId());
+    warehouseRepository.deleteById(warehouse.getId());
+    historyService.deletedWarehouseRecord(product);
   }
 
   public void writeOff(double writeOff, UUID uuid) {
