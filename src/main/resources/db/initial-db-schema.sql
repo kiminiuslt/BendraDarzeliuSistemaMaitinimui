@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS bdsm.recipe;
 DROP TABLE IF EXISTS bdsm.menu_day;
 DROP TABLE IF EXISTS bdsm.product;
 DROP TABLE IF EXISTS bdsm.history;
+DROP TABLE IF EXISTS bdsm.file;
 DROP SCHEMA IF EXISTS bdsm;
 
 CREATE SCHEMA IF not exists bdsm;
@@ -203,4 +204,16 @@ create table bdsm.history
     preformed_action      varchar(255)     not null,
     amount                double precision not null,
     timestamp             timestamp default current_timestamp
+);
+
+--  FILE
+CREATE TABLE bdsm.file
+(
+    id                BIGSERIAL PRIMARY KEY,
+    file_id           UUID           NOT NULL,
+    file_name         VARCHAR(100)   NOT NULL,
+    file_extension    VARCHAR(15)    NOT NULL,
+    media_type        VARCHAR(10)    NOT NULL,
+    size              BIGINT         NOT NULL,
+    timestamp         TIMESTAMP      DEFAULT current_timestamp
 );
