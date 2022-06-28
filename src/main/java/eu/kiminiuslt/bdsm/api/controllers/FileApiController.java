@@ -7,7 +7,9 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,8 +33,24 @@ public class FileApiController {
       })
   @PostMapping("upload")
   @ResponseStatus(HttpStatus.CREATED)
-  @PreAuthorize("hasRole('DIETIST')")
+  @PreAuthorize("hasAnyRole('DIETIST')")
   public FileResponse saveFile(@RequestParam MultipartFile file) {
     return filesService.saveFile(file);
+  }
+
+  @ApiOperation(
+      value = "Get image by name",
+      notes = "File name example: myImage.jpg",
+      httpMethod = "GET")
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = "Successfully returned image"),
+        @ApiResponse(code = 401, message = AUTHENTICATION),
+        @ApiResponse(code = 403, message = AUTHORIZATION)
+      })
+  @GetMapping("download")
+  @PreAuthorize("hasAnyRole('DIETIST','CULINARY')")
+  public ResponseEntity<Resource> getFileByFileName(@RequestParam String fileName) {
+    return filesService.getResponse(fileName);
   }
 }
