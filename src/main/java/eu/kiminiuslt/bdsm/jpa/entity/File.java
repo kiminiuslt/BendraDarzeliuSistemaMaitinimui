@@ -30,6 +30,6 @@ public class File {
   private long size;
 
   public String getUniqFileName() {
-    return fileId.toString() + "." + fileExtension;
+    return fileName + fileId.toString() + "." + fileExtension;
   }
 }
