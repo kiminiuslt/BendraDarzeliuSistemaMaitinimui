@@ -2,7 +2,7 @@ package eu.kiminiuslt.bdsm.api.controllers;
 
 import eu.kiminiuslt.bdsm.core.product.service.ProductService;
 import eu.kiminiuslt.bdsm.core.product.model.dto.ProductDto;
-import eu.kiminiuslt.bdsm.api.commons.apiDocumentation.CrudApiDocumentation;
+import eu.kiminiuslt.bdsm.api.documentation.CrudApiDocumentation;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

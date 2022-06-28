@@ -1,6 +1,6 @@
 package eu.kiminiuslt.bdsm.api.controllers;
 
-import eu.kiminiuslt.bdsm.api.commons.apiDocumentation.CrudApiDocumentation;
+import eu.kiminiuslt.bdsm.api.documentation.CrudApiDocumentation;
 import eu.kiminiuslt.bdsm.core.recipe.model.dto.NewRecipeDto;
 import eu.kiminiuslt.bdsm.core.recipe.model.dto.RecipeDto;
 import eu.kiminiuslt.bdsm.core.recipe.service.RecipeService;

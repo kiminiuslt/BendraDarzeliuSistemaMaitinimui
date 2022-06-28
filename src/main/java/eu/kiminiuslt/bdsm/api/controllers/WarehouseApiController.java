@@ -1,6 +1,6 @@
 package eu.kiminiuslt.bdsm.api.controllers;
 
-import eu.kiminiuslt.bdsm.api.commons.apiDocumentation.CrudApiDocumentation;
+import eu.kiminiuslt.bdsm.api.documentation.CrudApiDocumentation;
 import eu.kiminiuslt.bdsm.core.warehouse.model.dto.WarehouseDto;
 import eu.kiminiuslt.bdsm.core.warehouse.service.WarehouseService;
 import io.swagger.annotations.Api;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController

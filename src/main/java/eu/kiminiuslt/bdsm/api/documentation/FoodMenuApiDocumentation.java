@@ -1,4 +1,4 @@
-package eu.kiminiuslt.bdsm.api.commons.apiDocumentation;
+package eu.kiminiuslt.bdsm.api.documentation;
 
 import eu.kiminiuslt.bdsm.core.menu.model.dto.DayShortageDto;
 import eu.kiminiuslt.bdsm.core.menu.model.dto.MenuDayDto;
