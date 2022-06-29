@@ -27,7 +27,7 @@ public class WarehouseService {
 
   public void addWarehouseRecord(WarehouseDto warehouseDto) {
     warehouseRepository.save(warehouseMapper.warehouseDtoToWarehouse(warehouseDto));
-    historyService.savedWarehouseRecord(warehouseDto.getProductName(),warehouseDto.getAmount());
+    historyService.historySavedWarehouseRecord(warehouseDto.getProductName(),warehouseDto.getAmount());
   }
 
   public Page<WarehouseDto> getWarehouseList(Pageable pageable) {
@@ -47,7 +47,7 @@ public class WarehouseService {
     warehouseRepository.save(
         warehouseMapper.warehouseDtoToWarehouseForUpdate(
             warehouseDto, warehouseRepository.findByUuid(warehouseDto.getUuid())));
-    historyService.updatedWarehouseRecord(warehouseDto.getProductName(),warehouseDto.getAmount());
+    historyService.historyUpdatedWarehouseRecord(warehouseDto.getProductName(),warehouseDto.getAmount());
   }
 
   @Transactional
@@ -55,7 +55,7 @@ public class WarehouseService {
     Warehouse warehouse = warehouseRepository.findByUuid(uuid);
     Product product = productService.getProductById(warehouse.getProductId());
     warehouseRepository.deleteById(warehouse.getId());
-    historyService.deletedWarehouseRecord(product);
+    historyService.historyDeletedWarehouseRecord(product);
   }
 
   public void writeOff(double writeOff, UUID uuid) {

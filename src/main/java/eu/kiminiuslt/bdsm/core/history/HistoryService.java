@@ -16,15 +16,15 @@ public class HistoryService {
 
   private final HistoryRepository historyRepository;
 
-  public void savedWarehouseRecord(String productName, double amount) {
+  public void historySavedWarehouseRecord(String productName, double amount) {
     historyRepository.save(getPreBuildHistory("Įrašyta", productName, amount));
   }
 
-  public void deletedWarehouseRecord(Product product) {
+  public void historyDeletedWarehouseRecord(Product product) {
     historyRepository.save(getPreBuildHistory("Ištrinta", product.getName(), 0.0));
   }
 
-  public void updatedWarehouseRecord(String productName, double amount) {
+  public void historyUpdatedWarehouseRecord(String productName, double amount) {
     historyRepository.save(getPreBuildHistory("Atnaujinta", productName, amount));
   }
 

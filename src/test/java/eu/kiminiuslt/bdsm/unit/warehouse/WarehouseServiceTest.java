@@ -48,7 +48,7 @@ class WarehouseServiceTest {
     verify(warehouseMapper, times(1)).warehouseDtoToWarehouse(given);
     verify(warehouseRepository, times(1)).save(result);
     verify(historyService, times(1))
-        .savedWarehouseRecord(given.getProductName(), given.getAmount());
+        .historySavedWarehouseRecord(given.getProductName(), given.getAmount());
   }
 
   @Test
@@ -106,7 +106,7 @@ class WarehouseServiceTest {
     verify(warehouseMapper, times(1)).warehouseDtoToWarehouseForUpdate(given, givenWarehouse);
     verify(warehouseRepository, times(1)).save(givenWarehouse);
     verify(historyService, times(1))
-        .updatedWarehouseRecord(given.getProductName(), given.getAmount());
+        .historyUpdatedWarehouseRecord(given.getProductName(), given.getAmount());
   }
 
   @Test
@@ -119,7 +119,7 @@ class WarehouseServiceTest {
     warehouseService.deleteWarehouseRecord(uuid);
     verify(warehouseRepository, times(1)).findByUuid(uuid);
     verify(warehouseRepository, times(1)).deleteById(givenWarehouse.getId());
-    verify(historyService, times(1)).deletedWarehouseRecord(givenProduct);
+    verify(historyService, times(1)).historyDeletedWarehouseRecord(givenProduct);
   }
 
   @Test
@@ -134,7 +134,7 @@ class WarehouseServiceTest {
     when(productService.getProductById(givenWarehouse.getProductId())).thenReturn(givenProduct);
     warehouseService.writeOff(givenAmount, uuid);
     verify(warehouseRepository, times(1)).deleteById(givenWarehouse.getId());
-    verify(historyService, times(1)).deletedWarehouseRecord(givenProduct);
+    verify(historyService, times(1)).historyDeletedWarehouseRecord(givenProduct);
   }
 
   @Test
@@ -151,7 +151,7 @@ class WarehouseServiceTest {
     verify(warehouseMapper, times(1)).warehouseDtoToWarehouseForUpdate(given, givenWarehouse);
     verify(warehouseRepository, times(1)).save(givenWarehouse);
     verify(historyService, times(1))
-        .updatedWarehouseRecord(given.getProductName(), given.getAmount());
+        .historyUpdatedWarehouseRecord(given.getProductName(), given.getAmount());
   }
 
   @Test
