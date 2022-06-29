@@ -1,7 +1,9 @@
 package eu.kiminiuslt.bdsm.unit.warehouse;
 
+import eu.kiminiuslt.bdsm.core.history.HistoryService;
 import eu.kiminiuslt.bdsm.core.product.model.dto.ProductsNamesDto;
 import eu.kiminiuslt.bdsm.core.product.service.ProductService;
+import eu.kiminiuslt.bdsm.jpa.entity.Product;
 import eu.kiminiuslt.bdsm.unit.product.ProductMother;
 import eu.kiminiuslt.bdsm.core.warehouse.mapper.WarehouseMapper;
 import eu.kiminiuslt.bdsm.core.warehouse.model.dto.WarehouseDto;
@@ -33,6 +35,8 @@ class WarehouseServiceTest {
 
   @Mock private ProductService productService;
 
+  @Mock private HistoryService historyService;
+
   @InjectMocks private WarehouseService warehouseService;
 
   @Test
@@ -43,6 +47,8 @@ class WarehouseServiceTest {
     warehouseService.addWarehouseRecord(given);
     verify(warehouseMapper, times(1)).warehouseDtoToWarehouse(given);
     verify(warehouseRepository, times(1)).save(result);
+    verify(historyService, times(1))
+        .savedWarehouseRecord(given.getProductName(), given.getAmount());
   }
 
   @Test
@@ -99,28 +105,36 @@ class WarehouseServiceTest {
     warehouseService.updateWarehouse(given);
     verify(warehouseMapper, times(1)).warehouseDtoToWarehouseForUpdate(given, givenWarehouse);
     verify(warehouseRepository, times(1)).save(givenWarehouse);
+    verify(historyService, times(1))
+        .updatedWarehouseRecord(given.getProductName(), given.getAmount());
   }
 
   @Test
   void deleteWarehouseRecord() {
-    Warehouse given = WarehouseMother.getWarehouse();
-    UUID uuid = given.getUuid();
-    when(warehouseRepository.findByUuid(uuid)).thenReturn(given);
+    Warehouse givenWarehouse = WarehouseMother.getWarehouse();
+    Product givenProduct = ProductMother.getProduct();
+    UUID uuid = givenWarehouse.getUuid();
+    when(warehouseRepository.findByUuid(uuid)).thenReturn(givenWarehouse);
+    when(productService.getProductById(givenWarehouse.getProductId())).thenReturn(givenProduct);
     warehouseService.deleteWarehouseRecord(uuid);
     verify(warehouseRepository, times(1)).findByUuid(uuid);
-    verify(warehouseRepository, times(1)).deleteById(given.getId());
+    verify(warehouseRepository, times(1)).deleteById(givenWarehouse.getId());
+    verify(historyService, times(1)).deletedWarehouseRecord(givenProduct);
   }
 
   @Test
   void writeOff_WhenAmountEqualsWriteOff() {
     WarehouseDto given = WarehouseMother.getWarehouseDto();
     Warehouse givenWarehouse = WarehouseMother.getWarehouse();
+    Product givenProduct = ProductMother.getProduct();
     UUID uuid = given.getUuid();
     double givenAmount = 13.8;
     when(warehouseRepository.findByUuid(uuid)).thenReturn(givenWarehouse);
     when(warehouseService.getWarehouseDtoRecordByUUID(uuid)).thenReturn(given);
+    when(productService.getProductById(givenWarehouse.getProductId())).thenReturn(givenProduct);
     warehouseService.writeOff(givenAmount, uuid);
     verify(warehouseRepository, times(1)).deleteById(givenWarehouse.getId());
+    verify(historyService, times(1)).deletedWarehouseRecord(givenProduct);
   }
 
   @Test
@@ -136,6 +150,8 @@ class WarehouseServiceTest {
     warehouseService.writeOff(givenAmount, uuid);
     verify(warehouseMapper, times(1)).warehouseDtoToWarehouseForUpdate(given, givenWarehouse);
     verify(warehouseRepository, times(1)).save(givenWarehouse);
+    verify(historyService, times(1))
+        .updatedWarehouseRecord(given.getProductName(), given.getAmount());
   }
 
   @Test
