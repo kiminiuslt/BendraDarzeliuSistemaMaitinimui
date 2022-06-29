@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+import static eu.kiminiuslt.bdsm.commons.Constants.AUTHENTICATION;
+import static eu.kiminiuslt.bdsm.commons.Constants.AUTHORIZATION;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/recipes")
@@ -91,16 +94,16 @@ public class RecipeApiController implements CrudApiDocumentation<RecipeDto> {
 
   @PostMapping("/newRecipe/removeProduct")
   @ApiOperation(
-          value = "Remove Product and quantity from recipe",
-          notes =
-                  "Returns newRecipeDto with removed product and quantity by uuid. ProductAndQuantityDto will be empty ",
-          httpMethod = "POST")
+      value = "Remove Product and quantity from recipe",
+      notes =
+          "Returns newRecipeDto with removed product and quantity by uuid. ProductAndQuantityDto will be empty ",
+      httpMethod = "POST")
   @ApiResponses(
-          value = {
-                  @ApiResponse(code = 200, message = "Successfully removed product from recipe"),
-                  @ApiResponse(code = 401, message = AUTHENTICATION),
-                  @ApiResponse(code = 403, message = AUTHORIZATION)
-          })
+      value = {
+        @ApiResponse(code = 200, message = "Successfully removed product from recipe"),
+        @ApiResponse(code = 401, message = AUTHENTICATION),
+        @ApiResponse(code = 403, message = AUTHORIZATION)
+      })
   public NewRecipeDto removeProductFromRecipe(@RequestBody NewRecipeDto newRecipeDto) {
     return recipeService.removeProductAndQuantityFromRecipe(newRecipeDto);
   }

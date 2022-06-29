@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+import static eu.kiminiuslt.bdsm.commons.Constants.AUTHENTICATION;
+import static eu.kiminiuslt.bdsm.commons.Constants.AUTHORIZATION;
+
 @RequestMapping("/api/foodMenu")
 @Api(tags = "Food menu Controller")
 public interface FoodMenuApiDocumentation {
-  String AUTHENTICATION = "Authentication required";
-  String AUTHORIZATION = "User don't have permission use this function";
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   @ApiOperation(
@@ -73,15 +74,16 @@ public interface FoodMenuApiDocumentation {
 
   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   @ApiOperation(
-          value = "Returns list of days with calculated shortages",
-          notes = "One PeopleCountDto is for one menu day. " +
-                  "If day has no calculated shortages, productsShortageDtoList will be empty",
-          httpMethod = "POST")
+      value = "Returns list of days with calculated shortages",
+      notes =
+          "One PeopleCountDto is for one menu day. "
+              + "If day has no calculated shortages, productsShortageDtoList will be empty",
+      httpMethod = "POST")
   @ApiResponses(
-          value = {
-                  @ApiResponse(code = 200, message = "Successfully delivered List"),
-                  @ApiResponse(code = 401, message = AUTHENTICATION),
-                  @ApiResponse(code = 403, message = AUTHORIZATION)
-          })
+      value = {
+        @ApiResponse(code = 200, message = "Successfully delivered List"),
+        @ApiResponse(code = 401, message = AUTHENTICATION),
+        @ApiResponse(code = 403, message = AUTHORIZATION)
+      })
   List<DayShortageDto> calculateShortage(@RequestBody List<PeopleCountDto> peopleCountDtoList);
 }

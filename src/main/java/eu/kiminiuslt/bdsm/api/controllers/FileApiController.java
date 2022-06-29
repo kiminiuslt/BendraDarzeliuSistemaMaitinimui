@@ -14,13 +14,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import static eu.kiminiuslt.bdsm.commons.Constants.AUTHENTICATION;
+import static eu.kiminiuslt.bdsm.commons.Constants.AUTHORIZATION;
+
 @RestController
 @RequestMapping("/api/file")
 @Api(tags = "File Management")
 @RequiredArgsConstructor
 public class FileApiController {
-  final String AUTHENTICATION = "Authentication required";
-  final String AUTHORIZATION = "User don't have permission use this function";
 
   private final FilesService filesService;
 

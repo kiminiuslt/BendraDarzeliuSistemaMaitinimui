@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
+import static eu.kiminiuslt.bdsm.commons.Constants.AUTHENTICATION;
+import static eu.kiminiuslt.bdsm.commons.Constants.AUTHORIZATION;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/warehouse")

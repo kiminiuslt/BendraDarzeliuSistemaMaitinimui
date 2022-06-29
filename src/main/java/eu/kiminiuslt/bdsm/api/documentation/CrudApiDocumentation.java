@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.UUID;
 
-public interface CrudApiDocumentation<T> {
+import static eu.kiminiuslt.bdsm.commons.Constants.AUTHENTICATION;
+import static eu.kiminiuslt.bdsm.commons.Constants.AUTHORIZATION;
 
-  String AUTHENTICATION = "Authentication required";
-  String AUTHORIZATION = "User don't have permission use this function";
+public interface CrudApiDocumentation<T> {
 
   @PostMapping
   @ApiResponses(
