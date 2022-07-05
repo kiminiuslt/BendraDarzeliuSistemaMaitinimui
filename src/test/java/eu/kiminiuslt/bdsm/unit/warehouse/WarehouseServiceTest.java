@@ -119,7 +119,7 @@ class WarehouseServiceTest {
     warehouseService.deleteWarehouseRecord(uuid);
     verify(warehouseRepository, times(1)).findByUuid(uuid);
     verify(warehouseRepository, times(1)).deleteById(givenWarehouse.getId());
-    verify(historyService, times(1)).historyDeletedWarehouseRecord(givenProduct);
+    verify(historyService, times(1)).historyDeletedWarehouseRecord(givenProduct.getName());
   }
 
   @Test
@@ -134,7 +134,7 @@ class WarehouseServiceTest {
     when(productService.getProductById(givenWarehouse.getProductId())).thenReturn(givenProduct);
     warehouseService.writeOff(givenAmount, uuid);
     verify(warehouseRepository, times(1)).deleteById(givenWarehouse.getId());
-    verify(historyService, times(1)).historyDeletedWarehouseRecord(givenProduct);
+    verify(historyService, times(1)).historyDeletedWarehouseRecord(givenProduct.getName());
   }
 
   @Test

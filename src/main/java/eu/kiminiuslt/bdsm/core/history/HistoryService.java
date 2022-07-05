@@ -20,8 +20,8 @@ public class HistoryService {
     historyRepository.save(getPreBuildHistory("Įrašyta", productName, amount));
   }
 
-  public void historyDeletedWarehouseRecord(Product product) {
-    historyRepository.save(getPreBuildHistory("Ištrinta", product.getName(), 0.0));
+  public void historyDeletedWarehouseRecord(String productName) {
+    historyRepository.save(getPreBuildHistory("Ištrinta", productName, 0.0));
   }
 
   public void historyUpdatedWarehouseRecord(String productName, double amount) {

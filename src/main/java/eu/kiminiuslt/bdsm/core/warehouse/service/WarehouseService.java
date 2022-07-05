@@ -55,7 +55,7 @@ public class WarehouseService {
     Warehouse warehouse = warehouseRepository.findByUuid(uuid);
     Product product = productService.getProductById(warehouse.getProductId());
     warehouseRepository.deleteById(warehouse.getId());
-    historyService.historyDeletedWarehouseRecord(product);
+    historyService.historyDeletedWarehouseRecord(product.getName());
   }
 
   public void writeOff(double writeOff, UUID uuid) {
