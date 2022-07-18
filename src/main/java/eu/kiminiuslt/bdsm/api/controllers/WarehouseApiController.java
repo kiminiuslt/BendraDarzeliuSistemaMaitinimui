@@ -47,7 +47,7 @@ public class WarehouseApiController implements CrudApiDocumentation<WarehouseDto
       notes = "Chunk of all warehouse records list implemented by pagination",
       httpMethod = "GET")
   public Page<WarehouseDto> readPaginated(int page, int size) {
-    return warehouseService.getWarehouseList(PageRequest.of(page - 1, size));
+    return warehouseService.getWarehouseList(PageRequest.of(page, size));
   }
 
   @Override
