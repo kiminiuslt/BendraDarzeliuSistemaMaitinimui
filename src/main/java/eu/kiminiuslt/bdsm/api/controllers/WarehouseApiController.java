@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -46,8 +47,8 @@ public class WarehouseApiController implements CrudApiDocumentation<WarehouseDto
       value = "Get warehouse records page",
       notes = "Chunk of all warehouse records list implemented by pagination",
       httpMethod = "GET")
-  public Page<WarehouseDto> readPaginated(int page, int size) {
-    return warehouseService.getWarehouseList(PageRequest.of(page, size));
+  public Page<WarehouseDto> readPaginated(int page, int size, String fieldName) {
+    return warehouseService.getWarehouseList(PageRequest.of(page, size, Sort.by(fieldName)));
   }
 
   @Override

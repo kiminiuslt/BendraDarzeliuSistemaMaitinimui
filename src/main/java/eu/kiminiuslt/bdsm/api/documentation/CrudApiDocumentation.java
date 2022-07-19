@@ -46,7 +46,15 @@ public interface CrudApiDocumentation<T> {
               example = "5",
               required = true)
           @RequestParam("size")
-          int size);
+          int size,
+      @ApiParam(
+              name = "sort",
+              value = "Sorting field name",
+              type = "String",
+              example = "quantity",
+              required = true)
+          @RequestParam("sort")
+          String fieldName);
 
   @PutMapping
   @ApiResponses(

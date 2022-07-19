@@ -8,6 +8,7 @@ import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,8 +45,8 @@ public class ProductApiController implements CrudApiDocumentation<ProductDto> {
       value = "Get products page",
       notes = "Chunk of all products list implemented by pagination",
       httpMethod = "GET")
-  public Page<ProductDto> readPaginated(int page, int size) {
-    return productService.getPageableProduct(PageRequest.of(page, size));
+  public Page<ProductDto> readPaginated(int page, int size, String fieldName) {
+    return productService.getPageableProduct(PageRequest.of(page, size, Sort.by(fieldName)));
   }
 
   @Override

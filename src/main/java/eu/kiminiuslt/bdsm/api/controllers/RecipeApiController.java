@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -42,8 +43,8 @@ public class RecipeApiController implements CrudApiDocumentation<RecipeDto> {
       value = "Get recipes page",
       notes = "Chunk of all recipes list implemented by pagination",
       httpMethod = "GET")
-  public Page<RecipeDto> readPaginated(int page, int size) {
-    return recipeService.getPageableRecipes(PageRequest.of(page, size));
+  public Page<RecipeDto> readPaginated(int page, int size, String fieldName) {
+    return recipeService.getPageableRecipes(PageRequest.of(page, size, Sort.by(fieldName)));
   }
 
   @Override
