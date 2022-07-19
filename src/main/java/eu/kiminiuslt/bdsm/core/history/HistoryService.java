@@ -1,9 +1,10 @@
 package eu.kiminiuslt.bdsm.core.history;
 
 import eu.kiminiuslt.bdsm.jpa.entity.History;
-import eu.kiminiuslt.bdsm.jpa.entity.Product;
 import eu.kiminiuslt.bdsm.jpa.repository.HistoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,9 @@ public class HistoryService {
 
   private Authentication getAuthentication() {
     return SecurityContextHolder.getContext().getAuthentication();
+  }
+
+  public Page<History> getHistoryPage(Pageable pageable) {
+    return historyRepository.findAll(pageable);
   }
 }
