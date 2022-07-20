@@ -54,7 +54,15 @@ public interface CrudApiDocumentation<T> {
               example = "quantity",
               required = true)
           @RequestParam("sort")
-          String fieldName);
+          String fieldName,
+      @ApiParam(
+              name = "direction",
+              value = "Sorting order in ascending or descending",
+              type = "String",
+              example = "ASC",
+              required = true)
+          @RequestParam("direction")
+          String direction);
 
   @PutMapping
   @ApiResponses(

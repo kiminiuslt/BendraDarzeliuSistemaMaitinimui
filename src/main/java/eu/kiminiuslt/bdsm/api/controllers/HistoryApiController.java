@@ -6,6 +6,7 @@ import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,7 +50,25 @@ public class HistoryApiController {
               example = "5",
               required = true)
           @RequestParam("size")
-          int size) {
-    return historyService.getHistoryPage(PageRequest.of(page, size));
+          int size,
+      @ApiParam(
+              name = "sort",
+              value = "Sorting field name",
+              type = "String",
+              example = "quantity",
+              required = true)
+          @RequestParam("sort")
+          String fieldName,
+      @ApiParam(
+              name = "direction",
+              value = "Sorting order in ascending or descending",
+              type = "String",
+              example = "ASC",
+              required = true)
+          @RequestParam("direction")
+          String direction) {
+
+    return historyService.getHistoryPage(
+        PageRequest.of(page, size, Sort.Direction.valueOf(direction), fieldName));
   }
 }

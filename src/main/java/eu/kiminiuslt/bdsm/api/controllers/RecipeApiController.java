@@ -43,8 +43,9 @@ public class RecipeApiController implements CrudApiDocumentation<RecipeDto> {
       value = "Get recipes page",
       notes = "Chunk of all recipes list implemented by pagination",
       httpMethod = "GET")
-  public Page<RecipeDto> readPaginated(int page, int size, String fieldName) {
-    return recipeService.getPageableRecipes(PageRequest.of(page, size, Sort.by(fieldName)));
+  public Page<RecipeDto> readPaginated(int page, int size, String fieldName, String direction) {
+    return recipeService.getPageableRecipes(
+        PageRequest.of(page, size, Sort.Direction.valueOf(direction), fieldName));
   }
 
   @Override

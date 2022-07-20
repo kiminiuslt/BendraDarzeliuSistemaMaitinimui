@@ -45,8 +45,9 @@ public class ProductApiController implements CrudApiDocumentation<ProductDto> {
       value = "Get products page",
       notes = "Chunk of all products list implemented by pagination",
       httpMethod = "GET")
-  public Page<ProductDto> readPaginated(int page, int size, String fieldName) {
-    return productService.getPageableProduct(PageRequest.of(page, size, Sort.by(fieldName)));
+  public Page<ProductDto> readPaginated(int page, int size, String fieldName, String direction) {
+    return productService.getPageableProduct(
+        PageRequest.of(page, size, Sort.Direction.valueOf(direction), fieldName));
   }
 
   @Override
